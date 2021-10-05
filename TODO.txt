@@ -1,0 +1,39 @@
+ALWAYS: Keep jiken in mind EVERY git commit
+
+START UP:
+
+- organize forking plan
+	- general renaming scheme/plan
+	- what parts/files should be standardized?
+		- 
+
+- set up heroku to run
+	- services (sql/redis) passwords, environment variables
+	- app boot (procfile, heroku setting)
+	- verify that we don't have any fighting with jiken due to cloned names
+	- fix config file
+
+- mysql local login check
+	- clone the jiken DB as a starting point for testing purposes
+
+- set up git for pushes to heroku/GH
+	- attempt first push/run, login to site, ensure that the DBs are functioning
+
+
+- anaconda environment clone
+
+SWITCH UP:
+
+DB:
+	- rewrite the models
+	- overwrite the sql
+	- rework/factor broken python code/view
+
+Front end:
+	- Go through each page and rewrite
+	? change colour scheme?
+	- fix all references to correct for DB changes
+ 	- redo card layout
+	- redo all images
+	- rename EnTest? (probably worth it for findability)
+	- redo the readme for github

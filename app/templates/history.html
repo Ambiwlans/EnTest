@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="container text-center">
+        <a href="/"><img class="title-sm" src="/static/img/jiken.png"></a>
+		<p class="slogan">Test Your Kanji</p>
+		<br>
+		Results for test on {{(date|string)[:-3]}}GMT
+		<br>
+		
+		<!-- Predictions -->    	    	
+    	<div class="container pred">
+        	<p class="pred-header">Estimates</p>
+        	<span class="predrange"><span class="predrange predlower" data-toggle="tooltip" data-placement="left" title="lower bound">{{pred[2]}}</span>&nbsp; &nbsp; - &nbsp; &nbsp;</span>
+            	<span class="predmain" data-toggle="tooltip" data-placement="top" data-html="true" title="{{pred[0]}}">{{pred[0]}}</span>
+        	<span class="predrange predupper" data-toggle="tooltip" data-placement="right" title="upper bound">&nbsp; &nbsp; - &nbsp; &nbsp;{{pred[1]}}</span>
+    	</div>
+    	
+    	
+    	<!-- Chart -->    	
+    	<div class="chart-container">
+            <canvas id="predChart"></canvas>
+        </div>
+        
+        <hr>
+        <!--div class="d-flex justify-content-center"><script data-cfasync='false' type='text/javascript' src='//p386432.clksite.com/adServe/banners?tid=386432_758560_2'></script></div-->
+        <hr>
+        
+        <div class="explanation container">
+            <!-- Stats -->
+            <br>
+            <h3 class="text-left">Stats:</h3>
+            <p><b>{{cnt}}</b> questions answered! 
+    		{% if cnt > avg_answered %}
+        		More 
+        	{% else %}
+            	Less
+        	{% endif %}
+        	than the average {{avg_answered}} of other testers. {% if curtest %}Click <a href="/test?a=-1">here</a> to keep going!{% endif %}
+        	
+        	<br>
+    		You know <b>{{pred[0]}}</b> kanji compared to the average of {{avg_known}}. {% if pct_known_by_appearance == '100.00' %} You can read at a native level. {% else %} This is <b>{{pct_known_by_appearance}}%</b> of kanji as they appear in text.{% endif %}
+    		
+    		<br><br>
+    		{% if jlpt_recc == 1 %}
+                Wow! Finally you are ready to challenge the <b>final</b> <a href="https://www.jlpt.jp/e/index.html">JLPT</a> test! (日本人じゃないの？)
+            {% elif jlpt_recc == 2 %}
+                It looks like you are ready to challenge the  <b><a href="https://www.jlpt.jp/e/index.html">JLPT</a> N2</b> level test! (もちろん、文法も完全にマスターしましたね)
+            {% elif jlpt_recc == 3 %}    
+                It looks like you are ready to challenge the  <b><a href="https://www.jlpt.jp/e/index.html">JLPT</a> N3</b> level test! (日本語上手ですね)
+            {% elif jlpt_recc == 4 %}    
+                It looks like you are ready to challenge the  <b><a href="https://www.jlpt.jp/e/index.html">JLPT</a> N4</b> level test! (日本語上手ですね)
+            {% elif jlpt_recc == 5 %}
+                It looks like you are ready for the  <b><a href="https://www.jlpt.jp/e/index.html">JLPT</a> N5</b>! (Your big first step into Japanese)
+            {% else %}
+                It doesn't look like you're ready for the  <b><a href="https://www.jlpt.jp/e/index.html">JLPT</a></b>/Kanken just yet. Remember, progress is a slow process but you can do it! I hear https://www.duolingo.com/ is good, but it will always be hard work!
+            {% endif %}
+            
+            <br>
+            {% if kk_recc == -1 %}
+                Either you're a dirty cheat or a true <b>Kanji God</b> amongst mortals and I bow before you! Kanken should take a test from you!
+            {% elif kk_recc == -2 %}
+                You're also 'ready' for <b><a href="https://www.kanken.or.jp/">Kanken</a> level pre-2</b>! (Kanken is notoriously brutal, make sure you are drawing these kanji in your sleep before trying!)
+            {% elif kk_recc > 0 %}
+                You're also 'ready' for <b><a href="https://www.kanken.or.jp/">Kanken</a> level {{kk_recc}}</b>! (Kanken is notoriously brutal, make sure you are drawing these kanji in your sleep before trying!)
+            {% endif %}
+            </p>
+            <!-- Relevant kanji lists -->
+            {% if wronganswers|length > 0 %}
+                <h3 class="text-left">Kanji to review:</h3>
+            	<h1>
+        		{% for q in wronganswers[:10] %}
+                    <a href="https://jisho.org/search/{{q[1]}} %23kanji" class="review">{{q[1]}}</a>{{ " - " if not loop.last }} 		
+        		{% endfor %}
+        		</h1>	
+            {% endif %}
+            <br>
+            <p>Tip: Be sure to bookmark this page to compare to the next time you take a test</p>
+        </div>
+        <!-- Buttons -->    	
+        <div class="btn-toolbar float-right" role="toolbar">
+        <div class="btn-group btn-group-sm sharegroup" data-toggle="tooltip" data-placement="top" title="Share your score with friends" role="group" aria-label="Share your score with friends">
+            <a type="button" class="btn btn-primary" id="sharetw" role="btn" 
+                href=" https://twitter.com/intent/tweet?via=Ambiwlans1&url=https%3A%2F%2Fjiken.herokuapp.com%2Ft%2F{{id}}&text=I%20know%20{{pred[0]}}%20kanji%21%20Top%20me%3F&hashtags=jiken,kanji,challenge">
+                <i class="fab fa-twitter fa-lg"></i></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a type="button" class="btn btn-primary" id="sharefb" role="btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjiken.herokuapp.com%2Ft%2F{{id}}"><i class="fab fa-facebook fa-lg"></i></a>
+        </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Nav Button Block">
+            <a type="button" class="btn btn-success" id="new" role="btn" href="/test">New Test</a>
+            {% if curtest %}
+                <a type="button" class="btn btn-info" id="return" role="btn" href="/test?a=-1">Continue Test</a>
+            {% endif %}
+        </div>
+        </div>
+	</div>
+{% endblock content %}
+
+{% block styles %}
+    {{super()}}
+{% endblock %}
+
+{% block scripts %}
+    {{super()}}
+    {%- include 'chart.js' -%}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

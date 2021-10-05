@@ -1,0 +1,250 @@
+/* Colour scheme
+
+Background (White)
+Highlight (green)  #267f00
+Highlight (grey) #f5f5f5
+
+Good - 28a745 (default) -> #267f00
+Bad - dc3545 (default) -> #B40020
+Share - #117a8b
+Muted grey #6c757d
+
+*/
+
+/* Mobile Support 
+
+(assumed width of 350~600px)
+
+*/
+
+/* Test formatting
+-------------------------------------------------- */
+.test_header{
+    padding-left: 41px;
+}
+
+.help_btn {
+    color: #117a8b !important;
+    padding-left: 20px;
+    vertical-align: top;
+}
+
+.modalimg {
+    max-width:90%;
+}
+
+.flashcard {
+    margin: 30px 0px;
+    height: 150px;
+}
+
+/* Front */
+.frontside {
+    right: 0px;
+    width: 250px;
+    margin: 0px auto;
+}
+
+.kanji {
+    font-size: 128px;
+}
+
+.my_rank {
+    font-size: 12px;
+    text-align: left;
+    position: absolute;
+    left: 0;
+}
+
+.top-center {
+    font-size: 12px;
+    text-align: center;
+    position: absolute;
+    top: -12px;
+}
+
+.top-right {
+    font-size: 12px;
+    text-align: right;
+    position: absolute;
+    right: 0;
+}
+
+/* Back */
+.backside {
+    right: 0px;
+    max-width: 600px;
+    margin: 0px auto;
+    overflow: auto;
+}
+
+.meaning {
+    font-size: 4vw; /*24px*/
+}
+
+.onyomi {
+    font-size: 3vw; /*16px*/
+}
+
+.kunyomi {
+    font-size: 3vw; /*16px*/
+}
+
+.more {
+    font-size: 3vw; /*12px*/
+    float: right;
+    right: 5px;
+    bottom: 5px;
+}
+
+@media screen and (min-width: 600px) {
+    .meaning {
+        font-size: 24px;
+    }
+    .onyomi {
+        font-size: 16px;
+    }
+    .kunyomi {
+        font-size: 16px;
+    }
+    .more {
+        font-size: 12px;
+    }
+}
+
+/* Results */
+
+.pred {
+    height: 64px;
+    line-height:48px;
+    margin: 10px 0px 0px 0px;
+}
+
+.pred-header {
+    line-height:12px;
+    font-variant: small-caps;
+    letter-spacing: 3px;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0;
+}
+.predmain {
+    vertical-align:middle;
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.predrange {
+    vertical-align:middle;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.chart-container {
+    margin: 0px auto;
+    height: 200px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/*.ansTrue {
+    color: #267f00;
+}
+
+.ansFalse {
+    color: #B40020;
+}*/
+
+@media screen and (min-height: 550px) {
+    .preest {
+        padding-top: 50px;
+    }
+    body {
+        margin-top: 50px;
+    }
+}
+
+@media screen and (min-height: 650px) {
+    .preest {
+        padding-top: 100px;
+    }
+
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 10vw; /* Margin bottom by footer height */
+  padding-bottom: 10vw; /* Margin bottom by footer height */
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10vw;
+  line-height: 10vw;
+  background-color: #f5f5f5;
+  font-size: 3.5vw;
+}
+
+@media screen and (min-width: 600px) {
+    .footer {
+        font-size: 20px;
+        height: 60px;
+        line-height: 60px;
+    }
+    body {
+        margin-bottom: 60px;
+        padding-bottom: 60px;
+    }
+}
+
+/* General Styling
+-------------------------------------------------- */
+
+.explanation {
+     font-size: 14px;
+     line-height: 1;
+}
+
+.slogan {
+    color: #52B129;
+    font-variant: small-caps;
+}
+
+.donate {
+    color: #fdb0c0;
+}
+
+.btn-group {
+    margin: 0px 5px;
+}
+
+.btn-success {
+    background-color: #267f00;
+}
+
+.btn-danger {
+    background-color: #B40020;
+}
+
+.btn-primary {
+    background-color: #117a8b;
+}
+
+.title-lg {
+    width: 90%;
+    max-width: 600px;
+}
+
+.title-sm {
+    width: 90%;
+    max-width: 200px;
+}
