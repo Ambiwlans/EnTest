@@ -29,10 +29,10 @@ class TestLog(db.Model):
     id = Column(Integer, primary_key=True)
     
     #Core
-    a = Column(Integer)                     # predicted number of kanji known
+    a = Column(Integer)                     # predicted number of items known
     t = Column(Numeric(asdecimal=False))    # predicted spread/slope
     
-    number_of_questions = Column(Integer, default=0)   # how many questions asked through test
+    num_answered = Column(Integer, default=0)   # how many questions asked through test
     
     #Tracking
     ip = Column(String(20))
@@ -43,7 +43,6 @@ class TestLog(db.Model):
     #Related
     questions = relationship("QuestionLog", back_populates="testlog")
 
-#TODO ? include time data for ML
 #TODO ? Switch to a composite key to qnum + testlogid the primary key, and ditch the id
 class QuestionLog(db.Model):
     __tablename__ = 'questionlog'
@@ -65,10 +64,9 @@ class QuestionLog(db.Model):
     testlog = relationship("TestLog", back_populates="questions")
     testmaterial = relationship("TestMaterial")
 
-#TODO ? Include statistical data here? Leave it in ML binary blob?
-#TODO ? Expand for answers in other languages/forms (kana vs English vs French) 
-# List of all the questions
+# List of all the questions/answers
     # ie. "字 - ji", "蝙 - kou"
+        # bottle - a container holding liquid
 class TestMaterial(db.Model):
     __tablename__ = 'testmaterial'
     
@@ -76,17 +74,11 @@ class TestMaterial(db.Model):
     id = Column(Integer, primary_key=True)
     
     #Core
-    kanji = Column(String)       # 剣
-    meaning =  Column(String)        # blade
-    
-    onyomi = Column(String)
-    kunyomi = Column(String)
-    grade = Column(String)
-    jlpt = Column(String)
-    kanken = Column(String)
+    question = Column(String)       # 剣
+    answer =  Column(String)        # blade
     
     #Statistical
-    frequency = Column(Integer)
+    freq_per_mil = Column(Integer)
     my_rank = Column(Integer)
 
 class TempTestMaterial(db.Model):
@@ -106,8 +98,8 @@ class MetaStatistics(db.Model):
     id = Column(Integer, primary_key=True)
     
     #Core
-    default_kanji = Column(Integer, default= 400)       # Number of kanji people know on avg
-    default_tightness = Column(Numeric(asdecimal=False), default= 0.05)  # typical knowledge spread
+    default_a = Column(Integer, default= 5000)       # Number of questions people know on avg
+    default_t = Column(Numeric(asdecimal=False), default= 0.05)  # typical knowledge spread
 
     avg_known = Column(Integer)
     avg_answered = Column(Integer)
