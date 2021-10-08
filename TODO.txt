@@ -2,11 +2,14 @@
 START
 +++++++++++
 
+- remove frontpage references to dead variables
+
 - set up heroku to run
 	- services (sql/redis) passwords, environment variables
 	- app boot (procfile, heroku setting)
 	- fix config file
-
+    - ensure there isn't conflicts with jiken
+    
 - push starting data to sql
 
 Checks:
@@ -19,22 +22,46 @@ MAIN
 +++++++++++
 
 Config:
-    - ensure there isn't conflicts with jiken
-    - remove all references to kanji/jiken in code
+    - recalculate values for L2R config
+    - verify that it is ok to set graph max above the number max (allowing 10k)
     
 DB:
-	- rework/factor broken python code/view
     ? change the dictionary for simpler words to cut down on complexity
-    
+    - need to handle logging questions better
+        - currently could overrun the 10k limit and crash server...
+        - why ever log more than 500?
+        - drop id?
+        - log blocks of questions in test and drop this table entirely? (incorrect way to do it, but handles the 10k cap better)
+        
+Python:
+    - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)
+        
 Front end:
+	- plan new layout (paper)
 	- Go through each page and rewrite
-	? change colour scheme?
 	- fix all references to correct for DB changes
- 	- redo card layout
 	- redo all images
-	- rename EnTest? (probably worth it for findability)
-	- redo the readme for github
+	
+Bug:
+    
+    - def_a set twice...
+        avg_known = int(db.session.query(func.avg(TestLog.a)).filter(TestLog.num_answered > 10)[0][0])
+        current_app.config['SESSION_REDIS'].set('avg_known', avg_known)
+        db.session.query(MetaStatistics).first().default_a = avg_known
+        avg_answered = int(db.session.query(func.avg(TestLog.num_answered)).filter(TestLog.num_answered > 10)[0][0])
+        current_app.config['SESSION_REDIS'].set('avg_answered', avg_answered)
+        db.session.query(MetaStatistics).first().default_a = avg_answered
 
+Misc:
+	- redo the readme for github
+	- beta testing
+        
 Fork (Keep jiken in mind EVERY git commit):
     - standardize forking
     - go through git log to find changes to push across
+    
++++++++++++
+STRETCH
++++++++++++
+
+? change colour scheme? Dark mode?

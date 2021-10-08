@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 @author: Ambiwlans
-@general: JiKen - Kanji testing site
+@general: EnTest - English Vocab testing site
 @description: The config file
 """
 
@@ -42,8 +42,8 @@ class DevelopmentConfig:
     
     # App
     GRAPH_AFTER = 0
-    GRAPH_MAX_X = 6750
-    MAX_X = 6750
+    GRAPH_MAX_X = 10000
+    MAX_X = 9998
     QUESTION_VARIABLITY = 1.0                                       # .1 = low variance from the prediction, 2 = high variance
     
     # L2R
@@ -78,8 +78,8 @@ class DeploymentConfig:
     
     # App
     GRAPH_AFTER = 9
-    GRAPH_MAX_X = 6750
-    MAX_X = 6750
+    GRAPH_MAX_X = 10000
+    MAX_X = 9998
     QUESTION_VARIABLITY = 1.0                                       # .1 = low variance from the prediction, 2 = high variance
         
     # L2R

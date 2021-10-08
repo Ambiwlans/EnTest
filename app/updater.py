@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 @author: Ambiwlans
-@general: JiKen - Kanji testing site
+@general: EnTest - English Vocab testing site
 @description: Updater
 """
 
@@ -87,7 +87,7 @@ def update_TestQuestionLogs(app):
                     t =  data['TestLog']['t'],
                     ip =  data['TestLog']['ip'],
                     start_time =  data['TestLog']['start_time'],
-                    number_of_questions = len(data['QuestionLog']))
+                    num_answered = len(data['QuestionLog']))
                 db.session.add(addTest)
                 db.session.commit()
                 
@@ -120,7 +120,7 @@ def update_TestQuestionLogs(app):
                     incdir = int(((qrank < addTest.a) -.5)* 2)
                     shiftsize = int(round((errorlevel * qrank) / current_app.config['SHIFTSIZE_SLOPE']) + 1)
 
-                    print("outlier found: kanjiid#" + str(q.testmaterialid) + " rank#" + str(qrank))
+                    print("outlier found: Question#" + str(q.testmaterialid) + " rank#" + str(qrank))
                     print("errorlevel: " + str(errorlevel))
                     print("bumping to: " + str(incdir))
                     print("shiftsize: " + str(shiftsize))
@@ -164,40 +164,40 @@ def update_TestQuestionLogs(app):
         print("Updated Logs")
         
     
-# Setup cron/scheduler to update kanji ranks and defaults
+# Update defaults with scheduler
 def update_meta(app):
     # update our meta values
     with app.app_context():
         # get the averages after filtering out outliers, tend towards the middle
-        current_app.config['SESSION_REDIS'].set('default_tightness', 
+        current_app.config['SESSION_REDIS'].set('default_t', 
             (db.session.query(func.avg(TestLog.t)) \
-            .filter(TestLog.number_of_questions > 25) \
+            .filter(TestLog.num_answered > 25) \
             .filter(TestLog.t > 0.001) \
             .filter(TestLog.t < 0.08)[0][0] + .005)/2
             )
-        db.session.query(MetaStatistics).first().default_tightness = float(current_app.config['SESSION_REDIS'].get('default_tightness'))
+        db.session.query(MetaStatistics).first().default_t = float(current_app.config['SESSION_REDIS'].get('default_t'))
         
-        current_app.config['SESSION_REDIS'].set('default_kanji', 
+        current_app.config['SESSION_REDIS'].set('default_a', 
             int((db.session.query(func.avg(TestLog.a)) \
-            .filter(TestLog.number_of_questions > 25) \
+            .filter(TestLog.num_answered > 25) \
             .filter(TestLog.a > 100) \
             .filter(TestLog.a < 5000)[0][0] + 2000)/2)
             )
-        db.session.query(MetaStatistics).first().default_kanji = int(current_app.config['SESSION_REDIS'].get('default_kanji'))
+        db.session.query(MetaStatistics).first().default_a = int(current_app.config['SESSION_REDIS'].get('default_a'))
 
-        avg_known = int(db.session.query(func.avg(TestLog.a)).filter(TestLog.number_of_questions > 10)[0][0])
+        avg_known = int(db.session.query(func.avg(TestLog.a)).filter(TestLog.num_answered > 10)[0][0])
         current_app.config['SESSION_REDIS'].set('avg_known', avg_known)
-        db.session.query(MetaStatistics).first().default_kanji = avg_known
+        db.session.query(MetaStatistics).first().default_a = avg_known
 
-        avg_answered = int(db.session.query(func.avg(TestLog.number_of_questions)).filter(TestLog.number_of_questions > 10)[0][0])
+        avg_answered = int(db.session.query(func.avg(TestLog.num_answered)).filter(TestLog.num_answered > 10)[0][0])
         current_app.config['SESSION_REDIS'].set('avg_answered', avg_answered)
-        db.session.query(MetaStatistics).first().default_kanji = avg_answered
+        db.session.query(MetaStatistics).first().default_a = avg_answered
         
         db.session.commit()
         
         print("Successfully Updated Meta vals")
-        print("A = " + str(int(current_app.config['SESSION_REDIS'].get('default_kanji'))))
-        print("T = " + str(float(current_app.config['SESSION_REDIS'].get('default_tightness'))))
+        print("A = " + str(int(current_app.config['SESSION_REDIS'].get('default_a'))))
+        print("T = " + str(float(current_app.config['SESSION_REDIS'].get('default_t'))))
         print("Known = " + str(avg_known))
         print("Answered = " + str(avg_answered))
         
@@ -206,52 +206,7 @@ def update_meta(app):
             print("updating L2R testmats")
             temptestmat = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TempTestMaterial'))
             temptestmat.to_sql("temptestmaterial", db.engine, index=False, if_exists="replace", \
-                               dtype={'id': SMALLINT(unsigned=True), 'L2R_my_rank': SMALLINT(unsigned=True)})
-##            redis_L2R_ranks = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('L2RTestMaterial')).loc[:,'my_rank'].values
-#            redis_L2R_ranks = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('L2RTestMaterial'))
-#            pprint.pprint(redis_L2R_ranks)
-#            print(type(redis_L2R_ranks))
-#            sql_L2R_ranks = db.session.query(TestMaterial.L2R_my_rank)
-##            pprint.pprint(sql_L2R_ranks)
-#            print(type(sql_L2R_ranks))
-#           dict_ranks = sql_L2R_ranks.to_dict() 
-##            sql_L2R_ranks.update()
-#            db.session.query(TestMaterial).update({TestMaterial.L2R_my_rank: redis_L2R_ranks.my_rank})
-
-#            redis_L2R_ranks = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('L2RTestMaterial')).loc[:,'my_rank'].values
-#            upd_vals_str = "VALUES " + str(redis_L2R_ranks)
-#            print(upd_vals_str)
-#            upd_sql = r"""SELECT * FROM TestMaterial
-#                JOIN ({0}) AS frame(title, owner, count)
-#                ON blog.title = frame.title
-#                WHERE blog.owner = frame.owner 
-#                ORDER BY frame.count DESC
-#                LIMIT 30;""".format(upd_vals_str)
-            
-            #Bulk update
-#            redis_L2R_ranks = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('L2RTestMaterial'))
-            
-#            mappings = []
-#            i = 0
-#            for tm in db.session.query(TestMaterial):
-#                #TODO: Is this fragile? Can test Material ever return in a different order?
-#                mappings.append({'id':tm.id, 'L2R_my_rank':redis_L2R_ranks.loc[i,'my_rank']})
-#                i = i + 1
-#                if i % 1000 == 0:
-#                    db.session.bulk_update_mappings(TestMaterial, mappings)
-#                    db.session.commit()
-#                    mappings = []
-##                    break #testing max_questions rules   
-#            db.session.bulk_update_mappings(TestMaterial, mappings)
-            
-#            i = 0
-#            for tm in db.session.query(TestMaterial):
-#                tm.L2R_my_rank = redis_L2R_ranks.loc[i,'my_rank']
-#                i = i + 1
-#                if i % 1000 == 0:
-#                    db.session.commit()
-#                    break
-        
+                               dtype={'id': SMALLINT(unsigned=True), 'L2R_my_rank': SMALLINT(unsigned=True)})        
             db.session.commit()
         
 # Clear ancient logs
@@ -271,78 +226,3 @@ def clear_old_logs(app):
         
         db.session.commit()
         
-# Reformat base DB taken from KANJIDIC
-def initial_DB_reformat():
-    data = db.session.query(TestMaterial).all()    
-    ranks = [r for r, in db.session.query(TestMaterial.my_rank)]
-    
-    for item in data:
-        if "Kyōiku-Jōyō (1st" in item.grade:
-            item.grade = 1
-        elif "Kyōiku-Jōyō (2nd" in item.grade:
-            item.grade = 2
-        elif "Kyōiku-Jōyō (3rd" in item.grade:
-            item.grade = 3
-        elif "Kyōiku-Jōyō (4th" in item.grade:
-            item.grade = 4
-        elif "Kyōiku-Jōyō (5th" in item.grade:
-            item.grade = 5
-        elif "Kyōiku-Jōyō (6th" in item.grade:
-            item.grade = 6
-        elif "Jōyō (1st" in item.grade:
-            item.grade = 7
-        elif "Jōyō (2nd" in item.grade:
-            item.grade = 8
-        elif "Jōyō (3rd" in item.grade:
-            item.grade = 9
-        elif "Kyōiku-Jōyō (high" in item.grade:
-            item.grade = 10
-        elif "Hyōgaiji (former Jinmeiyō candidate)" in item.grade:
-            item.grade = 11
-        elif "Jinmeiyō (used in names)" in item.grade:
-            item.grade = 13
-        elif "i" in item.grade:
-            item.grade = 14
-            
-        if "1" in (item.jlpt or ""):
-            item.jlpt = 1
-        elif "2" in (item.jlpt or ""):
-            item.jlpt = 2
-        elif "3" in (item.jlpt or ""):
-            item.jlpt = 3
-        elif "4" in (item.jlpt or ""):
-            item.jlpt = 4
-        elif "5" in (item.jlpt or ""):
-            item.jlpt = 5
-        else:
-            item.jlpt = 6
-            
-#        item.meaning = item.meaning.replace(";","; ")
-        
-    # Find some good starting point for rankings of kanji
-    for i in range(len(data)):
-        # Use the frequency rates as a base
-        ranks[i] = int(data[i].frequency or 0)
-        
-        if data[i].frequency is None:
-            ranks[i] = 4000
-        
-        # Penalize based on JLPT, kanken, jouyou levels
-        ranks[i] += int(data[i].grade) * 50
-        ranks[i] -= (int(data[i].jlpt)-6) * 50
-        if data[i].kanken:
-            ranks[i] -= (int(data[i].kanken)+1) * 50 if data[i].kanken.isdigit() else 0
-            if data[i].kanken == "pre-2":
-                ranks[i] -= 3 * 50
-            elif data[i].kanken == "2":
-                ranks[i] += 50
-            elif data[i].kanken == "pre-1":
-                ranks[i] -= 1 * 50
-    
-    t = np.array(ranks).argsort()
-    ranks = (t.argsort() + 1).tolist()
-    
-    for i in range(len(data)):
-        data[i].my_rank = ranks[i]
-    
-    print("Initial DB reform complete!")

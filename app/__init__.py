@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 @author: Ambiwlans
-@general: JiKen - Kanji testing site
-@description: The main init, run via jiken.py
+@general: EnTest - English Vocab testing site
+@description: The main init, run via enken.py
 """
 
 #Base
@@ -44,7 +44,7 @@ def create_app(config_class=Config):
     Bootstrap(app)
 
     # Scheduler set up/run
-    from app.updater import update_meta, update_TestQuestionLogs, clear_old_logs, initial_DB_reformat
+    from app.updater import update_meta, update_TestQuestionLogs, clear_old_logs
     with app.app_context():
 #        db.create_all() 
 #        initial_DB_reformat()

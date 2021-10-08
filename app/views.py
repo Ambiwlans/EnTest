@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 @author: Ambiwlans
-@general: JiKen - Kanji testing site
+@general: EnTest - English Vocab testing site
 @description: Views/Routes
 """
 
@@ -87,8 +87,8 @@ def test():
         # New Test, new log
         session['TestLog'] = pd.Series({
                 "id" : int(current_app.config['SESSION_REDIS'].get('cur_testlog_id').decode('utf-8')),
-                "a" : int(current_app.config['SESSION_REDIS'].get('default_kanji')),
-                "t" : float(current_app.config['SESSION_REDIS'].get('default_tightness')),
+                "a" : int(current_app.config['SESSION_REDIS'].get('default_a')),
+                "t" : float(current_app.config['SESSION_REDIS'].get('default_t')),
                 "ip" : request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr),
                 "start_time" : datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')})
         
@@ -122,9 +122,9 @@ def test():
     oldquestions = history[:100]
     
     rightanswers = oldquestions[oldquestions['score']==1]
-    rightanswers = [(r.my_rank, r.kanji) for i, r in rightanswers.iterrows()]
+    rightanswers = [(r.my_rank, r.question) for i, r in rightanswers.iterrows()]
     wronganswers = oldquestions[oldquestions['score']==0]
-    wronganswers = [(r.my_rank, r.kanji) for i, r in wronganswers.iterrows()]
+    wronganswers = [(r.my_rank, r.question) for i, r in wronganswers.iterrows()]
         
     #Get updated statistics and next question
     
@@ -133,7 +133,7 @@ def test():
     pred = [0,0,0]
     
     if score is None:
-        #For the first question, ask a random kanji (for data gathering purposes)
+        #For the first question, ask at random (for data gathering purposes)
         newquestion = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TestMaterial')).sample().iloc[0]
     else:
                
@@ -157,7 +157,7 @@ def test():
         session['TestLog'].a = float(res.x[1])
         session['TestLog'].t = float(res.x[0])
         
-        # Predict known kanji
+        # Predict # known
         len_history = len(history)
         if len_history > current_app.config['GRAPH_AFTER']:
             #[mid, upper, lower]
@@ -201,7 +201,7 @@ def test():
             if x > current_app.config['MAX_X'] and x + searchkey < 1: 
                 print("Test # " + str(session['TestLog'].id) + " asked every question!")
                 # Go to history page when a user has completed every question... wowza
-                return "Holy crap!! You actually answered every kanji. I don't really expect anyone to maneage this so I don't have anything ready.... uhh, check your <a href='/t/"+session['TestLog'].id+"'>results</a> and tweet them to me! Damn... good job!"
+                return "Holy crap!! You actually answered all 10,000 words.... I don't really expect anyone to maneage this so I don't have anything ready.... uhh, check your <a href='/t/"+session['TestLog'].id+"'>results</a> and tweet them to me! Damn... good job!"
                 
         newquestion = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TestMaterial'))[pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TestMaterial'))['my_rank']==x].iloc[0]
 
@@ -212,7 +212,7 @@ def test():
     #Refresh the timeout flag
     session['last_touched'] = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
     
-    print("Test #" + str(session['TestLog'].id) + ": A = " + str(session['TestLog'].a) + ",  T = " + str(session['TestLog'].t) + ",  # = " + str(len(session['QuestionLog'])) + " Kanji#: " + str(newquestion['my_rank']))
+    print("Test #" + str(session['TestLog'].id) + ": A = " + str(session['TestLog'].a) + ",  T = " + str(session['TestLog'].t) + ",  # = " + str(len(session['QuestionLog'])) + " Question#: " + str(newquestion['my_rank']))
 
     return render_template('test.html', question = newquestion, cnt = len(history), id = session['TestLog'].id, \
         a = session['TestLog'].a, t = session['TestLog'].t, wronganswers = wronganswers, rightanswers = rightanswers, xmax = xmax, pred = pred)
@@ -272,12 +272,12 @@ def history(id):
     oldquestions = history[:500].sort_values(by=['my_rank'], ascending=True)
     
     rightanswers = oldquestions[oldquestions['score']==1]
-    rightanswers = [(r.my_rank, r.kanji) for i, r in rightanswers.iterrows()]
+    rightanswers = [(r.my_rank, r.question) for i, r in rightanswers.iterrows()]
     wronganswers = oldquestions[oldquestions['score']==0]
-    wronganswers = [(r.my_rank, r.kanji) for i, r in wronganswers.iterrows()]
+    wronganswers = [(r.my_rank, r.question) for i, r in wronganswers.iterrows()]
     
     try:
-        cnt = data['TestLog'].number_of_questions
+        cnt = data['TestLog'].num_answered
     except:
         cnt = len(history)
         
@@ -307,35 +307,13 @@ def history(id):
     xmax = min(int(math.ceil(min(((pred[0] + 4*(pred[1]-pred[0])) + 250), current_app.config['GRAPH_MAX_X'])/500)*500), int(current_app.config['GRAPH_MAX_X']))
     
     #Calc some stats data
-    jlpt_recc = {
-        0    <= pred[2] < 100  : 0,
-        100  <= pred[2] < 300  : 5,
-        300  <= pred[2] < 650  : 4,
-        650  <= pred[2] < 1000 : 3,
-        1000 <= pred[2] < 2000 : 2,
-        2000 <= pred[2]        : 1}[True]
-    kk_recc = {
-        0    <= pred[2] < 80   : 0,
-        80   <= pred[2] < 240  : 10,
-        240  <= pred[2] < 440  : 9,
-        440  <= pred[2] < 640  : 8,
-        640  <= pred[2] < 825  : 7,
-        825  <= pred[2] < 1006 : 6,
-        1006 <= pred[2] < 1300 : 5,
-        1300 <= pred[2] < 1600 : 4,
-        1600 <= pred[2] < 1950 : 3,
-        1950 <= pred[2] < 2136 : -2,
-        2136 <= pred[2] < 2965 : 2,
-        2965 <= pred[2] < 6355 : 1,
-        6355 <= pred[2]        : -1}[True]
-    pct_known_by_appearance = min(max(100 * ((-180/(pred[0] + 160)) + 1.08), 0),100)   #Magic formula based on data
+    pct_known_by_appearance = 50
 
     
     return  render_template('history.html', id = id, \
         a = data['TestLog'].a, t = data['TestLog'].t, wronganswers = wronganswers, rightanswers = rightanswers, xmax = xmax, pred = pred,\
         curtest = curtest, cnt = cnt, \
         date = data['TestLog'].start_time, \
-        jlpt_recc = jlpt_recc, kk_recc = kk_recc, \
         avg_answered = int(current_app.config['SESSION_REDIS'].get('avg_answered') or 0), \
         avg_known = int(current_app.config['SESSION_REDIS'].get('avg_known') or 0), \
         pct_known_by_appearance = "{:.2f}".format(pct_known_by_appearance))
