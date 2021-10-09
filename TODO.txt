@@ -11,6 +11,7 @@ Config:
     
 DB:
     ? change the dictionary for simpler words to cut down on complexity
+    - change encoding to cut size
     - need to handle logging questions better
         - currently could overrun the 10k limit and crash server...
         - why ever log more than 500?
@@ -26,7 +27,7 @@ Front end:
 	
 Bug:
     
-    - def_a set twice...
+    - def_a set twice... and nulls in DB
         avg_known = int(db.session.query(func.avg(TestLog.a)).filter(TestLog.num_answered > 10)[0][0])
         current_app.config['SESSION_REDIS'].set('avg_known', avg_known)
         db.session.query(MetaStatistics).first().default_a = avg_known

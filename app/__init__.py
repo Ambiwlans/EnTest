@@ -47,8 +47,8 @@ def create_app(config_class=Config):
     from app.updater import update_meta, update_TestQuestionLogs, clear_old_logs
     with app.app_context():
 #        db.create_all() 
-#        initial_DB_reformat()
-#        app.config['SESSION_REDIS'].flushall()
+
+        app.config['SESSION_REDIS'].flushall()
         
         if app.config['SESSION_REDIS'].get('cur_testlog_id') is None:
             app.config['SESSION_REDIS'].flushall()
