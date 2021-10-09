@@ -1,17 +1,4 @@
-+++++++++++
-START
-+++++++++++
-
-
-- set up heroku to run
-	- services (sql/redis) passwords, environment variables
-    
-- push starting data to sql
-
 Checks:
-    - site connecting to dbs
-    - site loads
-    - recompile from push
     - check all social media links
     
 +++++++++++
@@ -34,7 +21,6 @@ Python:
     - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)
         
 Front end:
-	- plan new layout (paper)
 	- new images/logo
 	- redo history page entirely
 	
@@ -51,13 +37,13 @@ Bug:
 Misc:
 	- redo the readme for github
 	- beta testing
-	- add 'entest' definition easter egg
 	- fix the words multiplier (10k .... 5x?)
     
 CORE/BOTH:
     - enable autopushing l2r w/ the meta updates
     - update packages/python
-        
+    - metastatistics aren't being used correctly, check the sql
+    
 Fork (Keep jiken in mind EVERY git commit):
     - standardize forking
     - go through git log to find changes to push across

@@ -43,7 +43,7 @@ class DevelopmentConfig:
     # App
     GRAPH_AFTER = 0
     GRAPH_MAX_X = 10000
-    MAX_X = 9998
+    MAX_X = 9999
     QUESTION_VARIABLITY = 1.0                                       # .1 = low variance from the prediction, 2 = high variance
     
     # L2R
@@ -79,7 +79,7 @@ class DeploymentConfig:
     # App
     GRAPH_AFTER = 9
     GRAPH_MAX_X = 10000
-    MAX_X = 9998
+    MAX_X = 9999
     QUESTION_VARIABLITY = 1.0                                       # .1 = low variance from the prediction, 2 = high variance
         
     # L2R
