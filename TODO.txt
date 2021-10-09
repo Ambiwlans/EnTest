@@ -5,9 +5,6 @@ START
 
 - set up heroku to run
 	- services (sql/redis) passwords, environment variables
-	- app boot (procfile, heroku setting)
-	- fix config file
-    - ensure there isn't conflicts with jiken
     
 - push starting data to sql
 
@@ -57,8 +54,9 @@ Misc:
 	- add 'entest' definition easter egg
 	- fix the words multiplier (10k .... 5x?)
     
-CORE:
+CORE/BOTH:
     - enable autopushing l2r w/ the meta updates
+    - update packages/python
         
 Fork (Keep jiken in mind EVERY git commit):
     - standardize forking

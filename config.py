@@ -38,7 +38,7 @@ class DevelopmentConfig:
     
     # Flask-Session
     SESSION_TYPE = "redis"
-    SESSION_REDIS = redis.from_url(os.environ.get('SESSION_REDIS'))#, decode_responses=True)
+    SESSION_REDIS = redis.from_url(os.environ.get('REDIS_URL'))#, decode_responses=True)
     
     # App
     GRAPH_AFTER = 0
@@ -74,7 +74,7 @@ class DeploymentConfig:
     
     # Flask-Session
     SESSION_TYPE = "redis"
-    SESSION_REDIS = redis.from_url(os.environ.get('SESSION_REDIS'))
+    SESSION_REDIS = redis.from_url(os.environ.get('REDIS_URL'))
     
     # App
     GRAPH_AFTER = 9
@@ -87,4 +87,4 @@ class DeploymentConfig:
     ERRORLEVEL_CUTOFF_PCT = .7                                      # if (errorlevel < ERRORLEVEL_CUTOFF_PCT): continue 
     
 #Easy switch for different configs
-Config = DevelopmentConfig
+Config = DeploymentConfig
