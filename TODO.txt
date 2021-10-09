@@ -2,7 +2,6 @@
 START
 +++++++++++
 
-- remove frontpage references to dead variables
 
 - set up heroku to run
 	- services (sql/redis) passwords, environment variables
@@ -16,6 +15,7 @@ Checks:
     - site connecting to dbs
     - site loads
     - recompile from push
+    - check all social media links
     
 +++++++++++
 MAIN
@@ -38,9 +38,8 @@ Python:
         
 Front end:
 	- plan new layout (paper)
-	- Go through each page and rewrite
-	- fix all references to correct for DB changes
-	- redo all images
+	- new images/logo
+	- redo history page entirely
 	
 Bug:
     
@@ -55,6 +54,11 @@ Bug:
 Misc:
 	- redo the readme for github
 	- beta testing
+	- add 'entest' definition easter egg
+	- fix the words multiplier (10k .... 5x?)
+    
+CORE:
+    - enable autopushing l2r w/ the meta updates
         
 Fork (Keep jiken in mind EVERY git commit):
     - standardize forking

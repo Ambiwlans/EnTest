@@ -45,8 +45,8 @@ Muted grey #6c757d
     margin: 0px auto;
 }
 
-.kanji {
-    font-size: 128px;
+.questionword {
+    font-size: 64px;
 }
 
 .my_rank {
@@ -80,14 +80,6 @@ Muted grey #6c757d
 
 .meaning {
     font-size: 4vw; /*24px*/
-}
-
-.onyomi {
-    font-size: 3vw; /*16px*/
-}
-
-.kunyomi {
-    font-size: 3vw; /*16px*/
 }
 
 .more {

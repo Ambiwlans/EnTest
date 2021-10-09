@@ -46,7 +46,7 @@ var myLineChart = new Chart(ctx, {
     		        tooltip.displayColors = false;
 		        },
                 label: function(tooltipItems, data) { 
-                    return (data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index].kanji);
+                    return (data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index].question);
                 },
                 title: function(tooltipItem, data) {
 		          return;
@@ -99,11 +99,11 @@ function makePrediction() {
 };
 
 function rightPoints(val) {
-    return {x: val[0], y: 1, kanji: val[1]};
+    return {x: val[0], y: 1, question: val[1]};
 };
 
 function wrongPoints(val) {
-    return {x: val[0], y: 0, kanji: val[1]};
+    return {x: val[0], y: 0, question: val[1]};
 };
 
 </script>
