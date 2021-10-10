@@ -44,6 +44,7 @@ CORE/BOTH:
     - enable autopushing l2r w/ the meta updates
     - update packages/python
     - metastatistics aren't being used correctly, check the sql
+    - identify magic numbers
     
 Fork (Keep jiken in mind EVERY git commit):
     - standardize forking
