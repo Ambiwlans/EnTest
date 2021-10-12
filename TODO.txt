@@ -1,38 +1,48 @@
+###########
+CUR
+###########
+
+- Add alpha test warning, talk about word ordering 'logo' vs 'churl'
+- redo history
+- check all social media links
+- css fixes
+	- long words don't fit
+	- image not quite centered
+	- hide help button for now
+	- retest on multiple resolutions
+- remove the white BG from the icon?
+- fix the log overrun problem
+- look for dictionaries that have apis
+- do more tests, push l2r
+- think more about resetting default ordering (10k will take a while to reshuffle correctly otherwise)
+
 +++++++++++
 MAIN
 +++++++++++
 
-Tweaking:
-    - recalculate values for L2R config
-    - rework the formulae around starting/default-t .... tends to be way too steep, need to quarter the assumed steepness (the min t vals seem fine though)
-        - better still, use fewer magic numbers here....
+Tweaking:    
+    - rework the magic numbers involved in estimating a,t (t especially)
     - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)
-    - fix the words multiplier (10k .... 5x?)
+    - fix the words multiplier (10k .... ~5x?)
     
 DB:
     ? change the dictionary for simpler words to cut down on complexity
         - use 2~3 dictionaries as needed
         - show multiple or just one
-        - multiple languages/setting?
-        - can i pull definitions and not store them myself? (could allow many more definitions)
+        - multiple languages/setting? (german, japanese definitions?)
+        - can i pull definitions and not store them myself? (could allow many more definitions, save SQL space)
     - need to handle logging questions better
         - currently could overrun the 10k limit and crash server...
         - why ever log more than 500?
         - drop id?
-        - log blocks of questions in test and drop this table entirely? (incorrect way to do it, but handles the 10k cap better)
         
 Front end:
-    - Add alpha test warning, talk about word ordering 'logo' vs 'churl'
 	- new 'help' button images
-	- check all social media links
-	- css fixes
-    	- long words don't fit
-    	- image not quite centered
-	History
-    	- redo entirely
+    	- FAQ style?
     	
-Bug:
-
+Bugs:
+    - forcemetaupdate throwing a timeout with no msgs... randomly twice, then it worked fine. (was cpu sleeping?)
+    
 Misc:
 	- redo the readme for github
 	- beta testing
@@ -40,22 +50,27 @@ Misc:
     
 CORE/BOTH:
     - enable autopushing l2r w/ the meta updates
-    - update packages/python
+    - update packages/python, trim reqs
     - identify magic numbers w/ inline comments
-    - flesh out admin page
+    - move scheduler times into config
+    - flesh out an admin page
         - add a shutdown fn (set config TEST_TIMEOUT to 1, force update)
         - flush/reset redis
     
 Fork (Keep jiken in mind EVERY git commit):
     - go through git log to find changes to push across
     
-++++
-LATER
-++++
-    - reduce step size for l2r
-    
 +++++++++++
-STRETCH
+LATER
 +++++++++++
 
+- reduce step size for l2r
+- set test timeout back to 1hr
+    
++++++++++++
+MAYBE
++++++++++++
+
+? log blocks of questions in test and drop this table entirely? (incorrect way to do it, but handles the 10k cap better)
 ? change colour scheme? Dark mode?
+? merger of all testing thingies? Select a from and to (kanji->english, eng->eng) .... some losses from going generic, easier to maintain, harder to build... vocab only?

@@ -173,7 +173,7 @@ def update_meta(app):
             (db.session.query(func.avg(TestLog.t)) \
             .filter(TestLog.num_answered > 25) \
             .filter(TestLog.t > 0.0001) \
-            .filter(TestLog.t < 0.08)[0][0] + .005)/2
+            .filter(TestLog.t < 0.08)[0][0] + .005)/2                           #Magic number - start with a gentler slope than the average (btwn avg and .005)
             )
         db.session.query(MetaStatistics).first().default_t = float(current_app.config['SESSION_REDIS'].get('default_t'))
         
@@ -181,7 +181,7 @@ def update_meta(app):
             int((db.session.query(func.avg(TestLog.a)) \
             .filter(TestLog.num_answered > 25) \
             .filter(TestLog.a > 100) \
-            .filter(TestLog.a < 9000)[0][0]))
+            .filter(TestLog.a < 9000)[0][0])*0.75)                              #Magic number - 0.75 (default below the average so users get some easy ones)
             )
         db.session.query(MetaStatistics).first().default_a = int(current_app.config['SESSION_REDIS'].get('default_a'))
 

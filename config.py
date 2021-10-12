@@ -83,8 +83,8 @@ class DeploymentConfig:
     QUESTION_VARIABLITY = 1.0                                       # .1 = low variance from the prediction, 2 = high variance
         
     # L2R
-    SHIFTSIZE_SLOPE = 500                                           # shiftsize = int(round((errorlevel * SHIFTSIZE_SLOPE) / 500) + 1)
-    ERRORLEVEL_CUTOFF_PCT = .7                                      # if (errorlevel < ERRORLEVEL_CUTOFF_PCT): continue 
+    SHIFTSIZE_SLOPE = 50                                            # shiftsize = int(round((errorlevel * qrank) / current_app.config['SHIFTSIZE_SLOPE']) + 1)
+    ERRORLEVEL_CUTOFF_PCT = .5                                      # if (errorlevel < ERRORLEVEL_CUTOFF_PCT): continue 
     
 #Easy switch for different configs
 Config = DeploymentConfig
