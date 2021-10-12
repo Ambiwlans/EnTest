@@ -1,33 +1,34 @@
-Checks:
-    - check all social media links
-    
 +++++++++++
 MAIN
 +++++++++++
 
-Config:
+Tweaking:
     - recalculate values for L2R config
-    - verify that it is ok to set graph max above the number max (allowing 10k)
+    - rework the formulae around starting/default-t .... tends to be way too steep, need to quarter the assumed steepness (the min t vals seem fine though)
+        - better still, use fewer magic numbers here....
+    - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)
+    - fix the words multiplier (10k .... 5x?)
     
 DB:
     ? change the dictionary for simpler words to cut down on complexity
-    - change encoding to cut size
+        - use 2~3 dictionaries as needed
     - need to handle logging questions better
         - currently could overrun the 10k limit and crash server...
         - why ever log more than 500?
         - drop id?
         - log blocks of questions in test and drop this table entirely? (incorrect way to do it, but handles the 10k cap better)
         
-Python:
-    - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)
-        
 Front end:
-	- new images/logo
-	- redo history page entirely
-	
+	- new help images
+	- check all social media links
+	- css fixes
+    	- long words don't fit
+    - 'more..' should open in new tab
+	History
+    	- redo entirely
+    	
 Bug:
-    
-    - def_a set twice... and nulls in DB
+    - def_a set twice... and nulls in DB ... the metastats data is never actually being saved, lol...
         avg_known = int(db.session.query(func.avg(TestLog.a)).filter(TestLog.num_answered > 10)[0][0])
         current_app.config['SESSION_REDIS'].set('avg_known', avg_known)
         db.session.query(MetaStatistics).first().default_a = avg_known
@@ -38,16 +39,14 @@ Bug:
 Misc:
 	- redo the readme for github
 	- beta testing
-	- fix the words multiplier (10k .... 5x?)
+	- enable the keep alive
     
 CORE/BOTH:
     - enable autopushing l2r w/ the meta updates
     - update packages/python
-    - metastatistics aren't being used correctly, check the sql
-    - identify magic numbers
+    - identify magic numbers w/ inline comments
     
 Fork (Keep jiken in mind EVERY git commit):
-    - standardize forking
     - go through git log to find changes to push across
     
 +++++++++++
