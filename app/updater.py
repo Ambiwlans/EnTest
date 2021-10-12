@@ -187,11 +187,11 @@ def update_meta(app):
 
         avg_known = int(db.session.query(func.avg(TestLog.a)).filter(TestLog.num_answered > 10)[0][0])
         current_app.config['SESSION_REDIS'].set('avg_known', avg_known)
-        db.session.query(MetaStatistics).first().default_a = avg_known
+        db.session.query(MetaStatistics).first().avg_known = avg_known
 
         avg_answered = int(db.session.query(func.avg(TestLog.num_answered)).filter(TestLog.num_answered > 10)[0][0])
         current_app.config['SESSION_REDIS'].set('avg_answered', avg_answered)
-        db.session.query(MetaStatistics).first().default_a = avg_answered
+        db.session.query(MetaStatistics).first().avg_answered = avg_answered
         
         db.session.commit()
         

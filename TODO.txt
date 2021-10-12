@@ -12,6 +12,9 @@ Tweaking:
 DB:
     ? change the dictionary for simpler words to cut down on complexity
         - use 2~3 dictionaries as needed
+        - show multiple or just one
+        - multiple languages/setting?
+        - can i pull definitions and not store them myself? (could allow many more definitions)
     - need to handle logging questions better
         - currently could overrun the 10k limit and crash server...
         - why ever log more than 500?
@@ -19,22 +22,16 @@ DB:
         - log blocks of questions in test and drop this table entirely? (incorrect way to do it, but handles the 10k cap better)
         
 Front end:
-	- new help images
+    - Add alpha test warning, talk about word ordering 'logo' vs 'churl'
+	- new 'help' button images
 	- check all social media links
 	- css fixes
     	- long words don't fit
-    - 'more..' should open in new tab
+    	- image not quite centered
 	History
     	- redo entirely
     	
 Bug:
-    - def_a set twice... and nulls in DB ... the metastats data is never actually being saved, lol...
-        avg_known = int(db.session.query(func.avg(TestLog.a)).filter(TestLog.num_answered > 10)[0][0])
-        current_app.config['SESSION_REDIS'].set('avg_known', avg_known)
-        db.session.query(MetaStatistics).first().default_a = avg_known
-        avg_answered = int(db.session.query(func.avg(TestLog.num_answered)).filter(TestLog.num_answered > 10)[0][0])
-        current_app.config['SESSION_REDIS'].set('avg_answered', avg_answered)
-        db.session.query(MetaStatistics).first().default_a = avg_answered
 
 Misc:
 	- redo the readme for github
@@ -45,10 +42,17 @@ CORE/BOTH:
     - enable autopushing l2r w/ the meta updates
     - update packages/python
     - identify magic numbers w/ inline comments
-    - add a shutdown fn (set config TEST_TIMEOUT to 1, force update)
+    - flesh out admin page
+        - add a shutdown fn (set config TEST_TIMEOUT to 1, force update)
+        - flush/reset redis
     
 Fork (Keep jiken in mind EVERY git commit):
     - go through git log to find changes to push across
+    
+++++
+LATER
+++++
+    - reduce step size for l2r
     
 +++++++++++
 STRETCH
