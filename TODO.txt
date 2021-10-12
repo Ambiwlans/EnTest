@@ -45,6 +45,7 @@ CORE/BOTH:
     - enable autopushing l2r w/ the meta updates
     - update packages/python
     - identify magic numbers w/ inline comments
+    - add a shutdown fn (set config TEST_TIMEOUT to 1, force update)
     
 Fork (Keep jiken in mind EVERY git commit):
     - go through git log to find changes to push across
