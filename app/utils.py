@@ -21,6 +21,10 @@ def sigmoid(x, t, a, e):
 # Inverse of the logistical/sigmoid fn
     # used to grab x vals given y on our sigmoid
 def logit(y, t, a):
+    if y == 0:
+        y = 0.00001
+    if t == 0:
+        t = 0.00001
     x = (np.log((1/y) - 1))/t + a
     return x
 
@@ -64,7 +68,7 @@ def sigmoid_cost_regularized(params, true_X, true_Y, last_t, last_a):
     #Regularization penalties
     
     #Clip OOB values
-    if t <= 0: return (1 - t)*100
+    if t <= 0.00001: return 100
     if a < 1: return 100
     
     #Penalize very large jumps

@@ -9,7 +9,7 @@ CUR
 	- image not quite centered
 	- hide help button for now
 	- retest on multiple resolutions
-- remove the white BG from the icon?
+    - remove the white BG from the icon?
 - fix the log overrun problem
 - look for dictionaries that have apis
 
@@ -39,34 +39,6 @@ Front end:
     	
 Bugs:
     - forcemetaupdate throwing a timeout with no msgs... randomly twice, then it worked fine. (was cpu sleeping?)
-    - crash from divide by 0 (loga)
-        2021-10-13T16:20:53.720934+00:00 app[web.1]: 10.1.26.97 - - [13/Oct/2021:16:20:53 +0000] "GET /test?a=1&q=2169 HTTP/1.1" 200 12467 "https://enken.herokuapp.com/test?a=0&q=3035" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0"
-        2021-10-13T16:20:55.809645+00:00 app[web.1]: Test #22: A = 4633.731316649999,  T = -9.36373632385697e-12,  # = 76 Question#: 1
-        2021-10-13T16:20:55.813362+00:00 heroku[router]: at=info method=GET path="/test?a=1&q=4631" host=enken.herokuapp.com request_id=4d65baa0-7bef-4811-988c-5d921c2ee4c7 fwd="135.23.49.173" dyno=web.1 connect=0ms service=672ms status=200 bytes=13133 protocol=https
-        2021-10-13T16:20:55.813649+00:00 app[web.1]: 10.1.26.97 - - [13/Oct/2021:16:20:55 +0000] "GET /test?a=1&q=4631 HTTP/1.1" 200 12855 "https://enken.herokuapp.com/test?a=1&q=2169" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:93.0) Gecko/20100101 Firefox/93.0"
-        2021-10-13T16:20:57.109302+00:00 app[web.1]: /app/app/utils.py:71: RuntimeWarning: invalid value encountered in log
-        2021-10-13T16:20:57.109312+00:00 app[web.1]: reg += np.log((t / last_t) + (last_t / t) - 1) / i
-        2021-10-13T16:20:57.242839+00:00 app[web.1]: /app/app/utils.py:24: RuntimeWarning: divide by zero encountered in double_scalars
-        2021-10-13T16:20:57.242841+00:00 app[web.1]: x = (np.log((1/y) - 1))/t + a
-        2021-10-13T16:20:57.243781+00:00 app[web.1]: [2021-10-13 16:20:57,243] ERROR in app: Exception on /test [GET]
-        2021-10-13T16:20:57.243781+00:00 app[web.1]: Traceback (most recent call last):
-        2021-10-13T16:20:57.243782+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.6/site-packages/flask/app.py", line 2311, in wsgi_app
-        2021-10-13T16:20:57.243782+00:00 app[web.1]: response = self.full_dispatch_request()
-        2021-10-13T16:20:57.243783+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.6/site-packages/flask/app.py", line 1834, in full_dispatch_request
-        2021-10-13T16:20:57.243783+00:00 app[web.1]: rv = self.handle_user_exception(e)
-        2021-10-13T16:20:57.243783+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.6/site-packages/flask/app.py", line 1737, in handle_user_exception
-        2021-10-13T16:20:57.243783+00:00 app[web.1]: reraise(exc_type, exc_value, tb)
-        2021-10-13T16:20:57.243784+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.6/site-packages/flask/_compat.py", line 36, in reraise
-        2021-10-13T16:20:57.243784+00:00 app[web.1]: raise value
-        2021-10-13T16:20:57.243784+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.6/site-packages/flask/app.py", line 1832, in full_dispatch_request
-        2021-10-13T16:20:57.243785+00:00 app[web.1]: rv = self.dispatch_request()
-        2021-10-13T16:20:57.243785+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.6/site-packages/flask/app.py", line 1818, in dispatch_request
-        2021-10-13T16:20:57.243786+00:00 app[web.1]: return self.view_functions[rule.endpoint](**req.view_args)
-        2021-10-13T16:20:57.243786+00:00 app[web.1]: File "/app/app/views.py", line 179, in test
-        2021-10-13T16:20:57.243786+00:00 app[web.1]: x = int(logit((random.random()**current_app.config['QUESTION_VARIABLITY'])/2, *res.x))
-        2021-10-13T16:20:57.243798+00:00 app[web.1]: OverflowError: cannot convert float infinity to integer
-        2021-10-13T16:20:57.245803+00:00 heroku[router]: at=info method=GET path="/test?a=1&q=1" host=enken.herokuapp.com request_id=11f5a47a-28cf-40fb-b138-3040144e4307 fwd="135.23.49.173" dyno=web.1 connect=0ms service=205ms status=500 bytes=451 protocol=https
-
 
 Misc:
 	- redo the readme for github
