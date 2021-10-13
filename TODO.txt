@@ -8,7 +8,6 @@ CUR
 	- long words don't fit
 	- hide help button for now
 	- retest on multiple resolutions
-    - remove the white BG from the icon?
 - fix the log overrun problem
 - look for dictionaries that have apis
 
