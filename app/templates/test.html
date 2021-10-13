@@ -31,6 +31,9 @@
                         {% endif %}
                     </span>
                     <h1 class="questionword">{{question.question}}</h1>
+                    <script>
+                        jQuery("#questionword").fitText(.8, { minFontSize: '20px', maxFontSize: '64px' });
+                    </script>
                 </div>
                 <div class="backside container">
                     <h4 class="meaning">{{question.answer}}</h4>
@@ -112,6 +115,7 @@
 {% block scripts %}
     {{super()}}
     <script type="text/javascript" src="{{url_for('static', filename='js/hotkeys.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/jquery.fittext.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/tooltip.js')}}"></script>
     {%- include 'chart.js' -%}
     <script>

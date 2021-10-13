@@ -5,7 +5,6 @@ CUR
 - redo history
 - check all social media links
 - css fixes
-	- long words don't fit
 	- hide help button for now
 	- retest on multiple resolutions
 - fix the log overrun problem
@@ -33,7 +32,7 @@ DB:
         
 Front end:
 	- new 'help' button images
-    	- FAQ style?
+    	- FAQ style? On home page?
     	
 Bugs:
     - forcemetaupdate throwing a timeout with no msgs... randomly twice, then it worked fine. (was cpu sleeping?)
@@ -41,7 +40,6 @@ Bugs:
 Misc:
 	- redo the readme for github
 	- beta testing
-	- enable the keep alive
     
 CORE/BOTH:
     - enable autopushing l2r w/ the meta updates

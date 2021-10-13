@@ -24,6 +24,7 @@ Muted grey #6c757d
 }
 
 .help_btn {
+    visibility: hidden; /* TEMPORARY until there is an english faq*/
     color: #117a8b !important;
     padding-left: 20px;
     vertical-align: top;
@@ -45,9 +46,9 @@ Muted grey #6c757d
     margin: 0px auto;
 }
 
-.questionword {
+/*.questionword {
     font-size: 64px;
-}
+}*/
 
 .my_rank {
     font-size: 12px;
