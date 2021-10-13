@@ -6,7 +6,6 @@ CUR
 - check all social media links
 - css fixes
 	- long words don't fit
-	- image not quite centered
 	- hide help button for now
 	- retest on multiple resolutions
     - remove the white BG from the icon?
