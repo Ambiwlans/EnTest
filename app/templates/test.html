@@ -21,18 +21,20 @@
         	<!-- Flashcard -->    	
         	<div class="flashcard" onclick="flip()">
                 <div class="frontside container">
-                    <span class="my_rank" data-toggle="tooltip" data-placement="left" title="Word difficulty ranking">{{question.my_rank}}</span>
-                    <span class="top-center">
-                        <p class="count" data-toggle="tooltip" data-placement="top" title="How many you've answered so far">{{cnt + 1}}</p>
-                    </span>
-                    <span class="top-right">
-                        {% if question.freq_per_mil != 0 %}
-                            <p class="freq" data-toggle="tooltip" data-placement="right" title="Frequency of appearance in text (per million words)">{{question.freq_per_mil}}</p>
-                        {% endif %}
-                    </span>
+                    <div class="frontside-data container">
+                        <span class="my_rank" data-toggle="tooltip" data-placement="left" title="Word difficulty ranking">{{question.my_rank}}</span>
+                        <span class="top-center">
+                            <p class="count" data-toggle="tooltip" data-placement="top" title="How many you've answered so far">{{cnt + 1}}</p>
+                        </span>
+                        <span class="top-right">
+                            {% if question.freq_per_mil != 0 %}
+                                <p class="freq" data-toggle="tooltip" data-placement="right" title="Frequency of appearance in text (per million words)">{{question.freq_per_mil}}</p>
+                            {% endif %}
+                        </span>
+                    </div>
                     <h1 class="questionword">{{question.question}}</h1>
                     <script>
-                        jQuery("#questionword").fitText(.8, { minFontSize: '20px', maxFontSize: '64px' });
+                        jQuery(".questionword").fitText(1, { minFontSize: '20px', maxFontSize: '64px' });
                     </script>
                 </div>
                 <div class="backside container">

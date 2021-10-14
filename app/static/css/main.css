@@ -42,13 +42,21 @@ Muted grey #6c757d
 /* Front */
 .frontside {
     right: 0px;
-    width: 250px;
+    width: 600px;
     margin: 0px auto;
 }
 
-/*.questionword {
+.frontside-data {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    width: 400px
+}
+
+.questionword {
     font-size: 64px;
-}*/
+    margin-top: 15px;
+}
 
 .my_rank {
     font-size: 12px;
