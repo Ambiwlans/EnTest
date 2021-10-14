@@ -42,7 +42,7 @@ Muted grey #6c757d
 /* Front */
 .frontside {
     right: 0px;
-    width: 600px;
+    width: 100%;
     margin: 0px auto;
 }
 
@@ -50,12 +50,12 @@ Muted grey #6c757d
     position: absolute;
     left: 0px;
     right: 0px;
-    width: 400px
+    width: 60%;
 }
 
-.questionword {
+#questionword {
     font-size: 64px;
-    margin-top: 15px;
+    margin-top: 50px;
 }
 
 .my_rank {

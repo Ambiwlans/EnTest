@@ -5,8 +5,7 @@ CUR
 - redo history
 - check all social media links
 - css fixes
-	- hide help button for now
-	- retest on multiple resolutions
+	- fix backside .... increase height? Overflow not handled correctly.
 - fix the log overrun problem
 - look for dictionaries that have apis
 
@@ -33,6 +32,7 @@ DB:
 Front end:
 	- new 'help' button images
     	- FAQ style? On home page?
+    	- reenable button
     	
 Bugs:
     - forcemetaupdate throwing a timeout with no msgs... randomly twice, then it worked fine. (was cpu sleeping?)
