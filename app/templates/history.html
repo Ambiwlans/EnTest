@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 	<div class="container text-center">
-        <a href="/"><img class="title-sm" src="/static/img/jiken.png"></a>
-		<p class="slogan">Test Your Kanji</p>
+        <a href="/"><img class="title-sm" src="/static/img/entest.png"></a>
+		<p class="slogan">Test Your Vocab</p>
 		<br>
 		Results for test on {{(date|string)[:-3]}}GMT
 		<br>
@@ -21,10 +21,6 @@
             <canvas id="predChart"></canvas>
         </div>
         
-        <hr>
-        <!--div class="d-flex justify-content-center"><script data-cfasync='false' type='text/javascript' src='//p386432.clksite.com/adServe/banners?tid=386432_758560_2'></script></div-->
-        <hr>
-        
         <div class="explanation container">
             <!-- Stats -->
             <br>
@@ -38,7 +34,7 @@
         	than the average {{avg_answered}} of other testers. {% if curtest %}Click <a href="/test?a=-1">here</a> to keep going!{% endif %}
         	
         	<br>
-    		You know <b>{{pred[0]}}</b> kanji compared to the average of {{avg_known}}. {% if pct_known_by_appearance == '100.00' %} You can read at a native level. {% else %} This is <b>{{pct_known_by_appearance}}%</b> of kanji as they appear in text.{% endif %}
+    		You know <b>{{pred[0]}}</b> words compared to the average of {{avg_known}}. {% if pct_known_by_appearance == '100.00' %} You can read at a native level. {% else %} This is <b>{{pct_known_by_appearance}}%</b> of words as they appear in text.{% endif %}
     		
     		<br><br>
     		{% if jlpt_recc == 1 %}
@@ -54,22 +50,14 @@
             {% else %}
                 It doesn't look like you're ready for the  <b><a href="https://www.jlpt.jp/e/index.html">JLPT</a></b>/Kanken just yet. Remember, progress is a slow process but you can do it! I hear https://www.duolingo.com/ is good, but it will always be hard work!
             {% endif %}
-            
-            <br>
-            {% if kk_recc == -1 %}
-                Either you're a dirty cheat or a true <b>Kanji God</b> amongst mortals and I bow before you! Kanken should take a test from you!
-            {% elif kk_recc == -2 %}
-                You're also 'ready' for <b><a href="https://www.kanken.or.jp/">Kanken</a> level pre-2</b>! (Kanken is notoriously brutal, make sure you are drawing these kanji in your sleep before trying!)
-            {% elif kk_recc > 0 %}
-                You're also 'ready' for <b><a href="https://www.kanken.or.jp/">Kanken</a> level {{kk_recc}}</b>! (Kanken is notoriously brutal, make sure you are drawing these kanji in your sleep before trying!)
-            {% endif %}
             </p>
-            <!-- Relevant kanji lists -->
+            
+            <!-- Study list -->
             {% if wronganswers|length > 0 %}
-                <h3 class="text-left">Kanji to review:</h3>
+                <h3 class="text-left">Words to review:</h3>
             	<h1>
         		{% for q in wronganswers[:10] %}
-                    <a href="https://jisho.org/search/{{q[1]}} %23kanji" class="review">{{q[1]}}</a>{{ " - " if not loop.last }} 		
+                    <a href="https://www.dictionary.com/browse/{{q[1]}}" class="review">{{q[1]}}</a>{{ " - " if not loop.last }} 		
         		{% endfor %}
         		</h1>	
             {% endif %}
@@ -80,9 +68,9 @@
         <div class="btn-toolbar float-right" role="toolbar">
         <div class="btn-group btn-group-sm sharegroup" data-toggle="tooltip" data-placement="top" title="Share your score with friends" role="group" aria-label="Share your score with friends">
             <a type="button" class="btn btn-primary" id="sharetw" role="btn" 
-                href=" https://twitter.com/intent/tweet?via=Ambiwlans1&url=https%3A%2F%2Fjiken.herokuapp.com%2Ft%2F{{id}}&text=I%20know%20{{pred[0]}}%20kanji%21%20Top%20me%3F&hashtags=jiken,kanji,challenge">
+                href=" https://twitter.com/intent/tweet?via=Ambiwlans1&url=https%3A%2F%2Fenken.herokuapp.com%2Ft%2F{{id}}&text=I%20know%20{{pred[0]}}%20words%21%20Top%20me%3F&hashtags=entest,vocab,challenge">
                 <i class="fab fa-twitter fa-lg"></i></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            <a type="button" class="btn btn-primary" id="sharefb" role="btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjiken.herokuapp.com%2Ft%2F{{id}}"><i class="fab fa-facebook fa-lg"></i></a>
+            <a type="button" class="btn btn-primary" id="sharefb" role="btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fenken.herokuapp.com%2Ft%2F{{id}}"><i class="fab fa-facebook fa-lg"></i></a>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Nav Button Block">
             <a type="button" class="btn btn-success" id="new" role="btn" href="/test">New Test</a>

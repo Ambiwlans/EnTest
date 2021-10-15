@@ -2,12 +2,10 @@
 CUR
 ###########
 
-- redo history
 - check all social media links
 - css fixes
-	- fix backside .... increase height? Overflow not handled correctly.
+	- fix backside .... increase height? Overflow not handled well.
 - fix the log overrun problem
-- look for dictionaries that have apis
 
 +++++++++++
 MAIN
@@ -16,14 +14,14 @@ MAIN
 Tweaking:    
     - rework the magic numbers involved in estimating a,t (t especially)
     - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)
-    - fix the words multiplier (10k .... ~5x?)
+    - fix the words multiplier (10k .... 5.45x)
     
 DB:
     ? change the dictionary for simpler words to cut down on complexity
         - use 2~3 dictionaries as needed
         - show multiple or just one
         - multiple languages/setting? (german, japanese definitions?)
-        - can i pull definitions and not store them myself? (could allow many more definitions, save SQL space)
+        - https://dictionaryapi.com/ allows 1k/day, wordnik.com allows 100/hr ... enough to rebuild DB, but not grab live
     - need to handle logging questions better
         - currently could overrun the 10k limit and crash server...
         - why ever log more than 500?
@@ -33,22 +31,30 @@ Front end:
 	- new 'help' button images
     	- FAQ style? On home page?
     	- reenable button
-    	
+    - write about caveats for 'what is a word' (compounds, stems, conjugations), how accurate it will be, and my 10k sample
+    - History
+        - add toefl, grade level estimates
+        
 Bugs:
-    - forcemetaupdate throwing a timeout with no msgs... randomly twice, then it worked fine. (was cpu sleeping?)
+    - forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
 
 Misc:
 	- redo the readme for github
 	- beta testing
+	- " The origin of the content should also be acknowledged, including OPTED, Project Gutenburg and the 1913 edition of Webster's Unabridged Dictionary."
+	
     
 CORE/BOTH:
     - enable autopushing l2r w/ the meta updates
+        - also refresh the redis when doing a meta-update
     - update packages/python, trim reqs
     - identify magic numbers w/ inline comments
     - move scheduler times into config
     - flesh out an admin page
         - add a shutdown fn (set config TEST_TIMEOUT to 1, force update)
         - flush/reset redis
+    - show histograph of historical user scores and place user on it
+    - 
     
 Fork (Keep jiken in mind EVERY git commit):
     - go through git log to find changes to push across
@@ -67,3 +73,5 @@ MAYBE
 ? log blocks of questions in test and drop this table entirely? (incorrect way to do it, but handles the 10k cap better)
 ? change colour scheme? Dark mode?
 ? merger of all testing thingies? Select a from and to (kanji->english, eng->eng) .... some losses from going generic, easier to maintain, harder to build... vocab only?
+? switch to dictionary api? (free is normally 100s/hr which is like 1~2 users only lol)
+    https://medium.com/@martin.breuss/finding-a-useful-dictionary-api-52084a01503d
