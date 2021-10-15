@@ -35,8 +35,8 @@ Muted grey #6c757d
 }
 
 .flashcard {
-    margin: 30px 0px;
-    height: 150px;
+    margin-top: 25px;
+    height: 225px;
 }
 
 /* Front */
@@ -102,12 +102,6 @@ Muted grey #6c757d
     .meaning {
         font-size: 24px;
     }
-    .onyomi {
-        font-size: 16px;
-    }
-    .kunyomi {
-        font-size: 16px;
-    }
     .more {
         font-size: 12px;
     }
@@ -161,7 +155,7 @@ Muted grey #6c757d
         padding-top: 50px;
     }
     body {
-        margin-top: 50px;
+        margin-top: 25px;
     }
 }
 

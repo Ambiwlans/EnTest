@@ -2,11 +2,13 @@
 CUR
 ###########
 
-- check all social media links
-- css fixes
-	- fix backside .... increase height? Overflow not handled well.
 - fix the log overrun problem
-
+- fix the words multiplier (10k .... 5.45x)
+- hp
+    - " The origin of the content should also be acknowledged, including OPTED, Project Gutenburg and the 1913 edition of Webster's Unabridged Dictionary."
+    - works best for users that know 1~20k words
+    - add some more seo to the description
+    
 +++++++++++
 MAIN
 +++++++++++
@@ -14,19 +16,14 @@ MAIN
 Tweaking:    
     - rework the magic numbers involved in estimating a,t (t especially)
     - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)
-    - fix the words multiplier (10k .... 5.45x)
     
-DB:
-    ? change the dictionary for simpler words to cut down on complexity
-        - use 2~3 dictionaries as needed
-        - show multiple or just one
-        - multiple languages/setting? (german, japanese definitions?)
-        - https://dictionaryapi.com/ allows 1k/day, wordnik.com allows 100/hr ... enough to rebuild DB, but not grab live
+DB:       
     - need to handle logging questions better
         - currently could overrun the 10k limit and crash server...
         - why ever log more than 500?
         - drop id?
-        
+    - add binary columns for inclusion in various groups (toefl,oxford 3000, etc)
+    
 Front end:
 	- new 'help' button images
     	- FAQ style? On home page?
@@ -41,9 +38,7 @@ Bugs:
 Misc:
 	- redo the readme for github
 	- beta testing
-	- " The origin of the content should also be acknowledged, including OPTED, Project Gutenburg and the 1913 edition of Webster's Unabridged Dictionary."
 	
-    
 CORE/BOTH:
     - enable autopushing l2r w/ the meta updates
         - also refresh the redis when doing a meta-update
@@ -62,7 +57,6 @@ Fork (Keep jiken in mind EVERY git commit):
 +++++++++++
 LATER
 +++++++++++
-
 - reduce step size for l2r
 - set test timeout back to 1hr
     
@@ -75,3 +69,10 @@ MAYBE
 ? merger of all testing thingies? Select a from and to (kanji->english, eng->eng) .... some losses from going generic, easier to maintain, harder to build... vocab only?
 ? switch to dictionary api? (free is normally 100s/hr which is like 1~2 users only lol)
     https://medium.com/@martin.breuss/finding-a-useful-dictionary-api-52084a01503d
+? change the dictionary for simpler words to cut down on complexity
+    - https://dictionaryapi.com/ allows 1k/day, wordnik.com allows 100/hr ... enough to rebuild DB, but not grab live (check permissions)
+    - https://medium.com/@martin.breuss/finding-a-useful-dictionary-api-52084a01503d
+    - use a 'learner's dictionary' for 5000 basic words
+    - manually rewrite the easiest 100.
+    - multiple languages/setting? (german, japanese definitions?) (E-J test ...)
+    
