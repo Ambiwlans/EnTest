@@ -3,7 +3,6 @@ CUR
 ###########
 
 - fix the log overrun problem
-- fix the words multiplier (10k .... 5.45x)
 - hp
     - " The origin of the content should also be acknowledged, including OPTED, Project Gutenburg and the 1913 edition of Webster's Unabridged Dictionary."
     - works best for users that know 1~20k words
@@ -22,7 +21,7 @@ DB:
         - currently could overrun the 10k limit and crash server...
         - why ever log more than 500?
         - drop id?
-    - add binary columns for inclusion in various groups (toefl,oxford 3000, etc)
+    - add binary columns for word's inclusion in various groups (toefl,oxford 3000, etc)
     
 Front end:
 	- new 'help' button images
@@ -63,7 +62,7 @@ LATER
 +++++++++++
 MAYBE
 +++++++++++
-
+? better message for attempting to continue a timed out test? (rarely comes up)
 ? log blocks of questions in test and drop this table entirely? (incorrect way to do it, but handles the 10k cap better)
 ? change colour scheme? Dark mode?
 ? merger of all testing thingies? Select a from and to (kanji->english, eng->eng) .... some losses from going generic, easier to maintain, harder to build... vocab only?

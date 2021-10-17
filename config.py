@@ -86,5 +86,8 @@ class DeploymentConfig:
     SHIFTSIZE_SLOPE = 50                                            # shiftsize = int(round((errorlevel * qrank) / current_app.config['SHIFTSIZE_SLOPE']) + 1)
     ERRORLEVEL_CUTOFF_PCT = .5                                      # if (errorlevel < ERRORLEVEL_CUTOFF_PCT): continue 
     
+    # Sample scaler
+    SAMPLE_SCALER = 5.5                                             #scale scores to this on display
+    
 #Easy switch for different configs
 Config = DeploymentConfig

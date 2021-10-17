@@ -10,9 +10,9 @@
 		<!-- Predictions -->    	    	
     	<div class="container pred">
         	<p class="pred-header">Estimates</p>
-        	<span class="predrange"><span class="predrange predlower" data-toggle="tooltip" data-placement="left" title="lower bound">{{pred[2]}}</span>&nbsp; &nbsp; - &nbsp; &nbsp;</span>
-            	<span class="predmain" data-toggle="tooltip" data-placement="top" data-html="true" title="{{pred[0]}}">{{pred[0]}}</span>
-        	<span class="predrange predupper" data-toggle="tooltip" data-placement="right" title="upper bound">&nbsp; &nbsp; - &nbsp; &nbsp;{{pred[1]}}</span>
+        	<span class="predrange"><span class="predrange predlower" data-toggle="tooltip" data-placement="left" title="lower bound">{{(pred[2] * scaler)|int}}</span>&nbsp; &nbsp; - &nbsp; &nbsp;</span>
+            	<span class="predmain" data-toggle="tooltip" data-placement="top" data-html="true" title="{{(pred[0] * scaler)|int}}">{{(pred[0] * scaler)|int}}</span>
+        	<span class="predrange predupper" data-toggle="tooltip" data-placement="right" title="upper bound">&nbsp; &nbsp; - &nbsp; &nbsp;{{(pred[1] * scaler)|int}}</span>
     	</div>
     	
     	
@@ -34,7 +34,7 @@
         	than the average {{avg_answered}} of other testers. {% if curtest %}Click <a href="/test?a=-1">here</a> to keep going!{% endif %}
         	
         	<br>
-    		You know <b>{{pred[0]}}</b> words compared to the average of {{avg_known}}. {% if pct_known_by_appearance == '100.00' %} You can read at a native level. {% else %} This is <b>{{pct_known_by_appearance}}%</b> of words as they appear in text.{% endif %}
+    		You know <b>{{(pred[0] * scaler)|int}}</b> words compared to the average of {{(avg_known * scaler)|int}}. {% if pct_known_by_appearance == '100.00' %} You can read at a native level. {% else %} This is <b>{{pct_known_by_appearance}}%</b> of words as they appear in text.{% endif %}
     		
     		<br><br>
     		{% if jlpt_recc == 1 %}
@@ -68,7 +68,7 @@
         <div class="btn-toolbar float-right" role="toolbar">
         <div class="btn-group btn-group-sm sharegroup" data-toggle="tooltip" data-placement="top" title="Share your score with friends" role="group" aria-label="Share your score with friends">
             <a type="button" class="btn btn-primary" id="sharetw" role="btn" 
-                href=" https://twitter.com/intent/tweet?via=Ambiwlans1&url=https%3A%2F%2Fenken.herokuapp.com%2Ft%2F{{id}}&text=I%20know%20{{pred[0]}}%20words%21%20Top%20me%3F&hashtags=entest,vocab,challenge">
+                href=" https://twitter.com/intent/tweet?via=Ambiwlans1&url=https%3A%2F%2Fenken.herokuapp.com%2Ft%2F{{id}}&text=I%20know%20{{(pred[0] * scaler)|int}}%20words%21%20Top%20me%3F&hashtags=entest,vocab,challenge">
                 <i class="fab fa-twitter fa-lg"></i></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             <a type="button" class="btn btn-primary" id="sharefb" role="btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fenken.herokuapp.com%2Ft%2F{{id}}"><i class="fab fa-facebook fa-lg"></i></a>
         </div>

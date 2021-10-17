@@ -215,6 +215,7 @@ def test():
     print("Test #" + str(session['TestLog'].id) + ": A = " + str(session['TestLog'].a) + ",  T = " + str(session['TestLog'].t) + ",  # = " + str(len(session['QuestionLog'])) + " Question#: " + str(newquestion['my_rank']))
 
     return render_template('test.html', question = newquestion, cnt = len(history), id = session['TestLog'].id, \
+        scaler = int(current_app.config['SAMPLE_SCALER']), \
         a = session['TestLog'].a, t = session['TestLog'].t, wronganswers = wronganswers, rightanswers = rightanswers, xmax = xmax, pred = pred)
 
 @bp.route("/t/<id>")
@@ -312,6 +313,7 @@ def history(id):
     
     return  render_template('history.html', id = id, \
         a = data['TestLog'].a, t = data['TestLog'].t, wronganswers = wronganswers, rightanswers = rightanswers, xmax = xmax, pred = pred,\
+        scaler = int(current_app.config['SAMPLE_SCALER']), \
         curtest = curtest, cnt = cnt, \
         date = data['TestLog'].start_time, \
         avg_answered = int(current_app.config['SESSION_REDIS'].get('avg_answered') or 0), \

@@ -58,7 +58,7 @@ var myLineChart = new Chart(ctx, {
                 type: 'linear',
                 beginAtZero: true,
                 ticks: {
-                    max: {{xmax}}
+                    max: {{((scaler * xmax / 500)|round(0, 'ceil')) * 500}}
                 }
             }],
             yAxes: [{
@@ -91,19 +91,19 @@ var myLineChart = new Chart(ctx, {
 
 function makePrediction() {
     var pred = []; 
-    for (var x = 0; x <= {{config['MAX_X']}} + 50; x = x + 50) {
-        y = 1 / (1 + 2**({{t}} * (x - {{a}})))
+    for (var x = 0; x <= parseInt({{scaler}} * {{config['MAX_X']}}) + 50; x = x + 50) {
+        y = 1 / (1 + 2**({{t / scaler}} * (x - {{(a * scaler)|int}})))
         pred.push({x: x, y: y});
     }
     return pred;
 };
 
 function rightPoints(val) {
-    return {x: val[0], y: 1, question: val[1]};
+    return {x: parseInt({{scaler}} * val[0]), y: 1, question: val[1]};
 };
 
 function wrongPoints(val) {
-    return {x: val[0], y: 0, question: val[1]};
+    return {x: parseInt({{scaler}} * val[0]), y: 0, question: val[1]};
 };
 
 </script>
