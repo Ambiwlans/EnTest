@@ -120,10 +120,10 @@ def update_TestQuestionLogs(app):
                     incdir = int(((qrank < addTest.a) -.5)* 2)
                     shiftsize = int(round((errorlevel * qrank) / current_app.config['SHIFTSIZE_SLOPE']) + 1)
 
-                    print("outlier found: Question#" + str(q.testmaterialid) + " rank#" + str(qrank))
-                    print("errorlevel: " + str(errorlevel))
-                    print("bumping to: " + str(incdir))
-                    print("shiftsize: " + str(shiftsize))
+#                    print("outlier found: Question#" + str(q.testmaterialid) + " rank#" + str(qrank))
+#                    print("errorlevel: " + str(errorlevel))
+#                    print("bumping to: " + str(incdir))
+#                    print("shiftsize: " + str(shiftsize))
                     
                     #correct for edge cases
                     if (qrank + shiftsize > max_rank):
@@ -133,9 +133,9 @@ def update_TestQuestionLogs(app):
                     if shiftsize < 1: continue
                     
                     # Update my_rank vals
-                    print("ranks (before):")
-                    pprint.pprint(temptestmat.loc[temptestmat['L2R_my_rank'].between(qrank + ((incdir * shiftsize) - shiftsize)/2, \
-                        qrank + ((incdir * shiftsize) + shiftsize)/2), 'L2R_my_rank'])
+#                    print("ranks (before):")
+#                    pprint.pprint(temptestmat.loc[temptestmat['L2R_my_rank'].between(qrank + ((incdir * shiftsize) - shiftsize)/2, \
+#                        qrank + ((incdir * shiftsize) + shiftsize)/2), 'L2R_my_rank'])
                     
                     # reverse increment each question down the line
                     temptestmat.loc[temptestmat['L2R_my_rank'].between(qrank + ((incdir * shiftsize) - shiftsize)/2, \
@@ -144,9 +144,9 @@ def update_TestQuestionLogs(app):
                     # increment the target question
                     temptestmat.loc[temptestmat['id'] == int(q.testmaterialid),'L2R_my_rank'] = int(qrank + (incdir * shiftsize))
                     
-                    print("ranks (after):")
-                    pprint.pprint(temptestmat.loc[temptestmat['L2R_my_rank'].between(qrank + ((incdir * shiftsize) - shiftsize)/2, \
-                        qrank + ((incdir * shiftsize) + shiftsize)/2), 'L2R_my_rank'])
+#                    print("ranks (after):")
+#                    pprint.pprint(temptestmat.loc[temptestmat['L2R_my_rank'].between(qrank + ((incdir * shiftsize) - shiftsize)/2, \
+#                        qrank + ((incdir * shiftsize) + shiftsize)/2), 'L2R_my_rank'])
                     
                     #Update the redis
                     app.config['SESSION_REDIS'].set('TempTestMaterial', temptestmat.to_msgpack(compress='zlib'))

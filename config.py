@@ -49,6 +49,9 @@ class DevelopmentConfig:
     # L2R
     SHIFTSIZE_SLOPE = 500                                           # shiftsize = int(round((errorlevel * SHIFTSIZE_SLOPE) / 500) + 1)
     ERRORLEVEL_CUTOFF_PCT = .5                                      # if (errorlevel < ERRORLEVEL_CUTOFF_PCT): continue 
+        
+    # Sample scaler
+    SAMPLE_SCALER = 5.5                                             #scale scores to this on display
     
 class DeploymentConfig:
 

@@ -2,12 +2,16 @@
 CUR
 ###########
 
+- enable autopushing l2r w/ the meta updates
+    - also refresh the redis when doing a meta-update
+
 - fix the log overrun problem
 - hp
     - " The origin of the content should also be acknowledged, including OPTED, Project Gutenburg and the 1913 edition of Webster's Unabridged Dictionary."
     - works best for users that know 1~20k words
     - add some more seo to the description
-    
+    - write about caveats for 'what is a word' (compounds, stems, conjugations), how accurate it will be, and my 10k sample
+        
 +++++++++++
 MAIN
 +++++++++++
@@ -27,7 +31,6 @@ Front end:
 	- new 'help' button images
     	- FAQ style? On home page?
     	- reenable button
-    - write about caveats for 'what is a word' (compounds, stems, conjugations), how accurate it will be, and my 10k sample
     - History
         - add toefl, grade level estimates
         
@@ -39,15 +42,14 @@ Misc:
 	- beta testing
 	
 CORE/BOTH:
-    - enable autopushing l2r w/ the meta updates
-        - also refresh the redis when doing a meta-update
+
     - update packages/python, trim reqs
     - identify magic numbers w/ inline comments
     - move scheduler times into config
     - flesh out an admin page
         - add a shutdown fn (set config TEST_TIMEOUT to 1, force update)
         - flush/reset redis
-    - show histograph of historical user scores and place user on it
+    - show histogram of historical user scores and place user on it
     - 
     
 Fork (Keep jiken in mind EVERY git commit):
@@ -58,10 +60,13 @@ LATER
 +++++++++++
 - reduce step size for l2r
 - set test timeout back to 1hr
-    
+- in /test it should show latest nodes
+- push stuff back to jiken
+
 +++++++++++
 MAYBE
 +++++++++++
+- make 'more...' a framed popup to avoid leaving site/test
 ? better message for attempting to continue a timed out test? (rarely comes up)
 ? log blocks of questions in test and drop this table entirely? (incorrect way to do it, but handles the 10k cap better)
 ? change colour scheme? Dark mode?
