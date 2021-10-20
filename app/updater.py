@@ -17,7 +17,7 @@ import numpy as np
 import pickle
 
 #Models
-from .models import TestMaterial, \
+from .models import TestMaterial, TempTestMaterial, \
     TestLog, QuestionLog, \
     MetaStatistics
 
@@ -201,13 +201,33 @@ def update_meta(app):
         print("Known = " + str(avg_known))
         print("Answered = " + str(avg_answered))
         
-        #L2R update
+        #L2R update (to temp)
         if app.config['SESSION_REDIS'].get('TempTestMaterial') is not None:
-            print("updating L2R testmats")
+            print("Updating L2R temptestmats")
             temptestmat = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TempTestMaterial'))
             temptestmat.to_sql("temptestmaterial", db.engine, index=False, if_exists="replace", \
                                dtype={'id': SMALLINT(unsigned=True), 'L2R_my_rank': SMALLINT(unsigned=True)})        
             db.session.commit()
+        else:
+            print("Can't update L2R temptestmats, missing redis")
+        
+        
+        if app.config['PUSH_L2R_LIVE']:
+            #Push the L2R update from temp to full and use that in redis right away
+            print("Pushing L2R testmats live")
+            num_updates_L2R = db.session.query(TestMaterial).join(TempTestMaterial, TempTestMaterial.id == TestMaterial.id).filter(TempTestMaterial.L2R_my_rank != TestMaterial.my_rank).count()
+            print("Found " + str(num_updates_L2R) + " items to update.")
+            db.engine.execute("""update temptestmaterial
+                              join testmaterial on testmaterial.id = temptestmaterial.id
+                              set my_rank = NULL;""")
+            db.engine.execute("""update temptestmaterial
+                              join testmaterial on testmaterial.id = temptestmaterial.id
+                              set my_rank = L2R_my_rank;""")
+            db.session.commit()
+            
+            #refresh redis w/ new data
+            current_app.config['SESSION_REDIS'].set('TestMaterial', pd.read_sql(db.session.query(TestMaterial).statement,db.engine).to_msgpack(compress='zlib'))
+            print("Refreshed redis TestMaterial with new data")
         
 # Clear ancient logs
 def clear_old_logs(app):

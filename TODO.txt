@@ -1,17 +1,14 @@
 ###########
 CUR
 ###########
-
-- enable autopushing l2r w/ the meta updates
-    - also refresh the redis when doing a meta-update
-
 - fix the log overrun problem
 - hp
-    - " The origin of the content should also be acknowledged, including OPTED, Project Gutenburg and the 1913 edition of Webster's Unabridged Dictionary."
+    - "The origin of the content should also be acknowledged, including OPTED, Project Gutenburg and the 1913 edition of Webster's Unabridged Dictionary."
     - works best for users that know 1~20k words
     - add some more seo to the description
     - write about caveats for 'what is a word' (compounds, stems, conjugations), how accurate it will be, and my 10k sample
-        
+    - links to jiken!
+       
 +++++++++++
 MAIN
 +++++++++++
@@ -19,6 +16,7 @@ MAIN
 Tweaking:    
     - rework the magic numbers involved in estimating a,t (t especially)
     - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)
+    - when question goes oob, try 5x for a new random question before defaulting to the one at the end
     
 DB:       
     - need to handle logging questions better
@@ -28,6 +26,9 @@ DB:
     - add binary columns for word's inclusion in various groups (toefl,oxford 3000, etc)
     
 Front end:
+    - links to multiple dictionaries!
+    - switch to wiktionary! It also has multilanguage support!
+        - re-examine ripping data from it.... but it looks very hard to support fully.
 	- new 'help' button images
     	- FAQ style? On home page?
     	- reenable button
@@ -35,7 +36,31 @@ Front end:
         - add toefl, grade level estimates
         
 Bugs:
+    - the scaler isn't multiplying correctly, it looks like it is getting clipped/rounded and then multiplied so its all x5.0
+    - test_log should ideally store num_known as well instead of just using 'a' which isn't quite accurate for comparisons
+    - words at extremes aren't reshuffling w/ l2r (like entest)
     - forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
+2021-10-19T04:30:14.000000+00:00 app[heroku-redis]: source=REDIS addon=redis-adjacent-20196 sample#active-connections=4 sample#load-avg-1m=0.255 sample#load-avg-5m=0.59 sample#load-avg-15m=0.49 sample#read-iops=0 sample#write-iops=0 sample#memory-total=15624048kB sample#memory-free=8190664kB sample#memory-cached=4558288kB sample#memory-redis=2011312bytes sample#hit-rate=0.99616 sample#evicted-keys=0
+2021-10-19T04:31:09.972163+00:00 app[web.1]: /app/.heroku/python/lib/python3.6/site-packages/scipy/stats/_continuous_distns.py:268: RuntimeWarning: Mean of empty slice.
+2021-10-19T04:31:09.972173+00:00 app[web.1]: loc = data.mean()
+2021-10-19T04:31:09.972666+00:00 app[web.1]: /app/.heroku/python/lib/python3.6/site-packages/numpy/core/_methods.py:85: RuntimeWarning: invalid value encountered in double_scalars
+2021-10-19T04:31:09.972667+00:00 app[web.1]: ret = ret.dtype.type(ret / rcount)
+2021-10-19T04:31:09.972759+00:00 app[web.1]: /app/.heroku/python/lib/python3.6/site-packages/scipy/stats/_continuous_distns.py:273: RuntimeWarning: Mean of empty slice.
+2021-10-19T04:31:09.972759+00:00 app[web.1]: scale = np.sqrt(((data - loc)**2).mean())
+2021-10-19T04:31:09.974492+00:00 app[web.1]: /app/app/utils.py:75: RuntimeWarning: invalid value encountered in double_scalars
+2021-10-19T04:31:09.974493+00:00 app[web.1]: reg += np.log((t / last_t) + (last_t / t) - 1) / i
+2021-10-19T04:31:09.974548+00:00 app[web.1]: /app/app/utils.py:76: RuntimeWarning: invalid value encountered in double_scalars
+2021-10-19T04:31:09.974548+00:00 app[web.1]: reg += (abs(a - last_a) / last_a) / (4 * i)
+2021-10-19T04:31:09.974688+00:00 app[web.1]: /app/app/utils.py:79: RuntimeWarning: divide by zero encountered in double_scalars
+2021-10-19T04:31:09.974690+00:00 app[web.1]: reg += (np.log((0.01/t)+3)) / (((last_a/150)**.3 + 1) * (i**.65))
+2021-10-19T04:31:09.974739+00:00 app[web.1]: /app/app/utils.py:82: RuntimeWarning: divide by zero encountered in double_scalars
+2021-10-19T04:31:09.974740+00:00 app[web.1]: reg += (np.log((t / 0.01)+3)) / (10 * (i**.65))
+2021-10-19T04:31:09.975854+00:00 app[web.1]: /app/.heroku/python/lib/python3.6/site-packages/numpy/core/fromnumeric.py:3118: RuntimeWarning: Mean of empty slice.
+2021-10-19T04:31:09.975854+00:00 app[web.1]: out=out, **kwargs)
+2021-10-19T04:31:09.977358+00:00 app[web.1]: /app/app/utils.py:75: RuntimeWarning: divide by zero encountered in double_scalars
+2021-10-19T04:31:09.977359+00:00 app[web.1]: reg += np.log((t / last_t) + (last_t / t) - 1) / i
+2021-10-19T04:31:09.978856+00:00 app[web.1]: /app/app/utils.py:76: RuntimeWarning: divide by zero encountered in double_scalars
+2021-10-19T04:31:09.978857+00:00 app[web.1]: reg += (abs(a - last_a) / last_a) / (4 * i)
 
 Misc:
 	- redo the readme for github
@@ -66,7 +91,10 @@ LATER
 +++++++++++
 MAYBE
 +++++++++++
+- export list to anki
+? change to a left side, rightside algorithm to fit, rather than sigmoid
 - make 'more...' a framed popup to avoid leaving site/test
+- show user other tests from same ip. links, graph
 ? better message for attempting to continue a timed out test? (rarely comes up)
 ? log blocks of questions in test and drop this table entirely? (incorrect way to do it, but handles the 10k cap better)
 ? change colour scheme? Dark mode?
