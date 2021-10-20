@@ -8,7 +8,6 @@ CUR
     - re-examine ripping data from it.... but it looks very hard to support fully.
         
 - hp
-    - "The origin of the content should also be acknowledged, including OPTED, Project Gutenburg and the 1913 edition of Webster's Unabridged Dictionary."
     - works best for users that know 1~20k words
     - add some more seo to the description
     - write about caveats for 'what is a word' (compounds, stems, conjugations), how accurate it will be, and my 10k sample
@@ -31,7 +30,6 @@ DB:
     
 Front end:
     - links to multiple dictionaries!
-
 	- new 'help' button images
     	- FAQ style? On home page?
     	- reenable button
@@ -49,7 +47,6 @@ Misc:
 	- beta testing
 	
 CORE/BOTH:
-
     - update packages/python, trim reqs
     - identify magic numbers w/ inline comments
     - move scheduler times into config
@@ -57,7 +54,6 @@ CORE/BOTH:
         - add a shutdown fn (set config TEST_TIMEOUT to 1, force update)
         - flush/reset redis
     - show histogram of historical user scores and place user on it
-    - 
     
 Fork (Keep jiken in mind EVERY git commit):
     - go through git log to find changes to push across
