@@ -243,3 +243,11 @@ body {
     width: 90%;
     max-width: 200px;
 }
+
+.card-header {
+    padding: 0px;
+}
+
+.collapseFAQ {
+    /*text-align: left;*/
+}
