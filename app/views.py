@@ -151,7 +151,7 @@ def test():
         
         p0 = [session['TestLog'].t, session['TestLog'].a]       # use last LOBF as starting point for new one
         
-        res = minimize(sigmoid_cost_regularized, p0, args=(xdata, ydata, p0[0], p0[1]),method="Nelder-Mead")
+        res = minimize(sigmoid_cost_regularized, p0, args=(xdata, ydata, p0[0], p0[1], float(current_app.config['SESSION_REDIS'].get('default_t') or 0.005)),method="Nelder-Mead")
             #,options={'eps': [0.0001,1]})#, bounds=[(0,10),(1,7000)])
         
         session['TestLog'].a = float(res.x[1])

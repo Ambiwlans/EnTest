@@ -42,7 +42,7 @@ def logit(y, t, a):
         
         # 0<a<6000
         # ~400 is average but this value need not be particularly penalized
-def sigmoid_cost_regularized(params, true_X, true_Y, last_t, last_a):
+def sigmoid_cost_regularized(params, true_X, true_Y, last_t, last_a, default_t):
     reg = 0
     t, a = params    
     i = len(true_X)
@@ -74,14 +74,14 @@ def sigmoid_cost_regularized(params, true_X, true_Y, last_t, last_a):
     if a < 1: return abs(a - 1) + 100
     
     #Penalize very large jumps
-    reg += np.log((t / last_t) + (last_t / t) - 1) / i       
-    reg += (abs(a - last_a) / last_a) / (4 * i)
+    reg += np.log((t / last_t) + (last_t / t) - 1)       
+    reg += (abs(a - last_a) / last_a) / 2
 
     #Penalize shallowness while a is small and early in test
-    reg += (np.log((0.01/t)+3)) / (((last_a/150)**.3 + 1) * (i**.65))
+    reg += (np.log((default_t / t) + 3)) / (((last_a/150)**.3 + 1) * (i**.75))
     
     #Penalize steepness while early in test
-    reg += (np.log((t / 0.01)+3)) / (10 * (i**.65))
+    reg += (np.log((t / default_t) + 3)) / (15 * (i**.75))
 
 #    print("")
 #    print("Cost on question #" +  str(i) +":")
