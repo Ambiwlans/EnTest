@@ -1,15 +1,6 @@
 ###########
 CUR
-###########
-- fix the log overrun problem (currently could overrun the 10k limit and crash server...)
-    - why ever log more than 250 for one test? (Allow min 40 tests at a time .... avg 100ish)
-        - keep in mind that i'm only talking about the sql end of things.... can track all until moving to DB
-            - good enough? can switch to bigger DB if I have the userbase
-    - drop id?
-    - change to a dense datatype?
-    - make a new col for each test, delete cols as needed? .... awful
-        - make each test a row .... have 10,000 columns? ... also horrific but maybe allowed?
-        
+###########        
 - History
     - add toefl, grade level estimates, categories? (like 'medical','archaic')       
     - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)

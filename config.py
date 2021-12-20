@@ -31,8 +31,9 @@ class DevelopmentConfig:
     SQLALCHEMY_ECHO=True
     
     # Data
-    MAX_QUESTIONS_LOGGED = 7500                                   #Max # of questions before clearing them from SQL 
-    MAX_TESTS_LOGGED = 7500                                       #Max # of tests before clearing them from SQL (must be larger than questions/test_length)
+    MAX_QUESTIONS_LOGGED = 9000                                   #Max # of questions before clearing them from SQL 
+    MAX_QUESTIONS_LOGGED_EACH = 250                               #Max # of questions saved from a test
+    MAX_TESTS_LOGGED = 9000                                       #Max # of tests before clearing them from SQL (must be larger than questions/test_length)
     MIN_TEST_LENGTH = 10                                          #Shorter tests won't be logged
     TEST_TIMEOUT = 1                                              #Minutes inactive before tests get dumped to SQL
     
@@ -71,8 +72,9 @@ class DeploymentConfig:
     SQLALCHEMY_ECHO=False
     
     # Data
-    MAX_QUESTIONS_LOGGED = 7500                                 #Max # of questions before clearing them from SQL 
-    MAX_TESTS_LOGGED = 7500                                     #Max # of tests before clearing them from SQL (must be larger than questions/test_length)
+    MAX_QUESTIONS_LOGGED = 9000                                 #Max # of questions before clearing them from SQL 
+    MAX_QUESTIONS_LOGGED_EACH = 250                             #Max # of questions saved from a test
+    MAX_TESTS_LOGGED = 9000                                     #Max # of tests before clearing them from SQL (must be larger than questions/test_length)
     MIN_TEST_LENGTH = 15                                        #Shorter tests won't be logged
     TEST_TIMEOUT = 2                                          #Minutes inactive before tests get dumped to SQL
     
