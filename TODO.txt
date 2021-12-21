@@ -1,6 +1,11 @@
 ###########
 CUR
 ###########        
+- new dictionary merger
+    ? change tags to bitflags (is this better in mysql anyways?)
+    ? merge defns into 1 field?
+    - add toefl, grade level, oxford 3000 fields
+    - need to keep under 5MB limit
 - History
     - add toefl, grade level estimates, categories? (like 'medical','archaic')       
     - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)
@@ -13,14 +18,12 @@ MAIN
 Tweaking:    
     
 DB:
-    - add binary columns for word tags (toefl, oxford 3000, archaic, computer, etc)
     
 Front end:
     - links to multiple dictionaries!
 	- new 'help' button images
-    	- FAQ style? On home page?
     	- reenable button
-    - report definition button
+    ? report definition button
         - popup that allows user to reccomend a definition
         - puts the text into a log (word id + suggestion) i can check manually later
         
@@ -35,6 +38,7 @@ Misc:
 	- beta testing
 	
 CORE/BOTH:
+    - DRILL PAGE/FEATURE
     - update packages/python, trim reqs
     - identify magic numbers w/ inline comments
     - move scheduler times into config

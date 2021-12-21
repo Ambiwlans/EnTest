@@ -38,10 +38,10 @@ def logit(y, t, a):
         
         # 0<t<inf
         # t is very steep > .1
-        # t is shallow < .001
+        # t is shallow < .0001
         
-        # 0<a<6000
-        # ~400 is average but this value need not be particularly penalized
+        # 0<a<10000
+        # ~5000 is average but this value need not be particularly penalized
 def sigmoid_cost_regularized(params, true_X, true_Y, last_t, last_a, default_t):
     reg = 0
     t, a = params    
@@ -78,10 +78,20 @@ def sigmoid_cost_regularized(params, true_X, true_Y, last_t, last_a, default_t):
     reg += (abs(a - last_a) / last_a) / 2
 
     #Penalize shallowness while a is small and early in test
-    reg += (np.log((default_t / t) + 3)) / (((last_a/150)**.3 + 1) * (i**.75))
+    affect_size = .5                                                    # reg term multiplier
+    shallowness = np.log((default_t / t) + 3)                           # (even = 1.4, steep = 1.1, shallow = 3~8)
+    bigness = 500000/(a**2 + 500000)                                    # ignore bigger a (1->1, 500 -> .6, 5000 -> .2)
+    earliness = 100 / (i**2 + 100)                                      # fall off term (1 -> 1, 15 -> .3, 50->.04, 100->.01)
+    
+    reg += affect_size * shallowness * bigness * earliness
+    
     
     #Penalize steepness while early in test
-    reg += (np.log((t / default_t) + 3)) / (15 * (i**.75))
+    affect_size = .1                                                    # reg term multiplier
+    steepness = np.log((t / default_t) + 3)                             # (even = 1.4, steep = 3~8, shallow = 1.1)
+    earliness = 100 / (i**2 + 100)                                      # fall off term (1 -> 1, 15 -> .3, 50->.04, 100->.01)
+    
+    reg += affect_size * steepness * earliness
 
 #    print("")
 #    print("Cost on question #" +  str(i) +":")

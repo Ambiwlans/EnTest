@@ -76,7 +76,7 @@ class DeploymentConfig:
     MAX_QUESTIONS_LOGGED_EACH = 250                             #Max # of questions saved from a test
     MAX_TESTS_LOGGED = 9000                                     #Max # of tests before clearing them from SQL (must be larger than questions/test_length)
     MIN_TEST_LENGTH = 15                                        #Shorter tests won't be logged
-    TEST_TIMEOUT = 2                                          #Minutes inactive before tests get dumped to SQL
+    TEST_TIMEOUT = 2                                            #Minutes inactive before tests get dumped to SQL
     
     # Flask-Session
     SESSION_TYPE = "redis"
