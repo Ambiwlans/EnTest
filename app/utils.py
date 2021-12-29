@@ -75,7 +75,7 @@ def sigmoid_cost_regularized(params, true_X, true_Y, last_t, last_a, default_t):
     
     #Penalize very large jumps
     reg += np.log((t / last_t) + (last_t / t) - 1)       
-    reg += (abs(a - last_a) / last_a) / 2
+    reg += (abs(a - last_a) / last_a)
 
     #Penalize shallowness while a is small and early in test
     affect_size = .5                                                    # reg term multiplier
