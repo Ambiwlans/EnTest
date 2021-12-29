@@ -86,10 +86,10 @@ class DeploymentConfig:
     GRAPH_AFTER = 9
     GRAPH_MAX_X = 10000
     MAX_X = 9999
-    QUESTION_VARIABLITY = 1.0                                       # .1 = low variance from the prediction, 2 = high variance
+    QUESTION_VARIABLITY = 1.5                                       # .1 = low variance from the prediction, 2 = high variance
         
     # L2R
-    SHIFTSIZE_SLOPE = 50                                            # shiftsize = int(round((errorlevel * qrank) / current_app.config['SHIFTSIZE_SLOPE']) + 1)
+    SHIFTSIZE_SLOPE = 10                                            # shiftsize = int(round((errorlevel * qrank) / current_app.config['SHIFTSIZE_SLOPE']) + 1)
     ERRORLEVEL_CUTOFF_PCT = .5                                      # if (errorlevel < ERRORLEVEL_CUTOFF_PCT): continue 
     PUSH_L2R_LIVE = True                                            # pushes the temp rankings to live data automatically (use backups!)
     

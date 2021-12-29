@@ -93,19 +93,4 @@ def sigmoid_cost_regularized(params, true_X, true_Y, last_t, last_a, default_t):
     
     reg += affect_size * steepness * earliness
 
-#    print("")
-#    print("Cost on question #" +  str(i) +":")
-#    print("t: " + str(t) + ", last_t: " + str(last_t))
-#    print("a: " + str(a) + ", last_a: " + str(last_a))
-#    print("----")
-#
-#    print("Jump size penalty")
-#    print(np.log((t / last_t) + (last_t / t) - 1) / i)
-#    print((abs(a - last_a) / last_a) / (4 * i))
-#    print("Shallowness penalty")
-#    print((np.log((0.01/t)+3)) / (((last_a/150)**3 + 1) * (i**.75)))
-#    print("Steepness penalty")
-#    print((np.log((t / 0.01)+3)) / (10 * (i**.75)))
-#    print("Total:")
-#    print(str(np.mean(((pred_Y - true_Y)**2)/weights)*(np.mean(weights))) + " + " + str(reg))
     return np.mean(((pred_Y - true_Y)**2)/weights)*(np.mean(weights)) + reg
