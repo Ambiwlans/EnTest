@@ -73,24 +73,48 @@ def sigmoid_cost_regularized(params, true_X, true_Y, last_t, last_a, default_t):
     if t <= 0.0001: return 1000 * abs(t - 0.0001) + 100
     if a < 1: return abs(a - 1) + 100
     
+        
     #Penalize very large jumps
-    reg += np.log((t / last_t) + (last_t / t) - 1)       
-    reg += (abs(a - last_a) / last_a)
+    reg += np.log((t / last_t) + (last_t / t) - 1) / i  
+    reg += (max(abs(a - last_a) - 100, 0) / last_a) / 5
 
+    #Penalize low y values at x=1
+    low_y_affect_size = .0000001                                             # reg term multiplier
+    ugliness = max(((1 - sigmoid(1, t, a, 1)) * 50)**5, 1)-1               # y=1->0 y=.9->.00015 y=.75->.015 y=.5->0.5
+    reg += low_y_affect_size * ugliness
+    
     #Penalize shallowness while a is small and early in test
-    affect_size = .5                                                    # reg term multiplier
-    shallowness = np.log((default_t / t) + 3)                           # (even = 1.4, steep = 1.1, shallow = 3~8)
+    early_shallow_affect_size = .1                                                    # reg term multiplier
+    shallowness = np.log((default_t / t) + np.e)                         # (even = .3, steep = .07, shallow = 2~3)
     bigness = 500000/(a**2 + 500000)                                    # ignore bigger a (1->1, 500 -> .6, 5000 -> .2)
-    earliness = 100 / (i**2 + 100)                                      # fall off term (1 -> 1, 15 -> .3, 50->.04, 100->.01)
+    earliness = 100 / (i**2.5 + 100)                                      # fall off term (1 -> 1, 15 -> .2, 50->.018, 100->.004)
     
-    reg += affect_size * shallowness * bigness * earliness
-    
+    reg += early_shallow_affect_size * shallowness * bigness * earliness
     
     #Penalize steepness while early in test
-    affect_size = .1                                                    # reg term multiplier
-    steepness = np.log((t / default_t) + 3)                             # (even = 1.4, steep = 3~8, shallow = 1.1)
-    earliness = 100 / (i**2 + 100)                                      # fall off term (1 -> 1, 15 -> .3, 50->.04, 100->.01)
+    early_steep_affect_size = .05                                                    # reg term multiplier
+    steepness = np.log((t / default_t) + np.e)                           # (even = .3, steep = 2~3, shallow = .07)
+    earliness = 100 / (i**3 + 100)                                      # fall off term (1 -> 1, 15 -> .2, 50->.018, 100->.004)
     
-    reg += affect_size * steepness * earliness
+    reg += early_steep_affect_size * steepness * earliness
 
+    print('Penalize very large jumps')
+    print(f"t- {last_t} -> {t} ... jump pen- {np.log((t / last_t) + (last_t / t) - 1)}")
+    print(f"a- {last_a} -> {a} ... jump pen- {(max(abs(a - last_a) - 100, 0) / last_a) / 5}")
+    
+    print('Penalize low y values at x=1')
+    print(f"ug- {low_y_affect_size * ugliness}")
+    
+    print("Penalize shallowness while a is small and early in test")
+    print(f"as- {early_shallow_affect_size} sh- {shallowness} big- {bigness} earl- {earliness}")
+    print(f"tot- {early_shallow_affect_size * shallowness * bigness * earliness}")
+    
+    print("Penalize steepness while early in test")
+    print(f"as- {early_steep_affect_size} st- {steepness} earl- {earliness}")
+    print(f"tot- {early_steep_affect_size * steepness * earliness}")
+    
+    print("Totals")
+    print(f"Maincost- {np.mean(((pred_Y - true_Y)**2)/weights)*(np.mean(weights))} Totalreg- {reg}")
+    print("")
+    
     return np.mean(((pred_Y - true_Y)**2)/weights)*(np.mean(weights)) + reg
