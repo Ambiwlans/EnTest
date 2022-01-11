@@ -99,7 +99,7 @@ def update_TestQuestionLogs(app):
                         QuestionLog.__table__.insert(),
                         [{"testlogid" : addTest.id,
                           "testmaterialid" : q.testmaterialid,
-                          "score" : q.score} for i, q in data['QuestionLog'].tail(current_app.config['MAX_QUESTIONS_LOGGED_EACH']).iterrows()])
+                          "score" : q.score} for i, q in data['QuestionLog'].iterrows()][-current_app.config['MAX_QUESTIONS_LOGGED_EACH']:])
                 db.session.commit()
                 
                 print("Upped Test #: " + str(addTest.id) + "-" + str(data['TestLog']['id']) + " with " + str(len(data.get('QuestionLog', 0))) + " questions.")

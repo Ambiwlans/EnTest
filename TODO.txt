@@ -4,11 +4,14 @@ CUR
 - new dictionary merger
     ? change tags to bitflags (is this better in mysql anyways?)
     ? merge defns into 1 field?
+    ? paste in defns over 'alt of'....
     - add toefl, grade level, oxford 3000 fields
+    ? tag system?
     - need to keep under 5MB limit
 - History
     - add toefl, grade level estimates, categories? (like 'medical','archaic')       
     - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)
+        ? switch to #permil ... estimate using every 10th entry
 - when question goes oob, try 5x for a new random question before defaulting to the one at the end
     
 +++++++++++
