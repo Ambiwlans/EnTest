@@ -98,23 +98,23 @@ def sigmoid_cost_regularized(params, true_X, true_Y, last_t, last_a, default_t):
     
     reg += early_steep_affect_size * steepness * earliness
 
-    print('Penalize very large jumps')
-    print(f"t- {last_t} -> {t} ... jump pen- {np.log((t / last_t) + (last_t / t) - 1)}")
-    print(f"a- {last_a} -> {a} ... jump pen- {(max(abs(a - last_a) - 100, 0) / last_a) / 5}")
-    
-    print('Penalize low y values at x=1')
-    print(f"ug- {low_y_affect_size * ugliness}")
-    
-    print("Penalize shallowness while a is small and early in test")
-    print(f"as- {early_shallow_affect_size} sh- {shallowness} big- {bigness} earl- {earliness}")
-    print(f"tot- {early_shallow_affect_size * shallowness * bigness * earliness}")
-    
-    print("Penalize steepness while early in test")
-    print(f"as- {early_steep_affect_size} st- {steepness} earl- {earliness}")
-    print(f"tot- {early_steep_affect_size * steepness * earliness}")
-    
-    print("Totals")
-    print(f"Maincost- {np.mean(((pred_Y - true_Y)**2)/weights)*(np.mean(weights))} Totalreg- {reg}")
-    print("")
+#    print('Penalize very large jumps')
+#    print(f"t- {last_t} -> {t} ... jump pen- {np.log((t / last_t) + (last_t / t) - 1)}")
+#    print(f"a- {last_a} -> {a} ... jump pen- {(max(abs(a - last_a) - 100, 0) / last_a) / 5}")
+#    
+#    print('Penalize low y values at x=1')
+#    print(f"ug- {low_y_affect_size * ugliness}")
+#    
+#    print("Penalize shallowness while a is small and early in test")
+#    print(f"as- {early_shallow_affect_size} sh- {shallowness} big- {bigness} earl- {earliness}")
+#    print(f"tot- {early_shallow_affect_size * shallowness * bigness * earliness}")
+#    
+#    print("Penalize steepness while early in test")
+#    print(f"as- {early_steep_affect_size} st- {steepness} earl- {earliness}")
+#    print(f"tot- {early_steep_affect_size * steepness * earliness}")
+#    
+#    print("Totals")
+#    print(f"Maincost- {np.mean(((pred_Y - true_Y)**2)/weights)*(np.mean(weights))} Totalreg- {reg}")
+#    print("")
     
     return np.mean(((pred_Y - true_Y)**2)/weights)*(np.mean(weights)) + reg
