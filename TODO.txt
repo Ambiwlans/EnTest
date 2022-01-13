@@ -19,6 +19,7 @@ MAIN
 +++++++++++
 
 Tweaking:    
+    - range prediction should change more based on # asked
     
 DB:
     
@@ -30,6 +31,13 @@ Front end:
         - popup that allows user to reccomend a definition
         - puts the text into a log (word id + suggestion) i can check manually later
         
+History:
+    - missed list
+        - show definitions, data on expansion of missed questions
+        - 'next' button to pop in more questions
+        - filter by w/e
+    
+    
 Bugs:
     - the scaler isn't multiplying correctly, it looks like it is getting clipped/rounded and then multiplied so its all x5.0
     - test_log should ideally store num_known as well instead of just using 'a' which isn't quite accurate for comparisons
