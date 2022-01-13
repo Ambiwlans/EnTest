@@ -92,9 +92,9 @@ def update_TestQuestionLogs(app):
                 db.session.commit()
                 
                 #Delete old questions first to avoid orphaned questions (delete 1000 more than the max to avoid frequent clears)
-                cutoff = max(db.session.query(QuestionLog.id).count() + 1000 - current_app.config['MAX_QUESTIONS_LOGGED'], 0)
+                cutoff = max(db.session.query(QuestionLog.id).count() - current_app.config['MAX_QUESTIONS_LOGGED'], 0)
                 if cutoff > 0:
-                    cutoff_id = db.session.query(QuestionLog).order_by(QuestionLog.id)[cutoff].id
+                    cutoff_id = db.session.query(QuestionLog).order_by(QuestionLog.id)[cutoff + 1000].id
                     db.session.query(QuestionLog).filter(QuestionLog.id < cutoff_id).delete()
                     print(str(cutoff) + " old questions deleted")
         
@@ -241,15 +241,15 @@ def clear_old_logs(app):
     with app.app_context():
         print("--------LOG CLEANUP------------")
         #Delete old questions first to avoid orphaned questions (delete 1000 more than the max to avoid frequent clears)
-        cutoff = max(db.session.query(QuestionLog.id).count() + 1000 - current_app.config['MAX_QUESTIONS_LOGGED'], 0)
+        cutoff = max(db.session.query(QuestionLog.id).count() - current_app.config['MAX_QUESTIONS_LOGGED'], 0)
         if cutoff > 0:
-            cutoff_id = db.session.query(QuestionLog).order_by(QuestionLog.id)[cutoff].id
+            cutoff_id = db.session.query(QuestionLog).order_by(QuestionLog.id)[cutoff + 1000].id
             db.session.query(QuestionLog).filter(QuestionLog.id < cutoff_id).delete()
             print(str(cutoff) + " old questions deleted")
         
-        cutoff = max(db.session.query(TestLog.id).count() + 1000 - current_app.config['MAX_TESTS_LOGGED'], 0)
+        cutoff = max(db.session.query(TestLog.id).count() - current_app.config['MAX_TESTS_LOGGED'], 0)
         if cutoff > 0:
-            cutoff_id = db.session.query(TestLog).order_by(TestLog.id)[cutoff].id
+            cutoff_id = db.session.query(TestLog).order_by(TestLog.id)[cutoff + 1000].id
             db.session.query(TestLog).filter(TestLog.id < cutoff_id).delete()
             print(str(cutoff) + " old tests deleted")
         
