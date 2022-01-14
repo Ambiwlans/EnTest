@@ -173,22 +173,29 @@ def test():
             pred = list(map(int,pred))
             
         # Select next question
-        
-        # left half of graph if last question wrong, right half if correct (skew selection slightly away from the middle)
-        if score == 1:
-            x = int(logit((random.random()**current_app.config['QUESTION_VARIABLITY'])/2, *res.x))
-        elif score == 0:
-            x = int(logit((random.random()**current_app.config['QUESTION_VARIABLITY'])/(-2) + 1, *res.x))
-        elif score == -1:
-            x = int(logit(random.random(), *res.x))
-        else:
-            # Score not given, fail gracefully
-            abort(500)
-        
-        if x < 1 : x = 1
-        if x > current_app.config['MAX_X']: x = current_app.config['MAX_X']
 
-        # don't ask repeats
+        # Try a few rerolls if you land on a repeat
+        rerolls = 0
+        while True:
+            rerolls += 1
+            # left half of graph if last question wrong, right half if correct (skew selection slightly away from the middle)
+            if score == 1:
+                x = int(logit((random.random()**current_app.config['QUESTION_VARIABLITY'])/2, *res.x))
+            elif score == 0:
+                x = int(logit((random.random()**current_app.config['QUESTION_VARIABLITY'])/(-2) + 1, *res.x))
+            elif score == -1:
+                x = int(logit(random.random(), *res.x))
+            else:
+                # Score not given, fail gracefully
+                abort(500)
+            
+            if x < 1 : x = 1
+            if x > current_app.config['MAX_X']: x = current_app.config['MAX_X']
+            
+            if (history['my_rank']==x).sum() == 0 or rerolls > 3:               # if the question is new (hasn't been answered), or we've tried random 3x, then move on
+                break
+        
+        # Scan through if you are still on a repeat
         searchkey = 1
         while (history['my_rank']==x).sum() or x < 1 or x > current_app.config['MAX_X']:
             x += searchkey
