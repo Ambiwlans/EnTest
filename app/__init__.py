@@ -54,9 +54,10 @@ def create_app(config_class=Config):
             app.config['SESSION_REDIS'].flushall()
             app.config['SESSION_REDIS'].set('cur_testlog_id', db.session.query(models.TestLog).order_by('id').all()[-1].id + 1)
             print("Refreshed cur_testlog_id to " + app.config['SESSION_REDIS'].get('cur_testlog_id').decode('utf-8'))
-        if app.config['SESSION_REDIS'].get('TestMaterial') is None:
+        if app.config['SESSION_REDIS'].get('TestMaterial') or app.config['SESSION_REDIS'].get('cuml_pct_known') is None:
             app.config['SESSION_REDIS'].set('TestMaterial', pd.read_sql(db.session.query(models.TestMaterial).statement,db.engine).to_msgpack(compress='zlib'))
             app.config['SESSION_REDIS'].set('TempTestMaterial', pd.read_sql(db.session.query(models.TempTestMaterial).statement,db.engine).to_msgpack(compress='zlib'))
+            app.config['SESSION_REDIS'].set('cuml_pct_known', pd.read_sql(db.session.query(models.Pct_Known).statement,db.engine).to_msgpack(compress='zlib'))
             print("Refreshed TestMaterial")
         
         

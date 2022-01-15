@@ -1,77 +1,77 @@
 ###########
 CUR
 ###########        
-- new dictionary merger
-    ? change tags to bitflags (is this better in mysql anyways?)
-    ? merge defns into 1 field?
-    ? paste in defns over 'alt of'....
-    - add toefl, grade level, oxford 3000 fields
-    ? tag system?
-    - need to keep under 5MB limit
-- History
-    - add toefl, grade level estimates, categories? (like 'medical','archaic')       
-    - recalculate the 'pct_known_by_appearance' by adding up all the known values (costly?)
-        ? switch to #permil ... estimate using every 10th entry
-    
+
++ History
+    + add toefl, grade level estimates, categories? (like 'medical','archaic')       
+    + 'wrong' list
+        + show definitions, data on expansion of missed questions
+        - 'next' button to pop in more questions
+        - filter by w/e tags    
 +++++++++++
 MAIN
 +++++++++++
 
 Tweaking:    
-    - range prediction should change more based on # asked
+    + range prediction should change more based on # asked
     
 DB:
-    
+    - join data from wiki
+        + add toefl, grade level, oxford 3000 fields
+        ? change tags to bitflags (is this better in mysql anyways?)
+        ? merge defns into 1 field?
+        ? paste in defns over 'alt of'....
+        ? tag system?
+        + need to keep under 5MB limit
+        
 Front end:
     - links to multiple dictionaries!
 	- new 'help' button images
     	- reenable button
     ? report definition button
-        - popup that allows user to reccomend a definition
-        - puts the text into a log (word id + suggestion) i can check manually later
+        + popup that allows user to reccomend a definition
+        + puts the text into a log (word id + suggestion) i can check manually later
+        ? simply adds the word to a list to check (no security risks, less space, easy)
         
 History:
-    - missed list
-        - show definitions, data on expansion of missed questions
+    + 'wrong' list
+        + show definitions, data on expansion of missed questions
         - 'next' button to pop in more questions
-        - filter by w/e
-    
+        - filter by w/e tags
+    ? better catches for bad links
+    - show histogram of historical user scores and place user on it
     
 Bugs:
     - the scaler isn't multiplying correctly, it looks like it is getting clipped/rounded and then multiplied so its all x5.0
     - test_log should ideally store num_known as well instead of just using 'a' which isn't quite accurate for comparisons
-    - words at extremes aren't reshuffling w/ l2r (like entest)
-    - forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
+    ? words at extremes aren't reshuffling w/ l2r (like entest)
+    ?? forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
 
 Misc:
-	- redo the readme for github
-	- beta testing
+	+ redo the readme for github
+	+ beta testing
 	
 CORE/BOTH:
-    - DRILL PAGE/FEATURE
+    + DRILL PAGE/FEATURE
     - update packages/python, trim reqs
-    - identify magic numbers w/ inline comments
+    ? identify magic numbers w/ inline comments
     - move scheduler times into config
     - flesh out an admin page
-        - add a shutdown fn (set config TEST_TIMEOUT to 1, force update)
-        - flush/reset redis
-    - show histogram of historical user scores and place user on it
+        + add a reset fn (set config TEST_TIMEOUT to 0, force update)
+        + force pushes/meta
+        + flush/reset redis
 
 +++++++++++
     
 Fork (Keep jiken in mind EVERY git commit):
-    - go through git log to find changes to push across
+    + go through git log to find changes to push across
     
 +++++++++++
 LATER
 +++++++++++
-- reduce step size for l2r
-- set test timeout back to 1hr
++ reduce step size for l2r
++ set test timeout back to 1hr
 - in /test it should show latest nodes
-- push stuff back to jiken
-- hand edit more words
-
-- give json trimming another go from wiki
     
 +++++++++++
 MAYBE

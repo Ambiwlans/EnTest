@@ -104,6 +104,14 @@ class MetaStatistics(db.Model):
     avg_known = Column(Integer)
     avg_answered = Column(Integer)
     
+class Pct_Known(db.Model):
+    __tablename__ = 'cuml_pct_known'
+
+    #Meta
+    id = Column(Integer, primary_key=True)
+    
+    cuml_pct_known = Column(Numeric(asdecimal=False))
+    
 #db.create_all() 
 #db.session.commit() 
 

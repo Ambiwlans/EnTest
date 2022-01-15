@@ -315,7 +315,8 @@ def history(id):
     xmax = min(int(math.ceil(min(((pred[0] + 4*(pred[1]-pred[0])) + 250), current_app.config['GRAPH_MAX_X'])/500)*500), int(current_app.config['GRAPH_MAX_X']))
     
     #Calc some stats data
-    pct_known_by_appearance = 50
+    print(max(min(int(pred[2]),9999),0))
+    pct_known_by_appearance = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('cuml_pct_known'))['cuml_pct_known'].iloc[max(min(int(pred[2]),9999),0)]
 
     
     return  render_template('history.html', id = id, \
