@@ -2,20 +2,23 @@
 CUR
 ###########        
 
++ range prediction should change more based on # asked
+
 + History
     + add toefl, grade level estimates, categories? (like 'medical','archaic')       
     + 'wrong' list
         + show definitions, data on expansion of missed questions
         - 'next' button to pop in more questions
         - filter by w/e tags    
+        
 +++++++++++
 MAIN
 +++++++++++
 
-Tweaking:    
-    + range prediction should change more based on # asked
+Tweaking:
     
 DB:
+    ? save pred to testlog
     - join data from wiki
         + add toefl, grade level, oxford 3000 fields
         ? change tags to bitflags (is this better in mysql anyways?)
@@ -32,6 +35,7 @@ Front end:
         + popup that allows user to reccomend a definition
         + puts the text into a log (word id + suggestion) i can check manually later
         ? simply adds the word to a list to check (no security risks, less space, easy)
+    ? better message for attempting to continue a timed out test? (rarely comes up)
         
 History:
     + 'wrong' list
@@ -40,6 +44,9 @@ History:
         - filter by w/e tags
     ? better catches for bad links
     - show histogram of historical user scores and place user on it
+        + calc on startup (w/ weekly updater) and save to redis
+        - bin by 500?
+        + graph adds the user line
     
 Bugs:
     - the scaler isn't multiplying correctly, it looks like it is getting clipped/rounded and then multiplied so its all x5.0
@@ -80,7 +87,6 @@ MAYBE
 ? change to a left side, rightside algorithm to fit, rather than sigmoid
 - make 'more...' a framed popup to avoid leaving site/test
 - show user other tests from same ip. links, graph
-? better message for attempting to continue a timed out test? (rarely comes up)
 ? log blocks of questions in test and drop this table entirely? (incorrect way to do it, but handles the 10k cap better)
 ? change colour scheme? Dark mode?
 ? merger of all testing thingies? Select a from and to (kanji->english, eng->eng) .... some losses from going generic, easier to maintain, harder to build... vocab only?
@@ -90,7 +96,7 @@ MAYBE
     - https://dictionaryapi.com/ allows 1k/day, wordnik.com allows 100/hr ... enough to rebuild DB, but not grab live (check permissions)
     - https://medium.com/@martin.breuss/finding-a-useful-dictionary-api-52084a01503d
     - use a 'learner's dictionary' for 5000 basic words
-    - manually rewrite the easiest 100.
+    - manually rewrite the easiest and longest 100.
     - multiple languages/setting? (german, japanese definitions?) (E-J test ...)
     ? Use the wiktionary DB i ripped/made ........ but the '1st definition' system is questionable. If I switch, I'd need to allow multiple definitions
         - also need to re-rip since i bugged out antonyms somehow

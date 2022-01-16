@@ -34,27 +34,27 @@
         	than the average {{avg_answered}} of other testers. {% if curtest %}Click <a href="/test?a=-1">here</a> to keep going!{% endif %}
         	
         	<br>
-    		You know <b>{{(pred[0] * scaler)|int}}</b> words compared to the average of {{(avg_known * scaler)|int}}. {% if pct_known_by_appearance == '100.00' %} You can read at a native level. {% else %} This is <b>{{pct_known_by_appearance}}%</b> of words as they appear in text.{% endif %}
+    		You know <b>{{(pred[0] * scaler)|int}}</b> words compared to the average of {{(avg_known * scaler)|int}}. This is around <b>{{pct_known_by_appearance}}%</b> of words as they appear in text.
     		
     		<br><br>
-    		{% if jlpt_recc == 1 %}
-                Wow! Finally you are ready to challenge the <b>final</b> <a href="https://www.jlpt.jp/e/index.html">JLPT</a> test! (日本人じゃないの？)
-            {% elif jlpt_recc == 2 %}
-                It looks like you are ready to challenge the  <b><a href="https://www.jlpt.jp/e/index.html">JLPT</a> N2</b> level test! (もちろん、文法も完全にマスターしましたね)
-            {% elif jlpt_recc == 3 %}    
-                It looks like you are ready to challenge the  <b><a href="https://www.jlpt.jp/e/index.html">JLPT</a> N3</b> level test! (日本語上手ですね)
-            {% elif jlpt_recc == 4 %}    
-                It looks like you are ready to challenge the  <b><a href="https://www.jlpt.jp/e/index.html">JLPT</a> N4</b> level test! (日本語上手ですね)
-            {% elif jlpt_recc == 5 %}
-                It looks like you are ready for the  <b><a href="https://www.jlpt.jp/e/index.html">JLPT</a> N5</b>! (Your big first step into Japanese)
+    		{% if (pred[0] * scaler)|int > 45000 %}
+                You're beyond an expert! Have you been studying the dictionary or just doing drills on this site?
+            {% elif (pred[0] * scaler)|int > 30000 %}
+                You're a well educated English native. Or else you've studied very hard.
+            {% elif (pred[0] * scaler)|int > 10000 %}    
+                At this level, you can speak and read English fluently.
+            {% elif (pred[0] * scaler)|int > 4000 %}    
+                You are an advanced English learner; ready for TOEFL if you haven't passed it already.
+            {% elif (pred[0] * scaler)|int > 2000 %}
+                At your level, you're probably studying for TOEFL. You're not ready quite yet, but you are an intermediate learner and can hold a conversation.
             {% else %}
-                It doesn't look like you're ready for the  <b><a href="https://www.jlpt.jp/e/index.html">JLPT</a></b>/Kanken just yet. Remember, progress is a slow process but you can do it! I hear https://www.duolingo.com/ is good, but it will always be hard work!
+                You're still a beginner. Everyone has to start somewhere. Good luck!
             {% endif %}
             </p>
             
             <!-- Study list -->
             {% if wronganswers|length > 0 %}
-                <h3 class="text-left">Words to review:</h3>
+                <h3 class="text-left">Words you missed:</h3>
             	<h1>
         		{% for q in wronganswers[:10] %}
                     <a href="https://www.dictionary.com/browse/{{q[1]}}" class="review">{{q[1]}}</a>{{ " - " if not loop.last }} 		
