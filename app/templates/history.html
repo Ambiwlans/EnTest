@@ -54,13 +54,20 @@
             
             <!-- Study list -->
             {% if wronganswers|length > 0 %}
-                <h3 class="text-left">Words you missed:</h3>
-            	<h1>
-        		{% for q in wronganswers[:10] %}
-                    <a href="https://www.dictionary.com/browse/{{q[1]}}" class="review">{{q[1]}}</a>{{ " - " if not loop.last }} 		
-        		{% endfor %}
-        		</h1>	
+            <h3 class="text-left">Words you missed:</h3>
+            <table class="missed_words_table">
+                <tbody>
+                    {% for q in wronganswers[:10] %}
+                    <tr>
+                        <td scope="row">#{{q[0]}}</td>
+                        <th><a href="https://www.dictionary.com/browse/{{q[1]}}" class="review">{{q[1]}}</a></th>
+                        <td>{{q[2]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
             {% endif %}
+            
             <br>
             <p>Tip: Be sure to bookmark this page to compare to the next time you take a test</p>
         </div>
