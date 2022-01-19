@@ -49,7 +49,7 @@
         	{% if cnt >= 10 %}
         	
         	<div class="container-fluid pred">
-            	<p class="pred-header">Estimates</p>
+            	<p class="pred-header">Your Vocab Size</p>
             	<span class="predrange"><span class="predrange predlower" data-toggle="tooltip" data-placement="left" title="lower bound">{{(pred[2] * scaler)|int}}</span>&nbsp; &nbsp; - &nbsp; &nbsp;</span>
                 	<span class="predmain" data-toggle="tooltip" data-placement="top" data-html="true" title="{{(pred[0] * scaler)|int}}">{{(pred[0] * scaler)|int}}</span>
             	<span class="predrange predupper" data-toggle="tooltip" data-placement="right" title="upper bound">&nbsp; &nbsp; - &nbsp; &nbsp;{{(pred[1] * scaler)|int}}</span>

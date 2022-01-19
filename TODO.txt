@@ -2,7 +2,6 @@
 CUR
 ###########        
 
-+ Change the word 'estimation' to be more obvious?
 + more... should open to new tab
 - range prediction should change more based on # asked
 + pre-estimation text
@@ -56,7 +55,6 @@ Bugs:
     - test_log should ideally store num_known as well instead of just using 'a' which isn't quite accurate for comparisons
     ? words at extremes aren't reshuffling w/ l2r (like entest)
     ?? forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
-    - missed wordlist isn't ordered by default
     - hitting f5 shouldn't post during test
         - are we correctly only recording the first time?
     
