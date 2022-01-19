@@ -2,7 +2,14 @@
 CUR
 ###########        
 
-+ range prediction should change more based on # asked
++ Change the word 'estimation' to be more obvious?
++ more... should open to new tab
+- range prediction should change more based on # asked
++ pre-estimation text
+    - tweak hints
+    - add a glow in
+    - change to 15?
+- set entest logo height so that it doesn't popin and move stuff during loading
 
 + History
     + add toefl, grade level estimates, categories? (like 'medical','archaic')       
@@ -38,10 +45,6 @@ Front end:
     ? better message for attempting to continue a timed out test? (rarely comes up)
         
 History:
-    + 'wrong' list
-        + show definitions, data on expansion of missed questions
-        - 'next' button to pop in more questions
-        - filter by w/e tags
     ? better catches for bad links
     - show histogram of historical user scores and place user on it
         + calc on startup (w/ weekly updater) and save to redis
@@ -49,11 +52,25 @@ History:
         + graph adds the user line
     
 Bugs:
-    - the scaler isn't multiplying correctly, it looks like it is getting clipped/rounded and then multiplied so its all x5.0
+    + the scaler isn't multiplying correctly, it looks like it is getting clipped/rounded and then multiplied so its all x5.0
     - test_log should ideally store num_known as well instead of just using 'a' which isn't quite accurate for comparisons
     ? words at extremes aren't reshuffling w/ l2r (like entest)
     ?? forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
-
+    - missed wordlist isn't ordered by default
+    - hitting f5 shouldn't post during test
+        - are we correctly only recording the first time?
+    
+Study Mode:
+    - 2 options
+        - review mode
+            - drill missed words from a completed test, only available after finishing
+        + endless study mode
+            - asks questions normally until you have 5 missed questions, then start working in repeat questions until you have cleared each question
+            - only record the first answer given per question, otherwise keep tabs in a redis only array? Or add col to redis question log table
+            - setting for how times to repeat a missed question, and how many missed questions to stack up.
+            - focus on asking questions closer to the 50:50 mark
+            - keep some extra stats (in session only)
+    
 Misc:
 	+ redo the readme for github
 	+ beta testing

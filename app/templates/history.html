@@ -57,14 +57,14 @@
             <h3 class="text-left">Words you missed:</h3>
             <table id="missed_words_table" class="table">
                 <thead><tr>
-                    <th>#</th>
+                    <th>Difficulty #</th>
                     <th>Word</th>
                     <th>Definition</th>
                 </tr></thead>
                 <tbody>
                     {% for q in wronganswers %}
                     <tr>
-                        <td class="mwt_numb">#{{(q[0] * scaler)|int}}</td>
+                        <td class="mwt_numb">{{(q[0] * scaler)|int}}</td>
                         <td class="mwt_word"><a href="https://www.dictionary.com/browse/{{q[1]}}" class="review">{{q[1]}}</a></td>
                         <td class="mwt_def">{{q[2]}}</td>
                     </tr>
@@ -117,7 +117,12 @@
                 "pageLength": 10,
                 "ordering": true,
                 "info":     false,
-                "searching": false
+                "searching": false,
+                "order": [[0, "asc" ]],
+                columnDefs: [{
+                    targets: 0,
+                    render: $.fn.dataTable.render.number(',', '.', 0, '#')
+                }]
             } );
         } );
     </script>
