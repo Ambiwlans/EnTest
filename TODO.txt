@@ -2,12 +2,10 @@
 CUR
 ###########        
 
-- range prediction should change more based on # asked
 + pre-estimation text, "See results"
     - tweak hints
     - add a glow in
     - change to 15?
-- set entest logo height so that it doesn't popin and move stuff during loading
 
 + History
     + add toefl, grade level estimates, categories? (like 'medical','archaic')       
@@ -79,7 +77,12 @@ CORE/BOTH:
     ? identify magic numbers w/ inline comments
     - move scheduler times into config
     - add a full reset fn to admin page (set config TEST_TIMEOUT to 0, force update)
-
+    - range prediction should change more based on # asked
+        - rerun every 'normal' logged test w/ over 50 answers ..... (Only ever need to do this once)
+            - compare each step's difference in estimation (as a % of the final value)
+                - ie. 20, 23, 25, 22, 17, 15, 11, 14, 9, 7, 4, 4, 4, 4, 3, 3, 2, 3 .....
+            - compare all tests to find the 90 percentile for each step (should be smooth)
+                - ie. 50, 40, 35, 30, 28, 27, 25, 23, 22, 20, 18
 
 +++++++++++
     
