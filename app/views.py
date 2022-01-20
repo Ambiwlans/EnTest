@@ -46,6 +46,13 @@ def notfound_error(e):
 def home():
     return render_template('home.html')
 
+### ADMIN ROUTES
+@bp.route("/adminpanel")
+def adminpanel():
+    if request.args.get('p') != current_app.config['SECRET_KEY']:    
+        return render_template('home.html')
+    return render_template('admin.html', p = request.args.get('p'))
+
 @bp.route("/forcemetaupdate")
 def forcemetaupdate():
     print("Force metaupdate attempt")
@@ -64,6 +71,8 @@ def forceupdate():
         return("update success")
     return render_template('home.html')
 
+### GENERAL ROUTES
+    
 @bp.route("/test")
 def test():
     

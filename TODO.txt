@@ -4,7 +4,7 @@ CUR
 
 + more... should open to new tab
 - range prediction should change more based on # asked
-+ pre-estimation text
++ pre-estimation text, "See results"
     - tweak hints
     - add a glow in
     - change to 15?
@@ -34,6 +34,7 @@ DB:
         + need to keep under 5MB limit
         
 Front end:
+    - rearrage FP?
     - links to multiple dictionaries!
 	- new 'help' button images
     	- reenable button
@@ -78,10 +79,8 @@ CORE/BOTH:
     - update packages/python, trim reqs
     ? identify magic numbers w/ inline comments
     - move scheduler times into config
-    - flesh out an admin page
-        + add a reset fn (set config TEST_TIMEOUT to 0, force update)
-        + force pushes/meta
-        + flush/reset redis
+    - add a full reset fn to admin page (set config TEST_TIMEOUT to 0, force update)
+
 
 +++++++++++
     

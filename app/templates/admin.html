@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="container text-center">
+		<a href="/"><img class="title-lg" src="{{ url_for('static', filename='img/entest.png') }}"></a>
+		<p class="slogan">Test Your Vocab</p>
+		<br>
+		<br>
+		<h1> Admin Panel </h1>
+		<br>
+		<br>
+		<p><a href="/forceupdate?p={{p}}">Force update</a> - triggers logger (log test and l2r->redis) (this will only log inactive tests!)</p>
+        <p><a href="/forcemetaupdate?p={{p}}">Force meta update</a> - recalc meta values, push redis L2R data to the server (and push live if set in config)</p>
+        <!--p><a href="/forcemetaupdate?p={{p}}">Force meta update</a> - recalc meta values, push redis L2R data to the server (and push live if set in config)</p-->
+        
+	</div>
+	
+{% endblock content %}
+
