@@ -65,7 +65,7 @@
                     {% for q in wronganswers %}
                     <tr>
                         <td class="mwt_numb">{{(q[0] * scaler)|int}}</td>
-                        <td class="mwt_word"><a href="https://www.dictionary.com/browse/{{q[1]}}" class="review">{{q[1]}}</a></td>
+                        <td class="mwt_word"><a href="https://en.wiktionary.org/wiki/{{q[1]|lower}}" class="review" target="_blank" rel="noopener noreferrer">{{q[1]}}</a></td>
                         <td class="mwt_def">{{q[2]}}</td>
                     </tr>
                     {% endfor %}

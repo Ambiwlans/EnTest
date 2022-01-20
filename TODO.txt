@@ -2,7 +2,6 @@
 CUR
 ###########        
 
-+ more... should open to new tab
 - range prediction should change more based on # asked
 + pre-estimation text, "See results"
     - tweak hints
