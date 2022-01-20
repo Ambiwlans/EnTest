@@ -325,7 +325,7 @@ def history(id):
     
     #Calc some stats data
     print(max(min(int(pred[2]),9999),0))
-    pct_known_by_appearance = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('cuml_pct_known'))['cuml_pct_known'].iloc[max(min(int(pred[2]),9999),0)]
+    pct_known_by_appearance = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('cuml_pct_known'))['cuml_pct_known'].iloc[max(min(int(pred[0]),9999),0)]
 
     
     return  render_template('history.html', id = id, \
