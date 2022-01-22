@@ -72,6 +72,208 @@ def forceupdate():
     return render_template('home.html')
 
 ### GENERAL ROUTES
+
+@bp.route("/study")
+def study():
+    
+    study = 1
+    
+    ###
+    ### Log Answer/Score
+    ###
+    
+    score = request.args.get('a')
+    testmaterialid = request.args.get('q')
+    
+    if session.get('TestLog') is None or score is None:
+        # Stash 'old test' if there was already an active one
+        if session.get('TestLog') is not None:
+            print('Stashing earlier test...' + str(session['TestLog'].id))
+            oldtest = {}
+            oldtest['TestLog'] = session['TestLog']
+            oldtest['QuestionLog'] = session['QuestionLog']
+            oldtest['last_touched'] = session['last_touched']
+            current_app.config['SESSION_REDIS'].set('session:old' + str(session['TestLog'].id), pickle.dumps(oldtest))
+            
+        # New Test, new log
+        session['TestLog'] = pd.Series({
+                "id" : int(current_app.config['SESSION_REDIS'].get('cur_testlog_id').decode('utf-8')),
+                "a" : int(current_app.config['SESSION_REDIS'].get('default_a')),
+                "t" : float(current_app.config['SESSION_REDIS'].get('default_t')),
+                "ip" : request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr),
+                "start_time" : datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')})
+        
+        session['QuestionLog'] = pd.DataFrame(columns=['testmaterialid','score'], dtype='int64')
+        session['last_touched'] = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+        
+        if study:
+            session['Study_List'] = pd.DataFrame(columns=['testmaterialid', 'times_right','times_wrong'], dtype='int64')
+            session['learned_cnt'] = 0
+            session['dropped_cnt'] = 0
+            
+        current_app.config['SESSION_REDIS'].incr('cur_testlog_id')
+    elif int(score) == -1:
+        # Flag to just continue a test
+        score = int(score)
+        #print("Continuing test")
+        pass
+    else:
+        # Got an answer, log it (to redis session)
+        score = bool(int(score))
+        if (session['QuestionLog']['testmaterialid'].astype('int') == testmaterialid).any():
+            if score:
+                session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].times_right += 1
+                if session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].times_right >= int(current_app.config['MAX_TIMES_RIGHT']):
+                   session['learned_cnt'] += 1
+                   session['Study_List'].drop(session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].index, inplace=1)
+            else:
+                session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].times_wrong += 1
+                if session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].times_wrong >= int(current_app.config['MAX_TIMES_WRONG']):
+                   session['dropped_cnt'] += 1
+                   session['Study_List'].drop(session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].index, inplace=1)
+            
+        else:
+            session['QuestionLog'] = session['QuestionLog'].append({'testmaterialid' : testmaterialid, 'score' : score}, ignore_index=True)
+            if not score:
+                session['Study_List'] = session['Study_List'].append({'testmaterialid' : testmaterialid, 'times_right' : 0, 'times_wrong' : 0}, ignore_index=True)
+                session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].times_wrong += 1
+               
+        
+    ###
+    ### Handle Data, Prep output
+    ###
+    
+    history = pd.merge(session['QuestionLog'], \
+                       pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TestMaterial')), \
+                       left_on=session['QuestionLog'].testmaterialid.astype(int), \
+                       right_on='id')
+    
+    #Get some history to show (do this before sort)
+    oldquestions = history[:100]
+    
+    rightanswers = oldquestions[oldquestions['score']==1]
+    rightanswers = [(r.my_rank, r.question) for i, r in rightanswers.iterrows()]
+    wronganswers = oldquestions[oldquestions['score']==0]
+    wronganswers = [(r.my_rank, r.question) for i, r in wronganswers.iterrows()]
+        
+    #Get updated statistics and next question
+    
+    xdata = []
+    ydata = []
+    pred = [0,0,0]
+    studyword = 0
+    if study: 
+        active_cnt = len(session['Study_List'])
+    else: 
+        active_cnt = 0
+    
+    if score is None:
+        #For the first question, ask at random (for data gathering purposes)
+        newquestion = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TestMaterial')).sample().iloc[0]
+    else:
+               
+        #Resort by my_rank for faster iter
+        history = history.sort_values(by=['my_rank'], ascending=True)
+
+        for i, r in history.iterrows():
+            xdata.append(r.my_rank)
+            ydata.append(r.score)
+        
+        # Get new LOBF (a, t values)
+            #minimized using Nelder-Mead, custom cost fn
+            #fit to Sigmoid fn:  1/(1 + e^(t(x-a)))
+            #update our db and the session data
+        
+        p0 = [session['TestLog'].t, session['TestLog'].a]       # use last LOBF as starting point for new one
+        
+        res = minimize(sigmoid_cost_regularized, p0, args=(xdata, ydata, p0[0], p0[1], float(current_app.config['SESSION_REDIS'].get('default_t') or 0.005)),method="Nelder-Mead")
+            #,options={'eps': [0.0001,1]})#, bounds=[(0,10),(1,7000)])
+        
+        session['TestLog'].a = float(res.x[1])
+        session['TestLog'].t = float(res.x[0])
+        
+        # Predict # known
+        len_history = len(history)
+        if len_history > current_app.config['GRAPH_AFTER']:
+            #[mid, upper, lower]
+            pred = [(quad(sigmoid,0,current_app.config['MAX_X'],args=(*res.x,1))[0]),
+                        (quad(sigmoid,0,current_app.config['MAX_X'],args=(*res.x, (1 / (1 + 2**(-len_history/150)))))[0]),
+                        (quad(sigmoid,0,current_app.config['MAX_X'],args=(*res.x, 1 + (2 / (1 + 2**(len_history/150)))))[0])]
+            # account for all the answered values
+            for i, r in history.iterrows():
+                pred[0] += (r.score - sigmoid(r.my_rank, *res.x, 1))
+                pred[1] += (r.score - sigmoid(r.my_rank, *res.x, .5))
+                pred[2] += (r.score - sigmoid(r.my_rank, *res.x, 2))
+            
+            pred = list(map(int,pred))
+            
+        # Select next question
+        if active_cnt > random.randrange(0, int(current_app.config['TGT_ACTIVE'])):
+            x_id = int(session['Study_List'].iloc[random.randrange(0, active_cnt)]['testmaterialid'])
+            print(x_id)
+            newquestion = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TestMaterial'))[pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TestMaterial'))['id']==x_id].iloc[0]
+            studyword = 1
+        else:        
+            # Try a few rerolls if you land on a repeat
+            rerolls = 0
+            while True:
+                rerolls += 1
+                # left half of graph if last question wrong, right half if correct (skew selection slightly away from the middle)
+                if score == 1:
+                    x = int(logit((random.random()**current_app.config['QUESTION_VARIABLITY'])/2, *res.x))
+                elif score == 0:
+                    x = int(logit((random.random()**current_app.config['QUESTION_VARIABLITY'])/(-2) + 1, *res.x))
+                elif score == -1:
+                    x = int(logit(random.random(), *res.x))
+                else:
+                    # Score not given, fail gracefully
+                    abort(500)
+                
+                if x < 1 : x = 1
+                if x > current_app.config['MAX_X']: x = current_app.config['MAX_X']
+                
+                if (history['my_rank']==x).sum() == 0 or rerolls > 3:               # if the question is new (hasn't been answered), or we've tried random 3x, then move on
+                    break
+            
+            # Scan through if you are still on a repeat
+            searchkey = 1
+            while ((history['my_rank']==x).sum())\
+                    or x < 1 or x > current_app.config['MAX_X']:
+                
+                x += searchkey
+                
+                if searchkey > 0:
+                    searchkey = -searchkey - 1
+                else:
+                    searchkey = -searchkey + 1
+                
+                if x > current_app.config['MAX_X'] and x + searchkey < 1: 
+                    print("Test # " + str(session['TestLog'].id) + " asked every question!")
+                    # Go to history page when a user has completed every question... wowza
+                    return "Holy crap!! You actually answered all 10,000 words.... I don't really expect anyone to maneage this so I don't have anything ready.... uhh, check your <a href='/t/"+session['TestLog'].id+"'>results</a> and tweet them to me! Damn... good job!"
+        
+            newquestion = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TestMaterial'))[pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TestMaterial'))['my_rank']==x].iloc[0]
+
+    
+    #Find a sensible max x value
+    xmax = min(int(math.ceil((max(oldquestions['my_rank'], default=0) + 250) / 400) * 500), int(current_app.config['GRAPH_MAX_X']))
+    
+    #Refresh the timeout flag
+    session['last_touched'] = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    
+    if studyword:
+        print(f"Review! Active= {active_cnt}, Learned = {session['learned_cnt']}, Dropped = {session['dropped_cnt']}")
+    print(f"Test #{session['TestLog'].id}, A = {session['TestLog'].a}, T = {session['TestLog'].t} ||  #{len(session['QuestionLog'])}, Rank#: {newquestion['my_rank']}, Word: {newquestion['question']}")
+    
+    if study:
+        return render_template('study.html', question = newquestion, cnt = len(history), id = session['TestLog'].id, \
+            scaler = float(current_app.config['SAMPLE_SCALER']), \
+            a = session['TestLog'].a, t = session['TestLog'].t, wronganswers = wronganswers, rightanswers = rightanswers, xmax = xmax, pred = pred, \
+            studyword = studyword, active_cnt = active_cnt, learned_cnt = session['learned_cnt'], dropped_cnt = session['dropped_cnt'])
+    else:
+        return render_template('test.html', question = newquestion, cnt = len(history), id = session['TestLog'].id, \
+            scaler = int(current_app.config['SAMPLE_SCALER']), \
+            a = session['TestLog'].a, t = session['TestLog'].t, wronganswers = wronganswers, rightanswers = rightanswers, xmax = xmax, pred = pred)
     
 @bp.route("/test")
 def test():

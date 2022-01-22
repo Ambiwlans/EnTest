@@ -78,6 +78,11 @@ class DeploymentConfig:
     MIN_TEST_LENGTH = 15                                        #Shorter tests won't be logged
     TEST_TIMEOUT = 2                                            #Minutes inactive before tests get dumped to SQL
     
+    # Study
+    MAX_TIMES_RIGHT = 2
+    MAX_TIMES_WRONG = 2
+    TGT_ACTIVE = 7
+    
     # Flask-Session
     SESSION_TYPE = "redis"
     SESSION_REDIS = redis.from_url(os.environ.get('REDIS_URL'))

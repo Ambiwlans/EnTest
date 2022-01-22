@@ -2,6 +2,10 @@
 CUR
 ###########        
 
++ Study Mode
+
++ the scaler isn't multiplying correctly, it looks like it is getting clipped/rounded and then multiplied so its all x5.0
+
 + DB
     + add wikitags, toefl, grade level estimates, categories? (like 'medical','archaic')       
         - many-many relational table
@@ -41,7 +45,6 @@ History:
         + graph adds the user line
     
 Bugs:
-    + the scaler isn't multiplying correctly, it looks like it is getting clipped/rounded and then multiplied so its all x5.0
     - test_log should ideally store num_known as well instead of just using 'a' which isn't quite accurate for comparisons
     ? words at extremes aren't reshuffling w/ l2r (like entest)
     ?? forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
