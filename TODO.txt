@@ -45,6 +45,7 @@ History:
         + graph adds the user line
     
 Bugs:
+    - switch from deprecated to_msgpack (use pyarrow?)
     - test_log should ideally store num_known as well instead of just using 'a' which isn't quite accurate for comparisons
     ? words at extremes aren't reshuffling w/ l2r (like entest)
     ?? forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
@@ -52,15 +53,7 @@ Bugs:
         - are we correctly only recording the first time?
     
 Study Mode:
-    - 2 options
-        - review mode
-            - drill missed words from a completed test, only available after finishing
-        + endless study mode
-            - asks questions normally until you have 5 missed questions, then start working in repeat questions until you have cleared each question
-            - only record the first answer given per question, otherwise keep tabs in a redis only array? Or add col to redis question log table
-            - setting for how times to repeat a missed question, and how many missed questions to stack up.
-            - focus on asking questions closer to the 50:50 mark
-            - keep some extra stats (in session only)
+
     
 Misc:
 	+ redo the readme for github
