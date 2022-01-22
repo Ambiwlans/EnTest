@@ -2,17 +2,9 @@
 CUR
 ###########        
 
-+ pre-estimation text, "See results"
-    - tweak hints
-    - add a glow in
-    - change to 15?
-
-+ History
-    + add toefl, grade level estimates, categories? (like 'medical','archaic')       
-    + 'wrong' list
-        + show definitions, data on expansion of missed questions
-        - 'next' button to pop in more questions
-        - filter by w/e tags    
++ DB
+    + add wikitags, toefl, grade level estimates, categories? (like 'medical','archaic')       
+        - many-many relational table
         
 +++++++++++
 MAIN
@@ -23,11 +15,8 @@ Tweaking:
 DB:
     ? save pred to testlog
     - join data from wiki
-        + add toefl, grade level, oxford 3000 fields
-        ? change tags to bitflags (is this better in mysql anyways?)
-        ? merge defns into 1 field?
         ? paste in defns over 'alt of'....
-        ? tag system?
+        ? easy way to swap definitions to ones from wiki
         + need to keep under 5MB limit
         
 Front end:
@@ -40,9 +29,12 @@ Front end:
         + puts the text into a log (word id + suggestion) i can check manually later
         ? simply adds the word to a list to check (no security risks, less space, easy)
     ? better message for attempting to continue a timed out test? (rarely comes up)
+    - fix fitting for long definitions, words
         
 History:
     ? better catches for bad links
+    + 'wrong' list
+        - filter by tags
     - show histogram of historical user scores and place user on it
         + calc on startup (w/ weekly updater) and save to redis
         - bin by 500?

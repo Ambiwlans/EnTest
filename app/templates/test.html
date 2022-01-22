@@ -77,27 +77,27 @@
     		
             {% else %}
             <div class="container pred">
-                <h4 class="preest">
+                <h4 class="preest{{cnt}}">
                 {% if cnt == 0 %}
                     Answer at least 10 to get an estimate...
                 {% elif cnt == 1 %}
                     The more you answer, the more accurate the estimate...
                 {% elif cnt == 2 %}
-                    Tap the card to flip it and check your answers.
+                    Tap the word to flip it and check your answers.
                 {% elif cnt == 3 %}
-                    "<em>I should have known that one!</em>" is "<em>Don't know</em>".
+                    Be Honest. "<em>I should have known that one!</em>" is "<em>Don't know</em>".
                 {% elif cnt == 4 %}
                     The top left # shows what rank/difficulty the word is.
                 {% elif cnt == 5 %}
-                    The top right # shows how common the word is.
+                    The # above your word shows how many you've answered.
                 {% elif cnt == 6 %}
-                    On PC, try mousing over things for an explanation. 
+                    The top right # shows the frequency of the word (per million).
                 {% elif cnt == 7 %}
-                    Controls: [←]&nbsp;Know, [→]&nbsp;Don't&nbsp;Know, [↓]/[TAP]&nbsp;Flip&nbsp;card
+                    On PC, try mousing over things for an explanation. 
                 {% elif cnt == 8 %}
-                    Remember you can keep going after the initial result...
+                    Controls: [←]&nbsp;Know, [→]&nbsp;Don't&nbsp;Know, [↓]/[TAP]&nbsp;Flip&nbsp;card
                 {% elif cnt == 9 %}
-                    Good Luck!
+                    Good Luck! When you've had enough, click "Results" in the bottom right.
                 {% endif %}
                 </h4>
             </div>

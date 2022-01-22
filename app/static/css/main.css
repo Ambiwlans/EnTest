@@ -107,6 +107,33 @@ Muted grey #6c757d
     }
 }
 
+/* Attention Anim */
+
+.preest0, .preest1, .preest2, .preest9  {
+  animation: .5s wiggle ease;
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(-3deg);
+  }
+  20% {
+    transform: rotate(20deg);
+  }
+  40% {
+    transform: rotate(-15deg);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  90% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
 /* Results */
 
 .pred {
