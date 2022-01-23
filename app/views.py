@@ -169,10 +169,14 @@ def study():
     ydata = []
     pred = [0,0,0]
     studyword = 0
+    
+    active_cnt = 0
+    question_variability = current_app.config['TEST_VARIABLITY']
     if study: 
         active_cnt = len(session['Study_List'])
-    else: 
-        active_cnt = 0
+        if len(history) > 15:
+            question_variability = current_app.config['STUDY_VARIABLITY']
+
     
     if score is None:
         #For the first question, ask at random (for data gathering purposes)
@@ -220,16 +224,16 @@ def study():
             print(x_id)
             newquestion = pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TestMaterial'))[pd.read_msgpack(current_app.config['SESSION_REDIS'].get('TestMaterial'))['id']==x_id].iloc[0]
             studyword = 1
-        else:        
+        else:     
             # Try a few rerolls if you land on a repeat
             rerolls = 0
             while True:
                 rerolls += 1
                 # left half of graph if last question wrong, right half if correct (skew selection slightly away from the middle)
                 if score == 1:
-                    x = int(logit((random.random()**current_app.config['QUESTION_VARIABLITY'])/2, *res.x))
+                    x = int(logit((random.random()**question_variability)/2, *res.x))
                 elif score == 0:
-                    x = int(logit((random.random()**current_app.config['QUESTION_VARIABLITY'])/(-2) + 1, *res.x))
+                    x = int(logit((random.random()**question_variability)/(-2) + 1, *res.x))
                 elif score == -1:
                     x = int(logit(random.random(), *res.x))
                 else:

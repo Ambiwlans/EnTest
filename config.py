@@ -37,6 +37,11 @@ class DevelopmentConfig:
     MIN_TEST_LENGTH = 10                                          #Shorter tests won't be logged
     TEST_TIMEOUT = 1                                              #Minutes inactive before tests get dumped to SQL
     
+    # Study
+    MAX_TIMES_RIGHT = 2
+    MAX_TIMES_WRONG = 2
+    TGT_ACTIVE = 7
+    
     # Flask-Session
     SESSION_TYPE = "redis"
     SESSION_REDIS = redis.from_url(os.environ.get('REDIS_URL'))#, decode_responses=True)
@@ -45,7 +50,9 @@ class DevelopmentConfig:
     GRAPH_AFTER = 0
     GRAPH_MAX_X = 10000
     MAX_X = 9999
-    QUESTION_VARIABLITY = 1.0                                       # .1 = low variance from the prediction, 2 = high variance
+    TEST_VARIABLITY = 1.2                                           # .1 = low variance from the prediction, 2 = high variance
+    STUDY_VARIABLITY = .5                                           # .1 = low variance from the prediction, 2 = high variance | Study should pick more near center
+    OOB_REROLLS = 5                                                 # how many random rerolls on to avoid OOB scanning
     
     # L2R
     SHIFTSIZE_SLOPE = 500                                           # shiftsize = int(round((errorlevel * SHIFTSIZE_SLOPE) / 500) + 1)
@@ -91,8 +98,8 @@ class DeploymentConfig:
     GRAPH_AFTER = 9
     GRAPH_MAX_X = 10000
     MAX_X = 9999
-    QUESTION_VARIABLITY = 1.5                                       # .1 = low variance from the prediction, 2 = high variance
-        
+    TEST_VARIABLITY = 1.2                                           # .1 = low variance from the prediction, 2 = high variance
+    STUDY_VARIABLITY = .5                                           # .1 = low variance from the prediction, 2 = high variance | Study should pick more near center
     OOB_REROLLS = 5                                                 # how many random rerolls on to avoid OOB scanning
     
     # L2R

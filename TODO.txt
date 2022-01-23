@@ -9,7 +9,6 @@ CUR
     + Test Mode, Study Mode buttons
     
 + Study Mode
-    - pick words closer to the middle rather than teaching useless words (QUESTION_VARIABLITY)
     - finalize code merger w/ test and delete old code
         + in view.py
         - in html
