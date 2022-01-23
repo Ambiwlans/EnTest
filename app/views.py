@@ -236,10 +236,16 @@ def study():
                     # Score not given, fail gracefully
                     abort(500)
                 
-                if x < 1 : x = 1
-                if x > current_app.config['MAX_X']: x = current_app.config['MAX_X']
+                oob = False
+                if x < 1 : 
+                    x = 1
+                    oob = True
+                if x > current_app.config['MAX_X']: 
+                    x = current_app.config['MAX_X']
+                    oob = True
                 
-                if (history['my_rank']==x).sum() == 0 or rerolls > 3:               # if the question is new (hasn't been answered), or we've tried random 3x, then move on
+                # if the question is new (hasn't been answered) and in-bounds, or we've tried random 3x, then move on
+                if ((history['my_rank']==x).sum() == 0 and not oob) or rerolls > current_app.config['OOB_REROLLS']:               
                     break
             
             # Scan through if you are still on a repeat

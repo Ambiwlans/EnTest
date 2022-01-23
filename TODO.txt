@@ -2,8 +2,25 @@
 CUR
 ###########        
 
++ FP
+    - reword homepage, missing parens, flower arrange
+    - add more to FAQ
+    + beef up 'Controls: [←] Know, [→] Don't Know, [↓]/[TAP] Flip card' make closed to start button
+    + Test Mode, Study Mode buttons
+    
 + Study Mode
-
+    - pick words closer to the middle rather than teaching useless words (QUESTION_VARIABLITY)
+    - finalize code merger w/ test and delete old code
+        + in view.py
+        - in html
+    + Create a container that shows basic quiz stats
+        + Dropped - Active - Learned
+            - Give an animation when one of them goes up
+        ? settings for # of repeats, etc.
+    ? how to handle the 'complete' button? Just hide it?
+    - history page needs to know if an active test is a study session in order to link to study?
+        - change the 'study' variable to a session variable set on first question
+    
 + the scaler isn't multiplying correctly, it looks like it is getting clipped/rounded and then multiplied so its all x5.0
 
 + DB
@@ -24,7 +41,6 @@ DB:
         + need to keep under 5MB limit
         
 Front end:
-    - rearrage FP?
     - links to multiple dictionaries!
 	- new 'help' button images
     	- reenable button

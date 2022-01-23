@@ -93,6 +93,8 @@ class DeploymentConfig:
     MAX_X = 9999
     QUESTION_VARIABLITY = 1.5                                       # .1 = low variance from the prediction, 2 = high variance
         
+    OOB_REROLLS = 5                                                 # how many random rerolls on to avoid OOB scanning
+    
     # L2R
     SHIFTSIZE_SLOPE = 10                                            # shiftsize = int(round((errorlevel * qrank) / current_app.config['SHIFTSIZE_SLOPE']) + 1)
     ERRORLEVEL_CUTOFF_PCT = .5                                      # if (errorlevel < ERRORLEVEL_CUTOFF_PCT): continue 
