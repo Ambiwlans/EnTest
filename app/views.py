@@ -292,7 +292,7 @@ def test():
             studyword = studyword, active_cnt = active_cnt, learned_cnt = session['learned_cnt'], dropped_cnt = session['dropped_cnt'])
     else:
         return render_template('test.html', question = newquestion, cnt = len(history), id = session['TestLog'].id, \
-            scaler = int(current_app.config['SAMPLE_SCALER']), \
+            scaler = float(current_app.config['SAMPLE_SCALER']), \
             a = session['TestLog'].a, t = session['TestLog'].t, wronganswers = wronganswers, rightanswers = rightanswers, xmax = xmax, pred = pred)
     
 

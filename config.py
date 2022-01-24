@@ -60,7 +60,7 @@ class DevelopmentConfig:
     PUSH_L2R_LIVE = True                                            # pushes the temp rankings to live data automatically (use backups!)
     
     # Sample scaler
-    SAMPLE_SCALER = 5.5                                             #scale scores to this on display
+    SAMPLE_SCALER = 5.55                                             #scale scores to this on display
     
 class DeploymentConfig:
 
@@ -108,7 +108,7 @@ class DeploymentConfig:
     PUSH_L2R_LIVE = True                                            # pushes the temp rankings to live data automatically (use backups!)
     
     # Sample scaler
-    SAMPLE_SCALER = 5.5                                             #scale scores to this on display
+    SAMPLE_SCALER = 5.55                                             #scale scores to this on display
     
 #Easy switch for different configs
 Config = DeploymentConfig

@@ -37,13 +37,13 @@
     		You know <b>{{(pred[0] * scaler)|int}}</b> words compared to the average of {{(avg_known * scaler)|int}}. This is around <b>{{pct_known_by_appearance}}%</b> of words as they appear in text.
     		
     		<br><br>
-    		{% if (pred[0] * scaler)|int > 45000 %}
+    		{% if (pred[0] * scaler)|int > 50000 %}
                 You're beyond an expert! Have you been studying the dictionary or just doing drills on this site?
-            {% elif (pred[0] * scaler)|int > 30000 %}
+            {% elif (pred[0] * scaler)|int > 32000 %}
                 You're a well educated English native. Or else you've studied very hard.
-            {% elif (pred[0] * scaler)|int > 10000 %}    
+            {% elif (pred[0] * scaler)|int > 13000 %}    
                 At this level, you can speak and read English fluently.
-            {% elif (pred[0] * scaler)|int > 4000 %}    
+            {% elif (pred[0] * scaler)|int > 5000 %}    
                 You are an advanced English learner; ready for TOEFL if you haven't passed it already.
             {% elif (pred[0] * scaler)|int > 2000 %}
                 At your level, you're probably studying for TOEFL. You're not ready quite yet, but you are an intermediate learner and can hold a conversation.
