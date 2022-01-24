@@ -10,7 +10,6 @@ CUR
     
 + Study Mode
     - finalize code merger w/ test and delete old code
-        + in view.py
         - in html
     + Create a container that shows basic quiz stats
         + Dropped - Active - Learned
