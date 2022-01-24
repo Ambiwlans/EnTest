@@ -19,6 +19,14 @@ Muted grey #6c757d
 
 /* Test formatting
 -------------------------------------------------- */
+.good{
+    color: #267f00;
+}
+
+.bad{
+    color: #B40020;
+}
+
 .test_header{
     padding-left: 41px;
 }

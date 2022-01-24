@@ -9,8 +9,6 @@ CUR
     + Test Mode, Study Mode buttons
     
 + Study Mode
-    - finalize code merger w/ test and delete old code
-        - in html
     + Create a container that shows basic quiz stats
         + Dropped - Active - Learned
             - Give an animation when one of them goes up
@@ -18,8 +16,6 @@ CUR
     ? how to handle the 'complete' button? Just hide it?
     - history page needs to know if an active test is a study session in order to link to study?
         - change the 'study' variable to a session variable set on first question
-    
-+ the scaler isn't multiplying correctly, it looks like it is getting clipped/rounded and then multiplied so its all x5.0
 
 + DB
     + add wikitags, toefl, grade level estimates, categories? (like 'medical','archaic')       

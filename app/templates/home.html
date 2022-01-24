@@ -36,7 +36,8 @@
     	<p>Controls: [←] Know, [→] Don't Know, [↓]/[TAP]&nbsp;Flip&nbsp;card</p>
     	
 		<br>
-		<a id="start" class="btn btn-success btn-lg" role="btn" href="/test">START</a>
+		<a id="start_test" class="btn btn-success btn-lg" role="btn" href="/test?s=0">START TEST</a>
+		<a id="start_drill" class="btn btn-warning btn-lg" role="btn" href="/test?s=1">START DRILLS (ALPHA)</a>
 		<br><br>		
 		<p>Please <a href="https://github.com/Ambiwlans/Enken">Report any bugs</a> you find!</p>
 		<p>You can find me on <a href="https://github.com/Ambiwlans/enken">Github</a>, <a href="https://twitter.com/Ambiwlans1">twitter</a> or <a href="https://www.reddit.com/message/compose/?to=Ambiwlans">reddit</a>.</p> 
@@ -48,7 +49,7 @@
     document.onkeydown=function(e){
         if (e.which == 32){
             e.preventDefault();
-            window.location.href = $("#start").attr("href");
+            window.location.href = $("#start_test").attr("href");
         }
     }
     </script>
