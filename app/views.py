@@ -82,8 +82,7 @@ def test():
     study = request.args.get('s')
     if study is None: 
         study = 0
-    else:
-        study = 1
+    study = int(study)
     
     score = request.args.get('a')
     testmaterialid = request.args.get('q')
@@ -286,12 +285,12 @@ def test():
     print(f"Test #{session['TestLog'].id}, A = {session['TestLog'].a}, T = {session['TestLog'].t} ||  #{len(session['QuestionLog'])}, Rank#: {newquestion['my_rank']}, Word: {newquestion['question']}")
     
     if study:
-        return render_template('test.html', question = newquestion, cnt = len(history), id = session['TestLog'].id, \
+        return render_template('test.html', s = study, question = newquestion, cnt = len(history), id = session['TestLog'].id, \
             scaler = float(current_app.config['SAMPLE_SCALER']), \
             a = session['TestLog'].a, t = session['TestLog'].t, wronganswers = wronganswers, rightanswers = rightanswers, xmax = xmax, pred = pred, \
             studyword = studyword, active_cnt = active_cnt, learned_cnt = session['learned_cnt'], dropped_cnt = session['dropped_cnt'])
     else:
-        return render_template('test.html', question = newquestion, cnt = len(history), id = session['TestLog'].id, \
+        return render_template('test.html', s = study, question = newquestion, cnt = len(history), id = session['TestLog'].id, \
             scaler = float(current_app.config['SAMPLE_SCALER']), \
             a = session['TestLog'].a, t = session['TestLog'].t, wronganswers = wronganswers, rightanswers = rightanswers, xmax = xmax, pred = pred)
     
