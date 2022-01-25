@@ -130,23 +130,30 @@ def test():
             abort(500)
         else:
             testmaterialid = int(testmaterialid)
-            
-        if (session['QuestionLog']['testmaterialid'].astype('int') == testmaterialid).any():
-            if score:
-                session['Study_List'].loc[session['Study_List']['testmaterialid'].astype('int') == testmaterialid, 'times_right'] += 1
-                if session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].iloc[0].times_right >= int(current_app.config['MAX_TIMES_RIGHT']):
-                   session['learned_cnt'] += 1
-                   session['Study_List'].drop(session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].index, inplace=True)
+        
+        # In study mode, log new questions and track the study list
+        if study:
+            if (session['QuestionLog']['testmaterialid'].astype('int') == testmaterialid).any():
+                if score:
+                    session['Study_List'].loc[session['Study_List']['testmaterialid'].astype('int') == testmaterialid, 'times_right'] += 1
+                    if session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].iloc[0].times_right >= int(current_app.config['MAX_TIMES_RIGHT']):
+                       session['learned_cnt'] += 1
+                       session['Study_List'].drop(session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].index, inplace=True)
+                else:
+                    session['Study_List'].loc[session['Study_List']['testmaterialid'].astype('int') == testmaterialid, 'times_wrong'] += 1
+                    if session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].iloc[0].times_wrong >= int(current_app.config['MAX_TIMES_WRONG']):
+                       session['dropped_cnt'] += 1
+                       session['Study_List'].drop(session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].index, inplace=True)
             else:
-                session['Study_List'].loc[session['Study_List']['testmaterialid'].astype('int') == testmaterialid, 'times_wrong'] += 1
-                if session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].iloc[0].times_wrong >= int(current_app.config['MAX_TIMES_WRONG']):
-                   session['dropped_cnt'] += 1
-                   session['Study_List'].drop(session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].index, inplace=True)
+                session['QuestionLog'] = session['QuestionLog'].append({'testmaterialid' : testmaterialid, 'score' : score}, ignore_index=True)
+                if not score:
+                    session['Study_List'] = session['Study_List'].append({'testmaterialid' : testmaterialid, 'times_right' : 0, 'times_wrong' : 0}, ignore_index=True)            
+        # In test mode, log questions, for dupes, overwrite last answer
         else:
-            session['QuestionLog'] = session['QuestionLog'].append({'testmaterialid' : testmaterialid, 'score' : score}, ignore_index=True)
-            if not score:
-                session['Study_List'] = session['Study_List'].append({'testmaterialid' : testmaterialid, 'times_right' : 0, 'times_wrong' : 0}, ignore_index=True)
-               
+            if (session['QuestionLog']['testmaterialid'].astype('int') == testmaterialid).any():
+                session['QuestionLog'][session['QuestionLog']['testmaterialid'].astype('int') == testmaterialid].score = score
+            else:
+                session['QuestionLog'] = session['QuestionLog'].append({'testmaterialid' : testmaterialid, 'score' : score}, ignore_index=True)
         
     ###
     ### Handle Data, Prep output
