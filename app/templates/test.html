@@ -43,16 +43,20 @@
             <!-- Buttons -->    	
     		<a class="btn btn-success btn-lg" id="know" role="btn" href="/test?s={{s}}&a=1&q={{question.id}}">Know it</a>
     		<a class="btn btn-danger btn-lg" id="dunno" role="btn" href="/test?s={{s}}&a=0&q={{question.id}}">Don't Know</a>
-    		
-    		<!-- Study Stats -->
-    		{% if s == 1 %}
-            <div class="container studystats">
-            	Active: {{active_cnt}} Learned: <div class="good">{{learned_cnt}}</div> Dropped: <div class="bad">{{dropped_cnt}}</div>
-        	</div>
-        	{% endif %}
-        	
+    		        	
     		<!-- Predictions -->    	
         	{% if cnt >= 10 %}
+        	
+    	    <!-- Study Stats -->
+    		{% if s == 1 %}
+    		<div class="container studystats font-weight-bold">
+                <div class="row justify-content-md-center">
+                    <div class="col col-sm-2">Reviewing:<br>{{active_cnt}}</div>
+                    <div class="col col-sm-2">Learned:<br><div class="good">{{learned_cnt}}</div></div> 
+                    <div class="col col-sm-2">Dropped:<br><div class="bad">{{dropped_cnt}}</div></div>  
+                </div>
+            </div>
+        	{% endif %}
         	
         	<div class="container-fluid pred">
             	<p class="pred-header">Your Vocab Size</p>

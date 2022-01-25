@@ -19,6 +19,10 @@ Muted grey #6c757d
 
 /* Test formatting
 -------------------------------------------------- */
+.studystats{
+    margin: 5px;
+}
+
 .good{
     color: #267f00;
 }
