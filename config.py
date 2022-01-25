@@ -87,7 +87,7 @@ class DeploymentConfig:
     
     # Study
     MAX_TIMES_RIGHT = 2
-    MAX_TIMES_WRONG = 2
+    MAX_TIMES_WRONG = 3
     TGT_ACTIVE = 7
     
     # Flask-Session

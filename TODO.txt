@@ -12,8 +12,6 @@ CUR
     
 + Study Mode
     - Change pretest msgs
-    - history page needs to know if an active test is a study session in order to link to study?
-        - change the 'study' variable to a session variable set on first question
 
 + DB
     + add wikitags, toefl, grade level estimates, categories? (like 'medical','archaic')       

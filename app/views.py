@@ -109,14 +109,18 @@ def test():
         session['last_touched'] = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
         
         if study:
+            session['Study'] = 1
             session['Study_List'] = pd.DataFrame(columns=['testmaterialid', 'times_right','times_wrong'], dtype='int64')
             session['learned_cnt'] = 0
             session['dropped_cnt'] = 0
+        else:
+            session['Study'] = 0
             
         current_app.config['SESSION_REDIS'].incr('cur_testlog_id')
     elif int(score) == -1:
         # Flag to just continue a test
         score = int(score)
+        study = session['Study']
         #print("Continuing test")
         pass
     else:
