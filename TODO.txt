@@ -2,6 +2,8 @@
 CUR
 ###########        
 
++ redo the readme for github
+
 + FP
     - reword homepage, missing parens, flower arrange
     - add more to FAQ
@@ -9,11 +11,7 @@ CUR
     + Test Mode, Study Mode buttons
     
 + Study Mode
-    + Create a container that shows basic quiz stats
-        + Dropped - Active - Learned
-            - Give an animation when one of them goes up
-        ? settings for # of repeats, etc.
-    ? how to handle the 'complete' button? Just hide it?
+    - Change pretest msgs
     - history page needs to know if an active test is a study session in order to link to study?
         - change the 'study' variable to a session variable set on first question
 
@@ -63,10 +61,10 @@ Bugs:
         - are we correctly only recording the first time?
     
 Study Mode:
-
+    ? settings for # of repeats, etc.
+    ? Give an animation when one of them goes up
     
 Misc:
-	+ redo the readme for github
 	+ beta testing
 	
 CORE/BOTH:
