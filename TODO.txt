@@ -2,15 +2,25 @@
 CUR
 ###########        
 
+- fix fitting for long definitions, words
+
 + redo the readme for github
     
 + Study Mode
     - Change pretest msgs
 
-+ DB
-    + add wikitags, toefl, grade level estimates, categories? (like 'medical','archaic')       
-        - many-many relational table
-        
+- User ranking histogram
+    + calc on startup (w/ weekly updater) and save to redis (costlyish)
+    - bin by 500?
+    + graph adds the user line
+    
+- range prediction should change more based on # asked
+    - rerun every 'normal' logged test w/ over 50 answers ..... (Only ever need to do this once)
+        - compare each step's difference in estimation (as a % of the final value)
+            - ie. 20, 23, 25, 22, 17, 15, 11, 14, 9, 7, 4, 4, 4, 4, 3, 3, 2, 3 .....
+        - compare all tests to find the 90 percentile for each step (should be smooth)
+            - ie. 50, 40, 35, 30, 28, 27, 25, 23, 22, 20, 18
+                        
 +++++++++++
 MAIN
 +++++++++++
@@ -18,6 +28,8 @@ MAIN
 Tweaking:
     
 DB:
+    + add wikitags, toefl, grade level estimates, categories? (like 'medical','archaic')       
+        - many-many relational table (<1 tag/word)
     ? save pred to testlog
     - join data from wiki
         ? paste in defns over 'alt of'....
@@ -25,7 +37,6 @@ DB:
         + need to keep under 5MB limit
         
 Front end:
-    - links to multiple dictionaries!
 	- new 'help' button images
     	- reenable button
     - report definition button
@@ -33,16 +44,12 @@ Front end:
             + puts the text into a log (word id + suggestion) i can check manually later
         ? simply adds the word to a list to check (no security risks, less space, easy)
     ? better message for attempting to continue a timed out test? (rarely comes up)
-    - fix fitting for long definitions, words
         
 History:
     ? better catches for bad links
     + 'wrong' list
         - filter by tags
-    - show histogram of historical user scores and place user on it
-        + calc on startup (w/ weekly updater) and save to redis
-        - bin by 500?
-        + graph adds the user line
+
     
 Bugs:
     - switch from deprecated to_msgpack (use pyarrow?)
@@ -60,17 +67,10 @@ Misc:
 	+ beta testing
 	
 CORE/BOTH:
-    + DRILL PAGE/FEATURE
     - update packages/python, trim reqs
     ? identify magic numbers w/ inline comments
     - move scheduler times into config
     - add a full reset fn to admin page (set config TEST_TIMEOUT to 0, force update)
-    - range prediction should change more based on # asked
-        - rerun every 'normal' logged test w/ over 50 answers ..... (Only ever need to do this once)
-            - compare each step's difference in estimation (as a % of the final value)
-                - ie. 20, 23, 25, 22, 17, 15, 11, 14, 9, 7, 4, 4, 4, 4, 3, 3, 2, 3 .....
-            - compare all tests to find the 90 percentile for each step (should be smooth)
-                - ie. 50, 40, 35, 30, 28, 27, 25, 23, 22, 20, 18
 
 +++++++++++
     
