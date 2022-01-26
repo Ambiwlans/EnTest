@@ -3,46 +3,56 @@
 	<div class="container text-center">
 		<a href="/"><img class="title-lg" src="{{ url_for('static', filename='img/entest.png') }}"></a>
 		<p class="slogan">Test Your Vocab</p>
+		
+		<!-- Intro --> 
 		<br>
-		<p>EnTest is an English vocabulary test, but instead of blindly quizzing you on a ton of random words, it uses machine learning 
-		to ask you only the words most relevant to you. After only 10 questions, it will estimate how many you know. 
-		Keep answering to make the estimate more and more accurate! (Not just for yourself, the system learns from your answers to make more accurate estimates in the future.</p>
-		<p>When you are done, the test results will make a study list of words you missed. You can also 
-		bookmark your results to see how you improve as you study English. Or share your results and challenge friends.</p>
+		<p><b>EnTest</b> is a vocab test that uses machine learning to ask you only the words relevant to you. </p>
+		<p>After 10 words, it guesses how many words you know. <i>Keep answering</i> for more accurate results!</p>
+		<p>Your Results page will have a study list of words you missed. You can bookmark them for later or share your results and challenge friends.</p>
 		<br>
 		
+        <!-- Notice --> 
+        <container><p><mark><b>NOTICE:</b> This site is in alpha! Initial word ranking is based on older books, so 'churl' is ranked as easier than 'blog'. The more tests people take, the more accurate the rankings become! Thank you for the help!</mark></p></container>
+        <container><p><mark><b>NEW:</b> <i>Study Mode</i> finds the best words for you to learn and drills you on them, building your vocabulary!</mark></p></container>
+        
+		<!-- FAQ --> 
         <container>
         <div id="accordion"><div class="card">
             <div class="card-header" id="FAQ"><button class="btn btn-link btn-lg btn-block" data-toggle="collapse" data-target="#collapseFAQ" aria-expanded="false" aria-controls="collapseFAQ">FAQ</button></div>
         	<div id="collapseFAQ" class="collapse" aria-labelledby="FAQ" data-parent="#accordion"><div class="card-body">
         			<dl><dt>What is a Word?</dt><dd> Fitting that the FAQ needs to define a word. On this site we only look at words that get a unique dictionary entry. "Cat" and "Cats" would count as one word, as would "tickle" and "tickled".</dd></dl>
-        			<dl><dt>Who is this site for?</dt><dd> Everyone! English learners can use it to track their vocab as they study for TOEFL and native speakers can slake their curiosity and find out how many thousands of words they know. The results section with missed words gives everyone a chance to improve their vocabulary. In general though, the algorithm works best for people that know 500~20,000 words. Accuracy for very rare words is low.</dd></dl>
-        			<dl><dt>How many words are there?</dt><dd> The dictionary I used has 48.6k entries from which I took a random sample of 10,000 to use on this site. This is more than enough to test native speakers that typically score around 25~30k. The much larger 'wiktionary' has the goal of including all words and has 1.1 million words! Certainly far more than any human might know.</dd></dl>
+        			<dl><dt>Who is this site for?</dt><dd> Everyone! English learners can use it to track their vocab as they study for TOEFL and native speakers can slake their curiosity and find out how many thousands of words they know. The results section with missed words gives everyone a chance to improve their vocabulary. In general though, the algorithm works best for people that know 5,000~45,000 words.</dd></dl>
+        			<dl><dt>How many words are there?</dt><dd> The dictionary I used has 48.6k entries from which I took a random sample of 10,000 to use on this site. This is more than enough to test native speakers that typically score around 25~40k. The much larger 'wiktionary' has the goal of including all words and has 1.1 million words! Certainly far more than any human might know.</dd></dl>
         			<dl><dt>How do I know if "I know"?</dt><dd> Set your own standards, the results will match accordingly. If you test for "I could use it in a sentence but probably couldn't give a definition...." then that's what the results will represent.</dd></dl>
         			<dl><dt>How long are tests saved?</dt><dd> The server saves the last 10,000 tests for space reasons. If your old test record vanished, that means 10,000 tests have been taken since then.</dd></dl>
         			<dl><dt>What about testing Kanji?</dt><dd> Ok, maybe this one wasn't frequently asked. But if you are studying Japanese and interested in a similar test for Kanji, check out <a href="https://jiken.herokuapp.com/">JiKen</a>. EnTest was actually a spinoff of it.</dd></dl>
+        			<dl><dt>How does it work?</dt><dd> The system continuously reranks every single word from easy "a" to hard "vexillum". It asks questions to find out what difficulty words you know and how varied you are, then presents an estimate.</dd></dl>
         	</div></div>
         </div></div>
         </container>
-        
         <br>
-        
-        <container><p><mark><b>NOTICE:</b> This site is in alpha and very buggy still. The current word ranking is based on frequency of appearance in books which tend to be older, leaving 'churl' as a more common/'easy' word than 'avatar'. The more tests people take, the more accurate the rankings become! Thank you for the help!</mark></p></container>
-		
 
-		<br>
+		<!-- Explanation --> 
 		<div class="explanation">
-		<p>Answer <b>10</b> to start. Keep going for a more accurate estimate!</p>
-    	<p>Controls: [←] Know, [→] Don't Know, [↓]/[TAP]&nbsp;Flip&nbsp;card</p>
-    	
-		<br>
-		<a id="start_test" class="btn btn-success btn-lg" role="btn" href="/test?s=0">START TEST</a>
-		<a id="start_drill" class="btn btn-warning btn-lg" role="btn" href="/test?s=1">START DRILLS (ALPHA)</a>
-		<br><br>		
-		<p>Please <a href="https://github.com/Ambiwlans/Enken">Report any bugs</a> you find!</p>
-		<p>You can find me on <a href="https://github.com/Ambiwlans/enken">Github</a>, <a href="https://twitter.com/Ambiwlans1">twitter</a> or <a href="https://www.reddit.com/message/compose/?to=Ambiwlans">reddit</a>.</p> 
-		<p>If you really like this tool or like that there are no ads and want to <a class="donate" href="https://paypal.me/jikentest">Paypal Me a Coffee</a>, it would be greatly appreciated.</p>
-    	<p>Credit to <a href="https://gcide.gnu.org.ua">GCIDE</a>, and Webster for the base dictionary.</p></div>	
+    		<p>Answer <b>10</b> to start. Keep going for a more accurate estimate!</p>
+        	<p>Controls: <b>[←]</b> Know, <b>[→]</b> Don't Know, <b>[↓]</b>/<b>[TAP]</b>&nbsp;Flip&nbsp;card</p>
+        	<p>Study Mode reviews words you've missed as you go.</p>
+		</div>	
+		
+		<!-- Button Block --> 
+		<p>
+    		<a id="start_test" class="btn btn-success btn-lg" role="btn" href="/test?s=0">START TEST</a>
+    		<a id="start_study" class="btn btn-warning btn-lg" role="btn" href="/test?s=1">STUDY MODE (ALPHA)</a>
+		</p>
+		
+		<!-- Outro -->	
+		<div class="outro">
+    		<br>		
+    		<p>Please <a href="https://github.com/Ambiwlans/Enken">Report any bugs</a> you find!</p>
+    		<p>You can find me on <a href="https://github.com/Ambiwlans/enken">Github</a>, <a href="https://twitter.com/Ambiwlans1">twitter</a> or <a href="https://www.reddit.com/message/compose/?to=Ambiwlans">reddit</a>.</p> 
+    		<p>If you really like this tool or like that there are no ads and want to <a class="donate" href="https://paypal.me/jikentest">Paypal Me a Coffee</a>, it would be greatly appreciated.</p>
+        	<p>Credit to <a href="https://gcide.gnu.org.ua">GCIDE</a>, and Webster for the base dictionary.</p>
+    	</div>	
 	</div>
 	
     <script>

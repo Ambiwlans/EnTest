@@ -260,7 +260,7 @@ body {
 /* General Styling
 -------------------------------------------------- */
 
-.explanation {
+.explanation, .outro {
      font-size: 14px;
      line-height: 1;
 }

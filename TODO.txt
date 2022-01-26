@@ -3,12 +3,6 @@ CUR
 ###########        
 
 + redo the readme for github
-
-+ FP
-    - reword homepage, missing parens, flower arrange
-    - add more to FAQ
-    + beef up 'Controls: [←] Know, [→] Don't Know, [↓]/[TAP] Flip card' make closed to start button
-    + Test Mode, Study Mode buttons
     
 + Study Mode
     - Change pretest msgs
@@ -34,9 +28,9 @@ Front end:
     - links to multiple dictionaries!
 	- new 'help' button images
     	- reenable button
-    ? report definition button
-        + popup that allows user to reccomend a definition
-        + puts the text into a log (word id + suggestion) i can check manually later
+    - report definition button
+        ? popup that allows user to reccomend a definition
+            + puts the text into a log (word id + suggestion) i can check manually later
         ? simply adds the word to a list to check (no security risks, less space, easy)
     ? better message for attempting to continue a timed out test? (rarely comes up)
     - fix fitting for long definitions, words
@@ -89,7 +83,8 @@ LATER
 + reduce step size for l2r
 + set test timeout back to 1hr
 - in /test it should show latest nodes
-    
++ refactor views.py ... it is a gross mess. needs comments too
+
 +++++++++++
 MAYBE
 +++++++++++
