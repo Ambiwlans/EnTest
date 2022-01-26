@@ -30,6 +30,7 @@ import datetime
 from app.utils import sigmoid#, logit
 
 from scipy.integrate import quad
+from math import ceil
     
 #DB
 from app import db
@@ -205,9 +206,12 @@ def update_meta(app):
         db.session.commit()
         
         #Calculate Histogram
-        bins = list(range(0, 10100, 100))
+        # bin count from config, ensure that the end result rounds to nice graphable 100s
+        binsize = (ceil((current_app.config['MAX_X']*current_app.config['SAMPLE_SCALER'] / current_app.config['HIST_BINS'])/100)*100) \
+                / current_app.config['SAMPLE_SCALER']
+        bins = list(np.arange(0, current_app.config['MAX_X'] + binsize, binsize))
         testlogs = [[t[0],a[0]] for t,a in zip(db.session.query(TestLog.t), db.session.query(TestLog.a))]
-        ests = [quad(sigmoid,0,current_app.config['MAX_X'],args=(*x,1))[0] for x in testlogs]
+        ests = [quad(sigmoid, 0, current_app.config['MAX_X'], args=(*x,1))[0] for x in testlogs]
         current_app.config['SESSION_REDIS'].set('Hist', pd.cut(ests, bins, include_lowest=True,labels=bins[0:-1]).value_counts().to_msgpack(compress='zlib'))
 #        print(pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')))
         

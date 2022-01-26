@@ -101,6 +101,7 @@ class DeploymentConfig:
     TEST_VARIABLITY = 1.2                                           # .1 = low variance from the prediction, 2 = high variance
     STUDY_VARIABLITY = .5                                           # .1 = low variance from the prediction, 2 = high variance | Study should pick more near center
     OOB_REROLLS = 5                                                 # how many random rerolls on to avoid OOB scanning
+    HIST_BINS = 100                                                 # how many bins in our histogram
     
     # L2R
     SHIFTSIZE_SLOPE = 10                                            # shiftsize = int(round((errorlevel * qrank) / current_app.config['SHIFTSIZE_SLOPE']) + 1)
