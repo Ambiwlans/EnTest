@@ -9,10 +9,8 @@ CUR
 + Study Mode
     - Change pretest msgs
 
-- User ranking histogram
-    + calc on startup (w/ weekly updater) and save to redis (costlyish)
-    - bin by 500?
-    + graph adds the user line
++ hist
+    - highlight bin user is in
     
 - range prediction should change more based on # asked
     - rerun every 'normal' logged test w/ over 50 answers ..... (Only ever need to do this once)
@@ -49,7 +47,6 @@ History:
     ? better catches for bad links
     + 'wrong' list
         - filter by tags
-
     
 Bugs:
     - switch from deprecated to_msgpack (use pyarrow?)

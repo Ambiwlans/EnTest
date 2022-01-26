@@ -209,6 +209,7 @@ def update_meta(app):
         testlogs = [[t[0],a[0]] for t,a in zip(db.session.query(TestLog.t), db.session.query(TestLog.a))]
         ests = [quad(sigmoid,0,current_app.config['MAX_X'],args=(*x,1))[0] for x in testlogs]
         current_app.config['SESSION_REDIS'].set('Hist', pd.cut(ests, bins, include_lowest=True,labels=bins[0:-1]).value_counts().to_msgpack(compress='zlib'))
+#        print(pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')))
         
         print("Successfully Updated Meta vals")
         print("A = " + str(int(current_app.config['SESSION_REDIS'].get('default_a'))))

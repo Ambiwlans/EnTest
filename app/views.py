@@ -51,7 +51,9 @@ def home():
 def adminpanel():
     if request.args.get('p') != current_app.config['SECRET_KEY']:    
         return render_template('home.html')
-    return render_template('admin.html', p = request.args.get('p'))
+    return render_template('admin.html', p = request.args.get('p'), \
+        hist = list(zip(pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')).index,pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')))), \
+        scaler = float(current_app.config['SAMPLE_SCALER']))
 
 @bp.route("/forcemetaupdate")
 def forcemetaupdate():
