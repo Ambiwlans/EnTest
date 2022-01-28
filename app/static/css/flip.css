@@ -3,8 +3,19 @@
     From: https://www.webnots.com/bootstrap-4-flip-card-widget/
 
 -------------------------------------------------- */
+:not(.flipped) .backside {
+    height: 0px;
+    min-height: 0px;
+}
+
+:not(.flipped) .frontside {
+    min-height: 200px;
+    height: 0px;
+}
 
 .flipped .backside {
+    min-height: 200px;
+    height: auto;
 -webkit-transform: rotateY(0deg);
 -moz-transform: rotateY(0deg);
 -o-transform: rotateY(0deg);
@@ -13,6 +24,8 @@ transform: rotateY(0deg);
 }
  
 .flipped .frontside{
+    height: 0px;
+    min-height: 0px;
 -webkit-transform: rotateY(180deg);
 -moz-transform: rotateY(180deg);
 -o-transform: rotateY(180deg);
@@ -47,11 +60,11 @@ backface-visibility: hidden;
 -ms-transform-style: preserve-3d;
 transition: 1s;
 transform-style: preserve-3d;
-position: absolute;
 top: 0;
 left: 0;
+overflow: hidden;
 }
- 
+
 .frontside {
 -webkit-transform: rotateY(0deg);
 -ms-transform: rotateY(0deg);

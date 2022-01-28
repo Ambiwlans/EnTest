@@ -2,11 +2,11 @@ $(function () {
     var pred = parseInt($('.predlower').text() || 0);
     console.log(pred);
     
-    if (pred > 0 && pred < 5000)
+    if (pred > 0 && pred < 10000)
     {
         $('.predmain').attr("title", "Keep studying!");
     }
-    if (pred > 20000 && pred < 50000)
+    if (pred > 30000 && pred < 50000)
     {
         $('.predmain').attr("title", "Native speaker?");
     }

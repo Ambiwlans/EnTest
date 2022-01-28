@@ -48,7 +48,6 @@ Muted grey #6c757d
 
 .flashcard {
     margin-top: 25px;
-    height: 225px;
 }
 
 /* Front */
@@ -62,6 +61,7 @@ Muted grey #6c757d
     position: absolute;
     left: 0px;
     right: 0px;
+    top: 10px;
     width: 60%;
 }
 
