@@ -107,7 +107,7 @@ def test():
                 "ip" : request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr),
                 "start_time" : datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')})
         
-        session['QuestionLog'] = pd.DataFrame(columns=['testmaterialid','score'], dtype='int64')
+        session['QuestionLog'] = pd.DataFrame(columns=['testmaterialid','score','cur_pred'], dtype='int64')
         session['last_touched'] = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
         
         if study:
@@ -152,7 +152,7 @@ def test():
                            session['dropped_cnt'] += 1
                            session['Study_List'].drop(session['Study_List'][session['Study_List']['testmaterialid'].astype('int') == testmaterialid].index, inplace=True)
             else:
-                session['QuestionLog'] = session['QuestionLog'].append({'testmaterialid' : testmaterialid, 'score' : score}, ignore_index=True)
+                session['QuestionLog'] = session['QuestionLog'].append({'testmaterialid' : testmaterialid, 'score' : score, 'cur_pred': int(session.get('cur_pred', 0) or 0)}, ignore_index=True)
                 if not score:
                     session['Study_List'] = session['Study_List'].append({'testmaterialid' : testmaterialid, 'times_right' : 0, 'times_wrong' : 0}, ignore_index=True)            
         # In test mode, log questions, for dupes, overwrite last answer
@@ -160,7 +160,7 @@ def test():
             if (session['QuestionLog']['testmaterialid'].astype('int') == testmaterialid).any():
                 session['QuestionLog'][session['QuestionLog']['testmaterialid'].astype('int') == testmaterialid].score = score
             else:
-                session['QuestionLog'] = session['QuestionLog'].append({'testmaterialid' : testmaterialid, 'score' : score}, ignore_index=True)
+                session['QuestionLog'] = session['QuestionLog'].append({'testmaterialid' : testmaterialid, 'score' : score, 'cur_pred': int(session.get('cur_pred', 0) or 0)}, ignore_index=True)
         
     ###
     ### Handle Data, Prep output
@@ -231,8 +231,9 @@ def test():
                 pred[0] += (r.score - sigmoid(r.my_rank, *res.x, 1))
                 pred[1] += (r.score - sigmoid(r.my_rank, *res.x, .5))
                 pred[2] += (r.score - sigmoid(r.my_rank, *res.x, 2))
-            
+                
             pred = list(map(int,pred))
+            session['cur_pred'] = pred[0]
             
         # Select next question
         if active_cnt > random.randrange(0, int(current_app.config['TGT_ACTIVE'])):

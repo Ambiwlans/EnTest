@@ -56,9 +56,8 @@ class QuestionLog(db.Model):
     testmaterialid = Column(Integer, ForeignKey('testmaterial.id'), nullable=False)
     score = Column(Boolean)             # 1 = right, 0 = wrong
     
-#    timegiven = 
-#    timeanswered = 
-#    timeelapsed = 
+    #Dev
+    cur_pred = Column(Integer)     # only needed to train range prediction model
     
     #Related
     testlog = relationship("TestLog", back_populates="questions")
