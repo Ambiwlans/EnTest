@@ -2,24 +2,40 @@
 CUR
 ###########        
 
+- range prediction should change more based on # asked
+    - y -> error bar size, x->question number
+    - y=80(x+5)^-.5
+        
 + redo the readme for github
     
 + Study Mode
     - Change pretest msgs
  
-- range prediction should change more based on # asked
-    - rerun every 'normal' logged test w/ over 50 answers ..... (Only ever need to do this once)
-        - compare each step's difference in estimation (as a % of the final value)
-            - ie. 20, 23, 25, 22, 17, 15, 11, 14, 9, 7, 4, 4, 4, 4, 3, 3, 2, 3 .....
-        - compare all tests to find the 90 percentile for each step (should be smooth)
-            - ie. 50, 40, 35, 30, 28, 27, 25, 23, 22, 20, 18
-                        
+ ? better message for attempting to continue a timed out test? (rarely comes up)
+ 
+Hist
+     - Add a favourite word quote to history... flavor text
+         - some random quotes about the love of language
+         - random facts about me 'I took this quiz 211 times while developing this app'
+         - defensestrate Een blunge panicum Semipalmated flocculent hygrometry kiang (A large wild ass) tatu mickle xenotime soliloquize blandishment erective shiboleth sparge Roquelaure baston dunner pavior trousseau realgar(artificial) montero
+     - Add a reading level estimate w/ links to recommended reading (or study material at lower levels)
+     - 69 questions or 420 answered, add a '(nice)'
+ 
 +++++++++++
 MAIN
 +++++++++++
 
 Tweaking:
-    
+    ? for doing prediction, could pre-bin and avg the data (size50?) and make assumptions about empty bins (l/r of mid)
+        - current issue is that empty sections get 0 weight resulting in flatter
+        - doing this could weaken the granularity of the data
+        - could add in binned data to normal data
+        - adaptive bin size based on # of answers?
+            - size = 10k/#q
+            - so with 100 answers, we'd be adding 100 bins of size 100, this almost definitely improves results
+        - is this worth doing when results are currently good enough?
+        - would need to change the regularization all over again
+                
 DB:
     + add wikitags, toefl, grade level estimates, categories? (like 'medical','archaic')       
         - many-many relational table (<1 tag/word)
@@ -28,6 +44,7 @@ DB:
         ? paste in defns over 'alt of'.... (everything under 15letter defns?)
         ? easy way to swap definitions to ones from wiki
         + need to keep under 5MB limit
+    - test_log should ideally store num_known as well instead of just using 'a' which isn't quite accurate for comparisons
         
 Front end:
 	- new 'help' button images
@@ -36,18 +53,19 @@ Front end:
         ? popup that allows user to reccomend a definition
             + puts the text into a log (word id + suggestion) i can check manually later
         ? simply adds the word to a list to check (no security risks, less space, easy)
-    ? better message for attempting to continue a timed out test? (rarely comes up)
         
 History:
+    - export list to anki
+    ? show user other tests from same ip. links, graph
     ? better catches for bad links
+    ?? grey out continue button after it would be predicted to time out
     - 'wrong' list filter by tags
-    - hist
-        - put hist into history
+    - histogram
+        - put histogram into history
         - highlight bin user is in
-        
+                   
 Bugs:
     - switch from deprecated to_msgpack (use pyarrow?)
-    - test_log should ideally store num_known as well instead of just using 'a' which isn't quite accurate for comparisons
     ? words at extremes aren't reshuffling w/ l2r (like entest)
     ?? forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
     - hitting f5 shouldn't post during test
@@ -77,27 +95,13 @@ LATER
 +++++++++++
 + reduce step size for l2r
 + set test timeout back to 1hr
-- in /test it should show latest nodes
 + refactor views.py ... it is a gross mess. needs comments too
 
 +++++++++++
 MAYBE
 +++++++++++
-- export list to anki
 ? change to a left side, rightside algorithm to fit, rather than sigmoid
-- make 'more...' a framed popup to avoid leaving site/test
-- show user other tests from same ip. links, graph
 ? log blocks of questions in test and drop this table entirely? (incorrect way to do it, but handles the 10k cap better)
 ? change colour scheme? Dark mode?
 ? merger of all testing thingies? Select a from and to (kanji->english, eng->eng) .... some losses from going generic, easier to maintain, harder to build... vocab only?
-? switch to dictionary api? (free is normally 100s/hr which is like 1~2 users only lol)
-    https://medium.com/@martin.breuss/finding-a-useful-dictionary-api-52084a01503d
-? change the dictionary for simpler words to cut down on complexity
-    - https://dictionaryapi.com/ allows 1k/day, wordnik.com allows 100/hr ... enough to rebuild DB, but not grab live (check permissions)
-    - https://medium.com/@martin.breuss/finding-a-useful-dictionary-api-52084a01503d
-    - use a 'learner's dictionary' for 5000 basic words
-    - manually rewrite the easiest and longest 100.
-    - multiple languages/setting? (german, japanese definitions?) (E-J test ...)
-    ? Use the wiktionary DB i ripped/made ........ but the '1st definition' system is questionable. If I switch, I'd need to allow multiple definitions
-        - also need to re-rip since i bugged out antonyms somehow
 ? Add categories for top 25 'topics' from wiktionary data set, enable this in history somehow

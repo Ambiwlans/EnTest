@@ -3,19 +3,12 @@
     From: https://www.webnots.com/bootstrap-4-flip-card-widget/
 
 -------------------------------------------------- */
-:not(.flipped) .backside {
-    height: 0px;
-    min-height: 0px;
-}
 
-:not(.flipped) .frontside {
-    min-height: 200px;
-    height: 0px;
+.flipped {
+    overflow: auto;
 }
 
 .flipped .backside {
-    min-height: 200px;
-    height: auto;
 -webkit-transform: rotateY(0deg);
 -moz-transform: rotateY(0deg);
 -o-transform: rotateY(0deg);
@@ -24,8 +17,6 @@ transform: rotateY(0deg);
 }
  
 .flipped .frontside{
-    height: 0px;
-    min-height: 0px;
 -webkit-transform: rotateY(180deg);
 -moz-transform: rotateY(180deg);
 -o-transform: rotateY(180deg);
@@ -43,6 +34,9 @@ transform: rotateY(180deg);
 transition: 1s;
 transform-style: preserve-3d;
 cursor: pointer;
+    display: grid;
+    max-height: 350px;
+    min-height: 200px;
 }
  
 .frontside, .backside {
@@ -50,19 +44,17 @@ cursor: pointer;
 -moz-backface-visibility: hidden;
 -ms-backface-visibility: hidden;
 backface-visibility: hidden;
--webkit-transition: 1s;
+-webkit-transition: -webkit-transform 1s;
 -webkit-transform-style: preserve-3d;
--moz-transition: 1s;
+-moz-transition: -moz-transform 1s;
 -moz-transform-style: preserve-3d;
--o-transition: 1s;
+-o-transition: -o-transform 1s;
 -o-transform-style: preserve-3d;
--ms-transition: 1s;
+-ms-transition: -ms-transform 1s;
 -ms-transform-style: preserve-3d;
-transition: 1s;
+transition: transform 1s;
 transform-style: preserve-3d;
-top: 0;
-left: 0;
-overflow: hidden;
+    grid-area: 1/1;
 }
 
 .frontside {
