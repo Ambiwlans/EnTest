@@ -35,7 +35,7 @@ transition: 1s;
 transform-style: preserve-3d;
 cursor: pointer;
     display: grid;
-    max-height: 350px;
+    max-height: 300px;
     min-height: 200px;
 }
  
