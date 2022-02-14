@@ -61,6 +61,7 @@ transform-style: preserve-3d;
 -webkit-transform: rotateY(0deg);
 -ms-transform: rotateY(0deg);
 z-index: 2;
+/* can use align-self top vert center the front face w/ tall back face */
 }
  
 .backside {
