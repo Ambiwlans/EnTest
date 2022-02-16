@@ -24,7 +24,7 @@
                     <div class="frontside-data container">
                         <span class="my_rank" data-toggle="tooltip" data-placement="left" title="Word difficulty ranking">{{(question.my_rank * scaler)|int}}</span>
                         <span class="top-center">
-                            <p class="count" data-toggle="tooltip" data-placement="top" title="How many you've answered so far">{{cnt + 1}}</p>
+                            <p class="count" data-toggle="tooltip" data-placement="top" title="How many you've answered so far">{% if cnt == 68 %}nice{% elif cnt == 419 %}blaze it{% else %}{{cnt + 1}}{% endif %}</p>
                         </span>
                         <span class="top-right">
                             {% if question.freq_per_mil != 0 %}
@@ -112,7 +112,7 @@
                     {% endif %}
                 {% else %}
                     {% if cnt == 0 %}
-                        Answer at least 10 to get an estimate...
+                        Answer <em>at least 10</em> to get an estimate...
                     {% elif cnt == 1 %}
                         The more you answer, the more accurate the estimate...
                     {% elif cnt == 2 %}
