@@ -7,9 +7,6 @@ CUR
 - range prediction should change more based on # asked
     - y -> error bar size, x->question number
     - y=80(x+5)^-.5
-           
-+ Study Mode
-    - Change pretest msgs
  
  ? better message for attempting to continue a timed out test? (rarely comes up)
  

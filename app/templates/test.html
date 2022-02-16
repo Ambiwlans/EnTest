@@ -88,26 +88,50 @@
             {% else %}
             <div class="container pred">
                 <h4 class="preest{{cnt}}">
-                {% if cnt == 0 %}
-                    Answer at least 10 to get an estimate...
-                {% elif cnt == 1 %}
-                    The more you answer, the more accurate the estimate...
-                {% elif cnt == 2 %}
-                    Tap the word to flip it and check your answers.
-                {% elif cnt == 3 %}
-                    Be Honest. "<em>I should have known that one!</em>" is "<em>Don't know</em>".
-                {% elif cnt == 4 %}
-                    The top left # shows what rank/difficulty the word is.
-                {% elif cnt == 5 %}
-                    The # above your word shows how many you've answered.
-                {% elif cnt == 6 %}
-                    The top right # shows the frequency of the word (per million).
-                {% elif cnt == 7 %}
-                    On PC, try mousing over things for an explanation. 
-                {% elif cnt == 8 %}
-                    Controls: [←]&nbsp;Know, [→]&nbsp;Don't&nbsp;Know, [↓]/[TAP]&nbsp;Flip&nbsp;card
-                {% elif cnt == 9 %}
-                    Good Luck! When you've had enough, click "Results" in the bottom right.
+                {% if s == 1 %}
+                    {% if cnt == 0 %}
+                        Answer a few so we know where to focus.
+                    {% elif cnt == 1 %}
+                        Once your level is determined, you will start being drilled.
+                    {% elif cnt == 2 %}
+                        Miss a word 2x and it is 'dropped'. Know it 2x to add it to 'learned'.
+                    {% elif cnt == 3 %}
+                        You can always get your test results bottom right like a normal test.
+                    {% elif cnt == 4 %}
+                        <em>Tap/Click words you are unsure of to get the definition.</em>
+                    {% elif cnt == 5 %}
+                        If the definition isn't enough, click 'more..' for the full wiki article.
+                    {% elif cnt == 6 %}
+                        Try to learn 25 new words per session.
+                    {% elif cnt == 7 %}
+                        Use hotkeys to drill faster!
+                    {% elif cnt == 8 %}
+                        Controls: [←]&nbsp;Know, [→]&nbsp;Don't&nbsp;Know, [↓]/[TAP]&nbsp;Flip&nbsp;card
+                    {% elif cnt == 9 %}
+                        Good Luck! When you've had enough, click "Results" in the bottom right.
+                    {% endif %}
+                {% else %}
+                    {% if cnt == 0 %}
+                        Answer at least 10 to get an estimate...
+                    {% elif cnt == 1 %}
+                        The more you answer, the more accurate the estimate...
+                    {% elif cnt == 2 %}
+                        Tap the word to flip it and check your answers.
+                    {% elif cnt == 3 %}
+                        Be Honest. "<em>I should have known that one!</em>" is "<em>Don't know</em>".
+                    {% elif cnt == 4 %}
+                        The top left # shows what rank/difficulty the word is.
+                    {% elif cnt == 5 %}
+                        The # above your word shows how many you've answered.
+                    {% elif cnt == 6 %}
+                        The top right # shows the frequency of the word (per million).
+                    {% elif cnt == 7 %}
+                        On PC, try mousing over things for an explanation. 
+                    {% elif cnt == 8 %}
+                        Controls: [←]&nbsp;Know, [→]&nbsp;Don't&nbsp;Know, [↓]/[TAP]&nbsp;Flip&nbsp;card
+                    {% elif cnt == 9 %}
+                        Good Luck! When you've had enough, click "Results" in the bottom right.
+                    {% endif %}
                 {% endif %}
                 </h4>
             </div>
