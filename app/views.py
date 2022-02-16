@@ -53,7 +53,8 @@ def adminpanel():
         return render_template('home.html')
     return render_template('admin.html', p = request.args.get('p'), \
         hist = list(zip(pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')).index,pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')))), \
-        scaler = float(current_app.config['SAMPLE_SCALER']))
+        scaler = float(current_app.config['SAMPLE_SCALER']), \
+        avg = int(current_app.config['SESSION_REDIS'].get('avg_known') or 0))
 
 @bp.route("/forcemetaupdate")
 def forcemetaupdate():

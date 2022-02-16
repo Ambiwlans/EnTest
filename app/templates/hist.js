@@ -7,8 +7,10 @@ var myLineChart = new Chart(ctx, {
     data: {
         labels: {{ hist|tojson|safe }}.map(histlabels),
         datasets: [{
-            data: {{ hist|tojson|safe }}.map(histdata)
+            data: {{ hist|tojson|safe }}.map(histdata),
+            backgroundColor: {{ hist|tojson|safe }}.map(histcolours)
         }]
+        
     },
     options: {
         responsive: true,
@@ -36,6 +38,12 @@ function histdata(val) {
 function histlabels(val) {
     //console.log(JSON.stringify((parseInt({{scaler}} * val[0])));
     return parseInt({{scaler}} * val[0]);
+};
+
+function histcolours(val, i, ele) {
+    if (ele[i][0] > {{avg}}){return "grey";}
+    if (ele[i+1][0] < {{avg}}){return "grey"}
+    return "green"
 };
 
 </script>
