@@ -3,7 +3,8 @@ CUR
 ###########        
  
 Hist
-     - Add a favourite word quote to history... flavor text
+    - add histogram
+    - Add a favourite word quote to history... flavor text
          - some random quotes about the love of language
          - random facts about me 'I took this quiz 211 times while developing this app'
          - defensestrate Een blunge panicum Semipalmated flocculent hygrometry kiang (A large wild ass) tatu mickle xenotime soliloquize blandishment erective shiboleth sparge Roquelaure baston dunner pavior trousseau realgar(artificial) montero

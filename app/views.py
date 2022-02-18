@@ -383,14 +383,13 @@ def history(id):
     pred = [0,0,0]      #[mid, upper, lower]    
     x = [data['TestLog'].t, data['TestLog'].a]
     
-    len_history = len(history)
     pred = [(quad(sigmoid,0,current_app.config['MAX_X'],args=(*x,1))[0]), 0, 0]
     
     # account for all the answered values
     for i, r in history.iterrows():
         pred[0] += (r.score - sigmoid(r.my_rank, *x, 1))
     
-    err_size = 80 * (len_history+5)**(-.5)
+    err_size = 80 * (cnt+5)**(-.5)
     
     pred[1] = min(pred[0] * (1 + err_size/100),current_app.config['MAX_X'])
     pred[2] = pred[0] * (1 - err_size/100)
