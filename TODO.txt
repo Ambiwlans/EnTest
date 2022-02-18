@@ -23,7 +23,8 @@ Tweaking:
             - so with 100 answers, we'd be adding 100 bins of size 100, this almost definitely improves results
         - is this worth doing when results are currently good enough?
         - would need to change the regularization all over again
-                
+    - to old bounds prediction was sort of better (took slope into account), maybe tune it to line up w/ new data?            
+    
 DB:
     + add wikitags, toefl, grade level estimates, categories? (like 'medical','archaic')       
         - many-many relational table (<1 tag/word)
