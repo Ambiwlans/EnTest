@@ -55,7 +55,7 @@ def adminpanel():
     return render_template('admin.html', p = request.args.get('p'), \
         hist = list(zip(pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')).index,pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')))), \
         scaler = float(current_app.config['SAMPLE_SCALER']), \
-        avg = int(current_app.config['SESSION_REDIS'].get('avg_known') or 0))
+        pred = [int(current_app.config['SESSION_REDIS'].get('avg_known') or 0)])
 
 @bp.route("/forcemetaupdate")
 def forcemetaupdate():
@@ -412,6 +412,7 @@ def history(id):
     return  render_template('history.html', id = id, \
         a = data['TestLog'].a, t = data['TestLog'].t, wronganswers = wronganswers, rightanswers = rightanswers, xmax = xmax, pred = pred,\
         scaler = float(current_app.config['SAMPLE_SCALER']), \
+        hist = list(zip(pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')).index,pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')))), \
         curtest = curtest, cnt = cnt, \
         date = data['TestLog'].start_time, \
         avg_answered = int(current_app.config['SESSION_REDIS'].get('avg_answered') or 0), \

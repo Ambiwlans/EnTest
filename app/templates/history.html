@@ -52,6 +52,12 @@
             {% endif %}
             </p>
             
+            <!-- Histogram -->
+            <br>
+            <h3 class="text-left">How you compare to other users:</h3>
+            <div class="chart-container"><canvas id="histoChart"></canvas></div>
+            <p class="explanation">(You're in the green bar)</p>
+            
             <!-- Study list -->
             {% if wronganswers|length > 0 %}
             <h3 class="text-left">Words you missed:</h3>
@@ -104,7 +110,8 @@
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 	{%- include 'chart.js' -%}
-
+    {%- include 'hist.js' -%}
+    
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>

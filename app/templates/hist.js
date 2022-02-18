@@ -1,7 +1,7 @@
 {% block chart %}
 <script>
 
-var ctx = document.getElementById('histChart').getContext('2d');
+var ctx = document.getElementById('histoChart').getContext('2d');
 var myLineChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -41,8 +41,8 @@ function histlabels(val) {
 };
 
 function histcolours(val, i, ele) {
-    if (ele[i][0] > {{avg}}){return "grey";}
-    if (ele[i+1][0] < {{avg}}){return "grey"}
+    if (ele[i][0] > {{pred[0]}}){return "grey";}
+    if (ele[i+1][0] < {{pred[0]}}){return "grey"}
     return "green"
 };
 

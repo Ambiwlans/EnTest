@@ -3,7 +3,6 @@ CUR
 ###########        
  
 Hist
-    - add histogram
     - Add a favourite word quote to history... flavor text
          - some random quotes about the love of language
          - random facts about me 'I took this quiz 211 times while developing this app'
@@ -24,6 +23,7 @@ Tweaking:
         - is this worth doing when results are currently good enough?
         - would need to change the regularization all over again
     - to old bounds prediction was sort of better (took slope into account), maybe tune it to line up w/ new data?            
+    ? question selection should change slope to be flatter?
     
 DB:
     + add wikitags, toefl, grade level estimates, categories? (like 'medical','archaic')       
