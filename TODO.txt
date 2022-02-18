@@ -1,13 +1,9 @@
 ###########
 CUR
 ###########        
- 
-Hist
-    - Add a favourite word quote to history... flavor text
-         - some random quotes about the love of language
-         - random facts about me 'I took this quiz 211 times while developing this app'
-         - defensestrate Een blunge panicum Semipalmated flocculent hygrometry kiang (A large wild ass) tatu mickle xenotime soliloquize blandishment erective shiboleth sparge Roquelaure baston dunner pavior trousseau realgar(artificial) montero
- 
+
+-?
+
 +++++++++++
 MAIN
 +++++++++++
@@ -42,7 +38,8 @@ Front end:
         ? popup that allows user to reccomend a definition
             + puts the text into a log (word id + suggestion) i can check manually later
         ? simply adds the word to a list to check (no security risks, less space, easy)
-        
+    ? weirdly the q word resizer still only supports up to 22 characters (longest word on list atm is Overscrupulousness (18))
+    
 History:
     - export list to anki
     ? show user other tests from same ip. links, graph
@@ -50,7 +47,11 @@ History:
     ?? grey out continue button after it would be predicted to time out
     - 'wrong' list filter by tags
     - Add a reading level estimate w/ links to recommended reading (or study material at lower levels)
-                   
+    - More history flav text
+         - more quotes
+         - Semipalmated flocculent hygrometry soliloquize erective sparge Roquelaure dunner pavior trousseau
+         http://www.chrisjoneswriting.com/terry-pratchett-quotes/category/language
+     
 Bugs:
     - switch from deprecated to_msgpack (use pyarrow?)
     ? words at extremes aren't reshuffling w/ l2r (like entest)
