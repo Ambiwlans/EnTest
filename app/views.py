@@ -35,8 +35,9 @@ import datetime
 
 @bp.errorhandler(500)
 def server_error(e):
-    return "There was an internal server error. Contact <a href='https://github.com/Ambiwlans' target='_blank'>Ambiwlans</a> or return to the <a href='/'>home page</a>.", 500
-
+    return render_template('error.html', err = "500", \
+        msg = "Your test timed out or there was an internal server error. Contact <a href='https://github.com/Ambiwlans' target='_blank'>Ambiwlans</a> or return to the <a href='/'>home page</a>.")
+    
 @bp.errorhandler(404)
 def notfound_error(e):
 #    return "404 Page not found. Contact <a href='https://github.com/Ambiwlans' target='_blank'>Ambiwlans</a> or return to the <a href='/'>home page</a>.", 404

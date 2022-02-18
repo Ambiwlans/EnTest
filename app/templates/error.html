@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="container text-center">
+		<a href="/"><img class="title-lg" src="{{ url_for('static', filename='img/entest.png') }}"></a>
+		<p class="slogan">Test Your Vocab</p>
+		<br>
+		<br>
+		<h1> Error #{{err}} </h1>
+		<br>
+		<br>
+		<p>{{msg|safe}}</p>
+
+	</div>
+
+{% endblock content %}
