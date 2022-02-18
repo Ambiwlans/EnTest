@@ -231,9 +231,12 @@ def test():
             # account for all the answered values
             for i, r in history.iterrows():
                 pred[0] += (r.score - sigmoid(r.my_rank, *res.x, 1))
-                pred[1] += (r.score - sigmoid(r.my_rank, *res.x, .5))
-                pred[2] += (r.score - sigmoid(r.my_rank, *res.x, 2))
-                
+
+            err_size = 80 * (len_history+5)**(-.5)
+    
+            pred[1] = min(pred[0] * (1 + err_size/100),current_app.config['MAX_X'])
+            pred[2] = pred[0] * (1 - err_size/100)
+    
             pred = list(map(int,pred))
             session['cur_pred'] = pred[0]
             
