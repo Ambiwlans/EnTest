@@ -68,6 +68,11 @@ Muted grey #6c757d
 #questionword {
     font-size: 64px;
     margin-top: 50px;
+    max-width: 60vw;
+    justify-content: center;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .my_rank {

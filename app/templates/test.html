@@ -148,10 +148,13 @@
 {% block scripts %}
     {{super()}}
     <script type="text/javascript" src="{{url_for('static', filename='js/hotkeys.js')}}"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='js/fittext.js')}}"></script>
+    <script type="text/javascript" src="https://unpkg.com/fancy-textfill/dist/fancy-text-fill.jQuery.js"></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/tooltip.js')}}"></script>
     <script>
-        window.fitText( document.getElementById("questionword"), 1, { minFontSize: '18px', maxFontSize: '64px' });
+    $('#questionword').fancyTextFill({minFontSize: 18, maxFontSize: 64});
+    $(window).on('resize orientationchange', function(){
+        $('#questionword').fancyTextFill({minFontSize: 18, maxFontSize: 64});
+    })
     </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
     {%- include 'chart.js' -%}
