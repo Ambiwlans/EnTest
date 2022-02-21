@@ -11,11 +11,23 @@
 		<p><a href="/forceupdate?p={{p}}">Force update</a> - triggers logger (log test and l2r->redis) (this will only log inactive tests!)</p>
         <p><a href="/forcemetaupdate?p={{p}}">Force meta update</a> - recalc meta values, push redis L2R data to the server (and push live if set in config)</p>
         <!--p><a href="/forcemetaupdate?p={{p}}">Force meta update</a> - recalc meta values, push redis L2R data to the server (and push live if set in config)</p-->
-        
-        <!-- Histo -->    	    	
+		<br>
+		<br>        
+        <!-- Histo -->   
     	<div class="chart-container">
             <canvas id="histoChart"></canvas>
         </div>
+		<br>
+		<br>        
+        <!-- Recent -->   
+    	<p>
+            Latest tests:
+            {% for t_id in recent_t_ids %}
+                <a href="/t/{{t_id}}">{{t_id}}</a>
+            {% endfor %}
+        </div>
+		<br>
+		<br>                
 	</div>
 
 {% endblock content %}

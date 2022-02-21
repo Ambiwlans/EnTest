@@ -52,10 +52,13 @@ def home():
 def adminpanel():
     if request.args.get('p') != current_app.config['SECRET_KEY']:    
         return render_template('home.html')
+    recent_t_ids = db.session.query(TestLog.id).order_by(TestLog.id.desc()).limit(5).all() or 0
+    recent_t_ids = [r for r, in recent_t_ids]
     return render_template('admin.html', p = request.args.get('p'), \
         hist = list(zip(pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')).index,pd.read_msgpack(current_app.config['SESSION_REDIS'].get('Hist')))), \
         scaler = float(current_app.config['SAMPLE_SCALER']), \
-        pred = [int(current_app.config['SESSION_REDIS'].get('avg_known') or 0)])
+        pred = [int(current_app.config['SESSION_REDIS'].get('avg_known') or 0)],
+        recent_t_ids = recent_t_ids)
 
 @bp.route("/forcemetaupdate")
 def forcemetaupdate():
