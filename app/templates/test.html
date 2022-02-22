@@ -42,11 +42,11 @@
     
             <!-- Buttons -->    	
             <div class="btn-group front">
-        		<a class="btn btn-success btn-lg" id="flip" role="btn" href="javascript:flip()">Flip</a>
+        		<a class="btn btn-primary btn-lg" id="flip" role="btn" href="javascript:flip()">Flip <i class="fas fa-arrow-down"></i></a>
             </div>
             <div class="btn-group back" style="display: none">
-        		<a class="btn btn-success btn-lg" id="know" role="btn" href="/test?s={{s}}&a=1&q={{question.id}}">Know it</a>
-        		<a class="btn btn-danger btn-lg" id="dunno" role="btn" href="/test?s={{s}}&a=0&q={{question.id}}">Don't Know</a>
+        		<a class="btn btn-success btn-lg" id="know" role="btn" href="/test?s={{s}}&a=1&q={{question.id}}"><i class="fas fa-arrow-left"></i> Know it</a>
+        		<a class="btn btn-danger btn-lg" id="dunno" role="btn" href="/test?s={{s}}&a=0&q={{question.id}}">Don't Know <i class="fas fa-arrow-right"></i></a>
             </div>
             
     		<!-- Predictions -->    	

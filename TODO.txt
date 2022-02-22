@@ -10,11 +10,10 @@ CUR
      - Moria Sneck 'gob stuff' Jowter Carpetbag Frequence Lockman Semipalmated flocculent hygrometry soliloquize erective sparge Roquelaure dunner pavior trousseau
      http://www.chrisjoneswriting.com/terry-pratchett-quotes/category/language
          
-? Feedback
-    - add a flip button
-    - add key emotes/imgs to the buttons (knowit ←)
-    - add a google search button beside the wiktionary one
-    - make it two stages [flip, answer] (can be optional)
+? flip button on both sides?
+? make flip optional?
+
+- add a google search button beside the wiktionary one
     
 - look for english anki list for easy word defns?
 
