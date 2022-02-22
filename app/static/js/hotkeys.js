@@ -2,10 +2,14 @@ function flip(){
     if ($(".flipped")[0])
     {
         $(".flipped").removeClass("flipped");
+        $(".btn-group.front").show()
+        $(".btn-group.back").hide()    
     }
     else
     {
         $(".flashcard").addClass("flipped");
+        $(".btn-group.front").hide()
+        $(".btn-group.back").show()
     }
 }
 document.onkeydown=function(e){

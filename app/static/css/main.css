@@ -35,6 +35,10 @@ Muted grey #6c757d
     padding-left: 41px;
 }
 
+.btn#know, .btn#dunno, .btn#flip{
+    width: 10em;
+}
+
 .help_btn {
     visibility: hidden; /* TEMPORARY until there is an english faq*/
     color: #117a8b !important;

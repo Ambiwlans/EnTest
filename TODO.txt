@@ -2,7 +2,21 @@
 CUR
 ###########        
 
--?
++ find more users!
+
+- Add a reading level estimate w/ links to recommended reading (or study material at lower levels)
+- More history flav text
+     - more quotes
+     - Moria Sneck 'gob stuff' Jowter Carpetbag Frequence Lockman Semipalmated flocculent hygrometry soliloquize erective sparge Roquelaure dunner pavior trousseau
+     http://www.chrisjoneswriting.com/terry-pratchett-quotes/category/language
+         
+? Feedback
+    - add a flip button
+    - add key emotes/imgs to the buttons (knowit ←)
+    - add a google search button beside the wiktionary one
+    - make it two stages [flip, answer] (can be optional)
+    
+- look for english anki list for easy word defns?
 
 +++++++++++
 MAIN
@@ -18,18 +32,17 @@ Tweaking:
             - so with 100 answers, we'd be adding 100 bins of size 100, this almost definitely improves results
         - is this worth doing when results are currently good enough?
         - would need to change the regularization all over again
-    - to old bounds prediction was sort of better (took slope into account), maybe tune it to line up w/ new data?            
+    ? old bounds prediction was sort of better (took slope into account), maybe tune it to line up w/ new data?            
     ? question selection should change slope to be flatter?
     
 DB:
     + add wikitags, toefl, grade level estimates, categories? (like 'medical','archaic')       
         - many-many relational table (<1 tag/word)
-    ? save pred to testlog
     - join data from wiki
         ? paste in defns over 'alt of'.... (everything under 15letter defns?)
         ? easy way to swap definitions to ones from wiki
         + need to keep under 5MB limit
-    - test_log should ideally store num_known as well instead of just using 'a' which isn't quite accurate for comparisons
+    ? test_log should ideally store num_known/pred[0] as well instead of just using 'a' which isn't quite accurate for comparisons
         
 Front end:
 	- new 'help' button images
@@ -45,17 +58,12 @@ History:
     ? better catches for bad links
     ?? grey out continue button after it would be predicted to time out
     - 'wrong' list filter by tags
-    - Add a reading level estimate w/ links to recommended reading (or study material at lower levels)
-    - More history flav text
-         - more quotes
-         - Moria Sneck 'gob stuff' Jowter Carpetbag Frequence Lockman Semipalmated flocculent hygrometry soliloquize erective sparge Roquelaure dunner pavior trousseau
-         http://www.chrisjoneswriting.com/terry-pratchett-quotes/category/language
      
 Bugs:
     - switch from deprecated to_msgpack (use pyarrow?)
     ? words at extremes aren't reshuffling w/ l2r (like entest)
     ?? forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
-    - hitting f5 shouldn't post during test
+    ? hitting f5 shouldn't post during test
         - are we correctly only recording the first time?
     
 Study Mode:
@@ -64,7 +72,7 @@ Study Mode:
     ? Only add words to study if they are near or below current prediction (should know)
     
 Misc:
-	+ beta testing
+
 	
 CORE/BOTH:
     - update packages/python, trim reqs
@@ -84,8 +92,6 @@ LATER
 + set test timeout back to 1hr
 + refactor views.py ... it is a gross mess. needs comments too
 + reexamine the range prediction based on more data
-+ histogram
-    - put histogram into history
     
 +++++++++++
 MAYBE
