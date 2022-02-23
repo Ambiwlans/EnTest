@@ -115,6 +115,7 @@ Muted grey #6c757d
 
 .meaning {
     font-size: 4vw; /*24px*/
+    width: 100%;
 }
 
 .more {
