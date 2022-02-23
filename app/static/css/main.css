@@ -37,6 +37,11 @@ Muted grey #6c757d
 
 .btn#know, .btn#dunno, .btn#flip{
     width: 10em;
+    font-size: 4vw; /*24px*/
+}
+
+.preest{
+    font-size: 4vw; /*24px*/
 }
 
 .help_btn {
@@ -117,7 +122,7 @@ Muted grey #6c757d
 }
 
 @media screen and (min-width: 600px) {
-    .meaning {
+    .meaning, .preest, .btn#know, .btn#dunno, .btn#flip {
         font-size: 24px;
     }
     .more {
