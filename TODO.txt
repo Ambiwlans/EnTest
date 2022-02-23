@@ -5,9 +5,6 @@ CUR
 + find more users!
 
 - Add a reading level estimate w/ links to recommended reading (or study material at lower levels)
-         
-? flip button on both sides?
-? make flip optional?
     
 - look for english anki list for easy word defns?
 
@@ -38,12 +35,14 @@ DB:
     ? test_log should ideally store num_known/pred[0] as well instead of just using 'a' which isn't quite accurate for comparisons
         
 Front end:
-	- new 'help' button images
-    	- reenable button
+    - new 'help' button images
+    - reenable button
     - report definition button
         ? popup that allows user to reccomend a definition
             + puts the text into a log (word id + suggestion) i can check manually later
         ? simply adds the word to a list to check (no security risks, less space, easy)
+    ? flip button on both sides?
+    ? make flip optional?
     
 History:
     - export list to anki
