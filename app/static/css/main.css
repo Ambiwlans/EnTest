@@ -114,9 +114,6 @@ Muted grey #6c757d
 
 .more {
     font-size: 3vw; /*12px*/
-    float: right;
-    right: 5px;
-    bottom: 5px;
 }
 
 @media screen and (min-width: 600px) {

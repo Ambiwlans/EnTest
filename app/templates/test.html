@@ -34,9 +34,10 @@
                     </div>
                     <h1 id="questionword">{{question.question}}</h1>
                 </div>
-                <div class="backside container">
+                <div class="backside container row justify-content-end">
                     <h4 class="meaning">{{question.answer}}</h4>
-                    <a href="https://en.wiktionary.org/wiki/{{question.question|lower}}" class="more" target="_blank" rel="noopener noreferrer">...more</a>
+                    <a href="https://www.google.com/search?q={{question.question|lower}}" class="more col-4" target="_blank" rel="noopener noreferrer">Google</a>
+                    <a href="https://en.wiktionary.org/wiki/{{question.question|lower}}" class="more col-4" target="_blank" rel="noopener noreferrer">Wiktionary</a>
                 </div>
             </div>
     
