@@ -5,14 +5,9 @@ CUR
 + find more users!
 
 - Add a reading level estimate w/ links to recommended reading (or study material at lower levels)
-- More history flav text
-     - more quotes
-     - Moria 'gob stuff' Jowter Carpetbag Frequence Lockman Semipalmated flocculent hygrometry soliloquize erective sparge Roquelaure dunner pavior trousseau
-     http://www.chrisjoneswriting.com/terry-pratchett-quotes/category/language
          
 ? flip button on both sides?
 ? make flip optional?
-? switch buttons to use vw @media
     
 - look for english anki list for easy word defns?
 
@@ -56,7 +51,11 @@ History:
     ? better catches for bad links
     ?? grey out continue button after it would be predicted to time out
     - 'wrong' list filter by tags
-     
+    - More flav text
+         - more quotes
+         - 'gob smacked'  flocculent hygrometry soliloquize dunner pavior trousseau
+         http://www.chrisjoneswriting.com/terry-pratchett-quotes/category/language     
+         
 Bugs:
     - switch from deprecated to_msgpack (use pyarrow?)
     ? words at extremes aren't reshuffling w/ l2r (like entest)
