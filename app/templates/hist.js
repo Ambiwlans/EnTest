@@ -31,7 +31,12 @@ var myLineChart = new Chart(ctx, {
     }
 });
 
-function histdata(val) {
+function histdata(val, i, ele) {
+    {% if curtest %}
+        if (ele[i][0] > {{pred[0]}}){return val[1];}
+        if (ele[i+1][0] < {{pred[0]}}){return val[1]}
+        return val[1] + 1;
+    {% endif %}
     return val[1];
 };
 

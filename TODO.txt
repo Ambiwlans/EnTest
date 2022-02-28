@@ -4,7 +4,7 @@ CUR
 
 + find more users!
 
-- Add a reading level estimate w/ links to recommended reading (or study material at lower levels)
+- Add a reading level estimate w/ links to recommended reading (or study material at lower levels), amazon widget?
     
 - look for english anki list for easy word defns?
 
@@ -52,7 +52,7 @@ History:
     - 'wrong' list filter by tags
     - More flav text
          - more quotes
-         - 'gob smacked'  flocculent hygrometry soliloquize dunner pavior trousseau
+         - 'gob smacked'  flocculent hygrometry soliloquize dunner pavior trousseau brobdingnagian rantipole treacle
          http://www.chrisjoneswriting.com/terry-pratchett-quotes/category/language     
          
 Bugs:
