@@ -22,6 +22,9 @@
         </div>
         
         <div class="explanation container">
+        
+            <!--container><p><mark><b>NEW:</b> You can now download an anki deck to study your wordlist below.</mark></p></container-->
+            
             <!-- Stats -->
             <br>
             <h3 class="text-left">Stats:</h3>
@@ -84,9 +87,9 @@
             <br>
             <h3 class="text-left">How you compare to other users:</h3>
             <div class="chart-container"><canvas id="histoChart"></canvas></div>
-            <p><i>(You fall in the green bar)</i></p>
+            <p><i>(You fall in the highlighted group)</i></p>
             
-            <!-- Study list -->
+            <!-- Missed Word Table -->
             {% if wronganswers|length > 0 %}
             <h3 class="text-left">Words you missed:</h3>
             <table id="missed_words_table" class="table">
@@ -130,7 +133,6 @@
 
 {% block styles %}
     {{super()}}
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/flip.css')}}">
 {% endblock %}
 
 {% block scripts %}
@@ -139,8 +141,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 	{%- include 'chart.js' -%}
     {%- include 'hist.js' -%}
-    
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>

@@ -57,6 +57,9 @@ Muted grey #6c757d
 
 .flashcard {
     margin: 20px;
+    display: grid;
+    max-height: 300px;
+    min-height: 200px;
 }
 
 /* Front */
@@ -64,6 +67,7 @@ Muted grey #6c757d
     right: 0px;
     width: 100%;
     margin: 0px auto;
+    grid-area: 1/1;
 }
 
 .frontside-data {
@@ -111,6 +115,7 @@ Muted grey #6c757d
     max-width: 600px;
     margin: 0px auto;
     overflow: auto;
+    grid-area: 1/1;
 }
 
 .meaning {
@@ -234,6 +239,17 @@ Muted grey #6c757d
 
 }
 
+/* History
+-------------------------------------------------- */
+
+.dt-buttons {
+    text-align: right;
+}
+
+.mwt_word {
+  font-size: larger;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -271,6 +287,16 @@ body {
 
 /* General Styling
 -------------------------------------------------- */
+
+#start_test {
+    width: 20em;
+    max-width: 90%;
+}
+
+#start_study{
+    width: 15em;
+    max-width: 90%;
+}
 
 .explanation, .outro {
      font-size: 14px;

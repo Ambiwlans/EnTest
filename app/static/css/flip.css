@@ -4,10 +4,6 @@
 
 -------------------------------------------------- */
 
-.flipped {
-    overflow: auto;
-}
-
 .flipped .backside {
 -webkit-transform: rotateY(0deg);
 -moz-transform: rotateY(0deg);
@@ -34,9 +30,6 @@ transform: rotateY(180deg);
 transition: 1s;
 transform-style: preserve-3d;
 cursor: pointer;
-    display: grid;
-    max-height: 300px;
-    min-height: 200px;
 }
  
 .frontside, .backside {
@@ -54,7 +47,6 @@ backface-visibility: hidden;
 -ms-transform-style: preserve-3d;
 transition: transform 1s;
 transform-style: preserve-3d;
-    grid-area: 1/1;
 }
 
 .frontside {

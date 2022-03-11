@@ -18,6 +18,17 @@
             	</div>
         	</div>
         	
+            <!-- Study Stats -->
+    		{% if s == 1 and cnt >= 10 %}
+    		<div class="container studystats font-weight-bold">
+                <div class="row justify-content-md-center">
+                    <div class="col col-sm-2">Reviewing:<br>{{active_cnt}}</div>
+                    <div class="col col-sm-2">Learned:<br><div class="good">{{learned_cnt}}</div></div> 
+                    <div class="col col-sm-2">Dropped:<br><div class="bad">{{dropped_cnt}}</div></div>  
+                </div>
+            </div>
+        	{% endif %}
+        	
         	<!-- Flashcard -->    	
         	<div class="flashcard" onclick="flip()">
                 <div class="frontside container">
@@ -52,17 +63,6 @@
             
     		<!-- Predictions -->    	
         	{% if cnt >= 10 %}
-        	
-    	    <!-- Study Stats -->
-    		{% if s == 1 %}
-    		<div class="container studystats font-weight-bold">
-                <div class="row justify-content-md-center">
-                    <div class="col col-sm-2">Reviewing:<br>{{active_cnt}}</div>
-                    <div class="col col-sm-2">Learned:<br><div class="good">{{learned_cnt}}</div></div> 
-                    <div class="col col-sm-2">Dropped:<br><div class="bad">{{dropped_cnt}}</div></div>  
-                </div>
-            </div>
-        	{% endif %}
         	
         	<div class="container-fluid pred">
             	<p class="pred-header">Your Vocab Size</p>

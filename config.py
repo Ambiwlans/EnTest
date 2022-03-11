@@ -29,6 +29,10 @@ class DevelopmentConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_ECHO=True
+
+    # Flask-Session
+    SESSION_TYPE = "redis"
+    SESSION_REDIS = redis.from_url(os.environ.get('REDIS_URL'))#, decode_responses=True)
     
     # Data
     MAX_QUESTIONS_LOGGED = 9000                                   #Max # of questions before clearing them from SQL 
@@ -41,10 +45,6 @@ class DevelopmentConfig:
     MAX_TIMES_RIGHT = 2
     MAX_TIMES_WRONG = 2
     TGT_ACTIVE = 7
-    
-    # Flask-Session
-    SESSION_TYPE = "redis"
-    SESSION_REDIS = redis.from_url(os.environ.get('REDIS_URL'))#, decode_responses=True)
     
     # App
     GRAPH_AFTER = 0
@@ -67,7 +67,7 @@ class DeploymentConfig:
     # Flask
     DEBUG = False
     
-    SECRET_KEY = os.environ.get('DB_SECRET_KEY') or "Ionceateawholeham"
+    SECRET_KEY = os.environ.get('DB_SECRET_KEY')
     
     # SQLAlchemy
     SQLALCHEMY_DATABASE_URI = os.environ.get('CLEARDB_DATABASE_URL').replace('?reconnect=true','?charset=utf8')
@@ -77,6 +77,10 @@ class DeploymentConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_ECHO=False
+    
+    # Flask-Session
+    SESSION_TYPE = "redis"
+    SESSION_REDIS = redis.from_url(os.environ.get('REDIS_URL'))
     
     # Data
     MAX_QUESTIONS_LOGGED = 9000                                 #Max # of questions before clearing them from SQL 
@@ -89,10 +93,6 @@ class DeploymentConfig:
     MAX_TIMES_RIGHT = 2
     MAX_TIMES_WRONG = 3
     TGT_ACTIVE = 7
-    
-    # Flask-Session
-    SESSION_TYPE = "redis"
-    SESSION_REDIS = redis.from_url(os.environ.get('REDIS_URL'))
     
     # App
     GRAPH_AFTER = 9
