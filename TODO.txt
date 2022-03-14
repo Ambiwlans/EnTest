@@ -3,14 +3,13 @@ CUR
 ###########        
 
 From JK
-    + main chart vert lines (and spacing stuff)
-        - chart.js, top part of history
     + cutoff study mode logic changes
         - views.py
     + export buttons!
         - bottom half of history, views.py, reqs
         - views
     - credits (readme)
+    
 + find more users!
 
 - Add a reading level estimate w/ links to recommended reading (or study material at lower levels), amazon widget?
@@ -22,6 +21,8 @@ From JK
 - resize script before graph
 
 - "103 questions answered! Less than the average 103 of other testers."
+
+- collect age, native speaker data
 
 +++++++++++
 MAIN

@@ -20,6 +20,18 @@
     	<div class="chart-container">
             <canvas id="predChart"></canvas>
         </div>
+        <!-- Milestone marker selector -->
+        <div class="btn-group btn-group-sm btn-group-toggle chart-toggles" data-toggle="buttons">
+          <label class="btn btn-secondary achievement_type" id="none">
+            <input type="radio" autocomplete="off"> None
+          </label>
+          <label class="btn btn-secondary achievement_type active" id="cefr">
+            <input type="radio" autocomplete="off" checked> CERF Levels
+          </label>
+          <label class="btn btn-secondary achievement_type" id="grade">
+            <input type="radio" autocomplete="off"> Native Grade Levels
+          </label>
+        </div>
         
         <div class="explanation container">
         
@@ -146,6 +158,12 @@
 	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
+            // enable mainchart radio buttons
+            $('.achievement_type').on('click', function(event) {
+                update_vert_lines($(this)[0].id);
+            });
+            
+            // setup the datatable
             $('#missed_words_table').DataTable( {
                 "paging":   true,
                 "lengthChange": false,
