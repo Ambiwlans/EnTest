@@ -154,9 +154,29 @@
 	{%- include 'chart.js' -%}
     {%- include 'hist.js' -%}
 
+    <!-- Missed Words Table -->
 	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    
     <script>
+        $.ajaxSetup({async:false});
+
+        // Filter
+        var max_filter = 100000;
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+            console.log(data[0]);
+                if ( data[0] <= parseInt({{scaler}} * max_filter)){return true;}
+                return false;
+            }
+        );
+
+        // Build the table
+        var table;
         $(document).ready(function() {
             // enable mainchart radio buttons
             $('.achievement_type').on('click', function(event) {
@@ -164,19 +184,87 @@
             });
             
             // setup the datatable
-            $('#missed_words_table').DataTable( {
+            table = $('#missed_words_table').DataTable( {
+                dom: 'Brtp',
                 "paging":   true,
                 "lengthChange": false,
                 "pageLength": 10,
                 "ordering": true,
                 "info":     false,
-                "searching": false,
+                "searching": true,
                 "order": [[0, "asc" ]],
                 columnDefs: [{
                     targets: 0,
                     render: $.fn.dataTable.render.number(',', '.', 0, '#')
+                }],
+                buttons: [{
+                    text: 'Study List Only', 
+                    action: function(){
+                        if (this.text() == 'Study List Only'){
+                            this.text('All Missed');
+                            max_filter = {{pred[1]}};
+                            table.draw();
+                            }
+                        else {
+                            this.text('Study List Only');
+                            max_filter = 100000;
+                            table.draw();
+                            }
+                        }
                 }]
             } );
+            
+            // Export button group
+            new $.fn.dataTable.Buttons( table, {
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: 'Click to Copy'
+                    },
+                    {
+                        text: 'Anki',
+                        action: function(){window.location = '/anki_file/{{id}}/'+ max_filter ;}
+                    },
+                    {
+                        extend: 'csv',
+                        text: 'CSV',
+                        charset: 'utf-8'
+                    },
+                    {
+                        text: 'PDF',
+                        extend: 'pdf',
+                        title: 'ENTest Study List - {{(date|string)[:-3]}}',
+                        messageTop: 'Saved from {{ url_for(request.endpoint, **request.view_args) }} on on {{(date|string)[:-3]}}GMT.',
+                        exportOptions: {
+                            modifier: {
+                                columns: 'visible'
+                            }
+                        },
+                        customize: function ( doc ) {
+                          processDoc(doc);
+                        }
+                    }
+                ]
+            } );
+            table.buttons( 1, null ).container().appendTo(
+                table.table().container()
+            );
+            
+            // PDF Proccessing
+             function processDoc(doc) {
+                alert("Generating PDF may take a few seconds. Please wait.");
+                $.getScript("https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js");
+                
+                pdfMake.fonts = {
+                  Roboto: {
+                    normal: 'Roboto-Regular.ttf',
+                    bold: 'Roboto-Medium.ttf',
+                    italics: 'Roboto-Italic.ttf',
+                    bolditalics: 'Roboto-MediumItalic.ttf'
+                  }
+                };
+                var i = 1;
+              }
         } );
     </script>
 {% endblock %}

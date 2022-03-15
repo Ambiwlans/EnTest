@@ -5,10 +5,8 @@ CUR
 From JK
     + cutoff study mode logic changes
         - views.py
-    + export buttons!
-        - bottom half of history, views.py, reqs
-        - views
     - credits (readme)
+    - rescan 2do
     
 + find more users!
 
@@ -23,6 +21,10 @@ From JK
 - "103 questions answered! Less than the average 103 of other testers."
 
 - collect age, native speaker data
+
++ skip repeats of last question in study mode
+
+Tintinnabulation
 
 +++++++++++
 MAIN
@@ -59,6 +61,7 @@ Front end:
         ? simply adds the word to a list to check (no security risks, less space, easy)
     ? flip button on both sides?
     ? make flip optional?
+    ? add a drop button to study mode
     
 History:
     - export list to anki
@@ -77,6 +80,7 @@ Bugs:
     ?? forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
     ? hitting f5 shouldn't post during test
         - are we correctly only recording the first time?
+    + vertbars vanish on mouseover
     
 Study Mode:
     ? settings for # of repeats, etc.
