@@ -1,11 +1,7 @@
 ###########
 CUR
 ###########        
-
-From JK
-    - credits (readme)
-    - rescan 2do
-    
+  
 + find more users!
 
 - Add a reading level estimate w/ links to recommended reading (or study material at lower levels), amazon widget?
@@ -15,8 +11,6 @@ From JK
 - redo the preest (some is dated)
 
 - resize script before graph
-
-- "103 questions answered! Less than the average 103 of other testers."
 
 - collect age, native speaker data
 
@@ -77,6 +71,7 @@ Bugs:
     ? hitting f5 shouldn't post during test
         - are we correctly only recording the first time?
     + vertbars vanish on mouseover
+    - "103 questions answered! Less than the average 103 of other testers."
     
 Study Mode:
     ? settings for # of repeats, etc.
