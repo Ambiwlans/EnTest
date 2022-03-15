@@ -2,17 +2,11 @@
 CUR
 ###########        
   
-+ find more users!
-
-- Add a reading level estimate w/ links to recommended reading (or study material at lower levels), amazon widget?
++ find more users! Reddit? DMs?
     
 - look for english anki list for easy word defns?
 
 - redo the preest (some is dated)
-
-- resize script before graph
-
-- collect age, native speaker data
 
 + skip repeats of last question in study mode
 
@@ -20,7 +14,48 @@ CUR
 MAIN
 +++++++++++
 
-Tweaking:
++ collect a bit more test data: studymode? End time? (and add to history page)
+
+Test Mode:
+    ? new 'help' button images, reenable button
+    - report definition button
+        ? popup that allows user to reccomend a definition
+            + puts the text into a log (word id + suggestion) i can check manually later
+        ? simply adds the word to a list to check (no security risks, less space, easy)
+    ? flip button on both sides?
+    ? make flip optional?
+    ? add a drop word button to study mode
+
+Study Mode:
+    ? settings for # of repeats, etc.
+    ? Give an animation when one of them goes up
+    ? Only add words to study if they are near or below current prediction (should know)
+        
+History:
+    + Add a reading level estimate w/ links to recommended reading (or study material at lower levels), amazon widget?
+    ? show user other tests from same ip. links, graph
+    ? better catches for bad links
+    ?? grey out continue button after it would be predicted to time out
+    - 'wrong' list filter by tags
+    - More flav text
+         - more quotes
+         - 'gob smacked'  flocculent hygrometry soliloquize dunner pavior trousseau brobdingnagian rantipole treacle
+         http://www.chrisjoneswriting.com/terry-pratchett-quotes/category/language     
+
+Admin:
+    - bold active tests in adminpage
+    ? make a flush redis button in admin
+    ? add a full reset fn to admin page (set config TEST_TIMEOUT to 0, force update)
+    
+Code Refactoring:
+    - rebuffer tests when opened in history to redis - save lots of sql calls (only bother if needed) - could also just up the linger time in redis - needs a new timestamp for 'old' tests (on creation?)
+    - switch from deprecated to_msgpack (use pyarrow?)
+    ? kanji->question meaning->answer etc.
+    ? trim the req list further
+    ? shorten queries 'loads(current_app.config['SESSION_REDIS'].get('TestMaterial'),db.metadata,db.session)' -> lred('TestMaterial')? (more readable)
+    ? move scheduler times into config
+    
+Logic:
     ? for doing prediction, could pre-bin and avg the data (size50?) and make assumptions about empty bins (l/r of mid)
         - current issue is that empty sections get 0 weight resulting in flatter
         - doing this could weaken the granularity of the data
@@ -32,7 +67,7 @@ Tweaking:
         - would need to change the regularization all over again
     ? old bounds prediction was sort of better (took slope into account), maybe tune it to line up w/ new data?            
     ? question selection should change slope to be flatter?
-    
+        
 DB:
     + add wikitags, toefl, grade level estimates, categories? (like 'medical','archaic')       
         - many-many relational table (<1 tag/word)
@@ -41,61 +76,31 @@ DB:
         ? easy way to swap definitions to ones from wiki
         + need to keep under 5MB limit
     ? test_log should ideally store num_known/pred[0] as well instead of just using 'a' which isn't quite accurate for comparisons
-        
-Front end:
-    - new 'help' button images
-    - reenable button
-    - report definition button
-        ? popup that allows user to reccomend a definition
-            + puts the text into a log (word id + suggestion) i can check manually later
-        ? simply adds the word to a list to check (no security risks, less space, easy)
-    ? flip button on both sides?
-    ? make flip optional?
-    ? add a drop button to study mode
-    
-History:
-    - export list to anki
-    ? show user other tests from same ip. links, graph
-    ? better catches for bad links
-    ?? grey out continue button after it would be predicted to time out
-    - 'wrong' list filter by tags
-    - More flav text
-         - more quotes
-         - 'gob smacked'  flocculent hygrometry soliloquize dunner pavior trousseau brobdingnagian rantipole treacle
-         http://www.chrisjoneswriting.com/terry-pratchett-quotes/category/language     
-         
+    - collect age, native speaker data
+
+PR:
+    - basic seo
+    ? medium blog post about it ... or just stuff into the github. Or add an about section?
+                 
 Bugs:
-    - switch from deprecated to_msgpack (use pyarrow?)
     ? words at extremes aren't reshuffling w/ l2r (like entest)
     ?? forcemetaupdate throwing a timeout with no error msgs... randomly twice, then it worked fine. (was cpu sleeping?)
-    ? hitting f5 shouldn't post during test
-        - are we correctly only recording the first time?
     + vertbars vanish on mouseover
     - "103 questions answered! Less than the average 103 of other testers."
-    
-Study Mode:
-    ? settings for # of repeats, etc.
-    ? Give an animation when one of them goes up
-    ? Only add words to study if they are near or below current prediction (should know)
-    
-Misc:
-
 	
-BOTH/CORE:
-    + review git log to find changes to push across
-    - update packages/python, trim reqs
-    ? identify magic numbers w/ inline comments
-    - move scheduler times into config
-    - add a full reset fn to admin page (set config TEST_TIMEOUT to 0, force update)
-
+CONTINUOUS:
+    * review git log to find changes to push across
+    * update FP notices, tweak config, push through L2r changes if needed
+    * tweets, msg some teaching sites to see if they're interested, hit up dms
+    * get rid of magic numbers, switch to config variables, clean CSS, redo comments
+    
 +++++++++++
 LATER
 +++++++++++
-+ reduce step size for l2r
-+ set test timeout back to 1hr
-+ refactor views.py ... it is a gross mess. needs comments too
-+ reexamine the range prediction based on more data
-    
+
++ config: reduce step size for l2r, set test timeout back to 1hr
+- ask around about ad hosts (after i have a userbase big enough)
+
 +++++++++++
 MAYBE
 +++++++++++
@@ -104,3 +109,4 @@ MAYBE
 ? change colour scheme? Dark mode?
 ? merger of all testing thingies? Select a from and to (kanji->english, eng->eng) .... some losses from going generic, easier to maintain, harder to build... vocab only?
 ? Add categories for top 25 'topics' from wiktionary data set, enable this in history somehow
+? reexamine the range prediction based on more data (rerun the last analysis)
