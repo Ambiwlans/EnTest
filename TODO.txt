@@ -3,8 +3,6 @@ CUR
 ###########        
 
 From JK
-    + cutoff study mode logic changes
-        - views.py
     - credits (readme)
     - rescan 2do
     

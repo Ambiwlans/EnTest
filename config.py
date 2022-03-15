@@ -43,19 +43,22 @@ class DevelopmentConfig:
     
     # Study
     MAX_TIMES_RIGHT = 2
-    MAX_TIMES_WRONG = 2
-    TGT_ACTIVE = 7
+    MAX_TIMES_WRONG = 2                                             
+    TGT_ACTIVE = 7                                                  # How many active unlearned words will we go up to?
+    PCT_CUTOFF = .3                                                 # will only drill on questions it was -this- sure user would know
+    VARIABILITY_SHIFT = 20                                          # Study mode starts with test variability, when to drop it down to focus study?
+    STUDY_VARIABLITY = .5                                           # .1 = low variance from the prediction, 2 = high variance | Study should pick more near center
     
     # App
-    GRAPH_AFTER = 0
+    GRAPH_AFTER = 9
     GRAPH_MAX_X = 10000
     MAX_X = 9999
     TEST_VARIABLITY = 1.2                                           # .1 = low variance from the prediction, 2 = high variance
-    STUDY_VARIABLITY = .5                                           # .1 = low variance from the prediction, 2 = high variance | Study should pick more near center
     OOB_REROLLS = 5                                                 # how many random rerolls on to avoid OOB scanning
+    HIST_BINS = 100                                                 # how many bins in our histogram
     
     # L2R
-    SHIFTSIZE_SLOPE = 500                                           # shiftsize = int(round((errorlevel * SHIFTSIZE_SLOPE) / 500) + 1)
+    SHIFTSIZE_SLOPE = 10                                            # shiftsize = int(round((errorlevel * qrank) / current_app.config['SHIFTSIZE_SLOPE']) + 1)
     ERRORLEVEL_CUTOFF_PCT = .5                                      # if (errorlevel < ERRORLEVEL_CUTOFF_PCT): continue 
     PUSH_L2R_LIVE = True                                            # pushes the temp rankings to live data automatically (use backups!)
     
@@ -83,23 +86,25 @@ class DeploymentConfig:
     SESSION_REDIS = redis.from_url(os.environ.get('REDIS_URL'))
     
     # Data
-    MAX_QUESTIONS_LOGGED = 9000                                 #Max # of questions before clearing them from SQL 
-    MAX_QUESTIONS_LOGGED_EACH = 250                             #Max # of questions saved from a test
-    MAX_TESTS_LOGGED = 9000                                     #Max # of tests before clearing them from SQL (must be larger than questions/test_length)
-    MIN_TEST_LENGTH = 15                                        #Shorter tests won't be logged
-    TEST_TIMEOUT = 2                                            #Minutes inactive before tests get dumped to SQL
+    MAX_QUESTIONS_LOGGED = 9000                                   #Max # of questions before clearing them from SQL 
+    MAX_QUESTIONS_LOGGED_EACH = 250                               #Max # of questions saved from a test
+    MAX_TESTS_LOGGED = 9000                                       #Max # of tests before clearing them from SQL (must be larger than questions/test_length)
+    MIN_TEST_LENGTH = 15                                          #Shorter tests won't be logged
+    TEST_TIMEOUT = 2                                              #Minutes inactive before tests get dumped to SQL
     
     # Study
     MAX_TIMES_RIGHT = 2
-    MAX_TIMES_WRONG = 3
-    TGT_ACTIVE = 7
+    MAX_TIMES_WRONG = 2                                             
+    TGT_ACTIVE = 7                                                  # How many active unlearned words will we go up to?
+    PCT_CUTOFF = .3                                                 # will only drill on questions it was -this- sure user would know
+    VARIABILITY_SHIFT = 20                                          # Study mode starts with test variability, when to drop it down to focus study?
+    STUDY_VARIABLITY = .5                                           # .1 = low variance from the prediction, 2 = high variance | Study should pick more near center
     
     # App
     GRAPH_AFTER = 9
     GRAPH_MAX_X = 10000
     MAX_X = 9999
     TEST_VARIABLITY = 1.2                                           # .1 = low variance from the prediction, 2 = high variance
-    STUDY_VARIABLITY = .5                                           # .1 = low variance from the prediction, 2 = high variance | Study should pick more near center
     OOB_REROLLS = 5                                                 # how many random rerolls on to avoid OOB scanning
     HIST_BINS = 100                                                 # how many bins in our histogram
     
