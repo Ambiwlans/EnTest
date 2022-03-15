@@ -6,8 +6,6 @@ CUR
     
 - look for english anki list for easy word defns?
 
-- redo the preest (some is dated)
-
 + skip repeats of last question in study mode
 
 +++++++++++
