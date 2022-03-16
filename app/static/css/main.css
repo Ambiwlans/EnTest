@@ -60,6 +60,7 @@ Muted grey #6c757d
     display: grid;
     max-height: 300px;
     min-height: 200px;
+    overflow: auto;
 }
 
 /* Front */
@@ -114,7 +115,6 @@ Muted grey #6c757d
     right: 0px;
     max-width: 600px;
     margin: 0px auto;
-    overflow: auto;
     grid-area: 1/1;
 }
 
