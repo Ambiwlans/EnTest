@@ -6,8 +6,6 @@ CUR
     
 - look for english anki list for easy word defns?
 
-+ skip repeats of last question in study mode
-
 +++++++++++
 MAIN
 +++++++++++
