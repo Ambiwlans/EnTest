@@ -1,13 +1,13 @@
 # ENTest
 
-[ENTest](https://enken.herokuapp.com/) is a simple English vocab quiz that uses statistics and machine learning to accurately and quickly predict a user's vocab level. Testing using preexisting tests take forever (100s of questions) and/or are terribly innaccurate so I made this.
+[ENTest](https://entest.fly.dev/) is a simple English vocab quiz that uses statistics and machine learning to accurately and quickly predict a user's vocab level. Testing using preexisting tests take forever (100s of questions) and/or are terribly innaccurate so I made this.
 
 ENTest is a fork from [JiKen](https://github.com/Ambiwlans/JiKen) a japanese kanji testing site with the same functionality.
 
 ## Host/Location
 
-# https://enken.herokuapp.com/
-* Using Heroku as a webhost, ClearDB for MySQL, HerokuRedis for sessions.
+# https://entest.fly.dev/
+* Using Fly.io as a webhost, ClearDB for MySQL, Redislabs for sessions.
 
 ## Math
 
