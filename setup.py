@@ -8,8 +8,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='EnKen',
-    packages=['EnKen'],
+    name='EnTest',
+    packages=['EnTest'],
     #long_description=__doc__,
     include_package_data=True,
     zip_safe=False,

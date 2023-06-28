@@ -1,1 +1,2 @@
-web: gunicorn enken:app --preload
+# Modify this Procfile to fit your needs
+web: gunicorn entest:app

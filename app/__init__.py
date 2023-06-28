@@ -2,7 +2,7 @@
 """
 @author: Ambiwlans
 @general: EnTest - English Vocab testing site
-@description: The main init, run via enken.py
+@description: The main init, run via entest.py
 """
 
 #Base
