@@ -7,7 +7,7 @@ ENTest is a fork from [JiKen](https://github.com/Ambiwlans/JiKen) a japanese kan
 ## Host/Location
 
 # https://entest.fly.dev/
-* Using Fly.io as a webhost, ClearDB for MySQL, Redislabs for sessions.
+* Using Fly.io as a webhost, Planetscale for MySQL, Redislabs for sessions.
 
 ## Math
 
